@@ -5,3 +5,7 @@
 uploads/
 
 *.sqlite3
+
+.settings/
+.project
+
