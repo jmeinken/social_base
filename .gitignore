@@ -1,0 +1,7 @@
+*.pyc
+
+# settings.py
+
+uploads/
+
+*.sqlite3

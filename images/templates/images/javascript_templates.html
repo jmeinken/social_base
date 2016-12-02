@@ -1,0 +1,102 @@
+<script type="text/template" id="image-preview-template">
+	<div class="image-preview-group" id="[[id]]-preview-group">
+		<label>[[label]]</label>
+		<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#[[modalId]]">
+  			<i class="fa fa-file-image-o" aria-hidden="true"></i> Set Image
+		</button>
+		<div id="[[id]]-preview-box" class="image-preview-box">
+			<a href="#"  data-toggle="modal" data-target="#[[modalId]]">
+				<img id="[[id]]-preview" class="image-preview" src="[[defaultSource]]" alt="upload image" />
+			</a>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="loading-icon-template">
+	<div class="loading_icon text-primary" id="[[id]]-loading-icon">
+		<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+	</div>
+</script>
+
+<script type="text/template" id="multi-image-image-preview-template">
+	<button type="button" class="remove-image btn btn-danger btn-xs" data-image-index="0" style="position:absolute;right:0;top:0;">
+		<i class="fa fa-times fa-lg" aria-hidden="true"></i>
+	</button>
+	<img width="[[width]]" height="[[height]]" alt="preview" src="[[src]]" />
+</script>
+
+<script type="text/template" id="multi-image-image-loading-template">
+	<div id="[[imageIndex]]-image-preview" style="float:left;background-color:white;padding:3px;margin:5px;position:relative;">
+		<div class="loading_icon text-primary" id="[[id]]-loading-icon">
+			<i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+		</div>
+		<img width="[[width]]" height="[[height]]" style="opacity:0.3;" alt="preview" src="[[src]]" />
+	</div>
+</script>
+
+<script type="text/template" id="multi-image-preview-template">
+	<div class="image-preview-group">
+		<label>[[label]]</label>
+		<button type="button" class="btn btn-default btn-block" id="[[id]]-show-picture-box">
+			<i class="fa fa-file-image-o" aria-hidden="true"></i> Add Images
+		</button>
+		<div style="clear:both;overflow:hidden;background-color:black;display:none;" id="[[id]]-picture-box">
+			<div style="float:left;background-color:white;padding:3px;margin:5px;" class="multi-image-add-new">
+				<a href="#" data-toggle="modal" data-target="#[[modalId]]">
+					<div style="width:[[width]];height:[[height]];border: 2px dashed #95A5A6;text-align:center;padding-top:28px;">
+						<span class="text-muted"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></span>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="image-modal-template">
+	<div class="modal" id="[[id]]-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Add Image</h4>
+				</div>
+				<div class="modal-body">
+					<div class="image-editor" id="[[id]]-image-editor">
+						<div style="text-align:center;margin-bottom:10px;">
+							<label class="btn btn-default btn-file cropit-image-input">
+								<i class="fa fa-camera" aria-hidden="true"></i> select image <input type="file" class="cropit-image-input" style="display: none;">
+							</label>
+							<button class="rotate-ccw btn btn-default"><i class="fa fa-undo" aria-hidden="true"></i></button>
+							<button class="rotate-cw btn btn-default"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+						</div>
+						<div class="cropit-preview [[aspectRatioClass]]"></div>
+						<div style="clear:both; overflow:hidden;margin-top:5px;">
+							<div style="float:right;">
+								<i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+							</div>
+							<div style="padding-top:8px;">
+								<i class="fa fa-picture-o" aria-hidden="true"></i>
+							</div>
+						</div>
+						<input type="range" class="cropit-image-zoom-input">
+						
+						<!--<button class="export">Export</button>-->
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Cancel
+					</button>
+					<button type="button" class="btn btn-danger" id="[[id]]-remove-image" style="display:none;">
+						<i class="fa fa-times" aria-hidden="true"></i> Remove Image
+					</button>
+					<button type="button" class="btn btn-success" id="[[id]]-upload-image">
+						<i class="fa fa-plus" aria-hidden="true"></i> Add Image
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+    
+    

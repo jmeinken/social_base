@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+encoding//main/helpers.py=utf-8
+encoding//main/templates/core/base.html=UTF-8
+encoding//main/templates/core/base_private.html=UTF-8
+encoding//main/templates/core/navbar.html=UTF-8
+encoding//main/templates/core/navbar_private.html=UTF-8

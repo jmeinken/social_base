@@ -1,0 +1,51 @@
+.cropit-preview-wide {
+  background-color: #f8f8f8;
+  background-size: cover;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 0 auto;
+  width: 80vw;
+  height: 60vw;
+  max-width: 400px;
+  max-height: 300px;
+}
+
+.cropit-preview-square {
+  background-color: #f8f8f8;
+  background-size: cover;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 0 auto;
+  width: 70vw;
+  height: 70vw;
+  max-width: 350px;
+  max-height: 350px;
+}
+
+.cropit-preview-image-container {
+  cursor: move;
+}
+.image-size-label {
+  margin-top: 10px;
+}
+
+.image-preview {
+	width: 100%;
+	display: none;
+}
+
+.loading_icon {
+	left: 0;
+    position:absolute;
+    text-align:center;
+    top: 40%;
+    width: 100%
+}
+
+.image-preview-group {
+	margin-bottom: 15px;
+}
+
+.image-preview-box {
+	position:relative;
+}
