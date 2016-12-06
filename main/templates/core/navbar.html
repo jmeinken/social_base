@@ -29,7 +29,10 @@
 	    {% else %}
 	    	<ul class="nav navbar-nav navbar-right">
 	            <li>
-	            	<a href="{% url 'create_account' %}">| {% trans 'create account' %}</a>
+	            	<a href="{% url 'create_account' %}">{% trans 'create account' %}</a>
+		        </li>
+		        <li>
+	            	<a href="{% url 'forgot_password' %}">{% trans 'forgot password' %}</a>
 		        </li>
 	        </ul>
 	    	<form class="navbar-form navbar-right" method="POST" action="{% url 'login' %}">

@@ -1,0 +1,6 @@
+{% extends "core/email_base.txt" %}
+
+
+{% block content %}{{ body }}{% if link %}
+
+{{ link }}{% endif %}{% endblock %}

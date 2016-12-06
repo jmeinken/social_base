@@ -1,0 +1,16 @@
+Hello {{name}},
+
+This is an automated email from {{constants.TITLE}}.
+
+{% block content %}content here{% endblock %}
+
+-----------------------------------------------
+ 
+Thank you for using {{constants.TITLE}}
+{{constants.BASE_URL}}
+
+Change email preferences for your account:
+{{constants.BASE_URL}}{% url 'account_settings' %}
+
+Unsubscribe:
+{{constants.BASE_URL}}{% url 'email_handler:unsubscribe' unsubscribe_code %}

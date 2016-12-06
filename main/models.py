@@ -1,4 +1,6 @@
 # appname/models.py
+import datetime
+import random, string
 
 from django.db import models
 from django.utils import timezone
@@ -76,6 +78,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text=_('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    perma_code = models.CharField(max_length=60)
     temp_code = models.CharField(max_length=60, blank=True, null=True)
     temp_code_date = models.DateTimeField(blank=True, null=True)
 
@@ -87,6 +90,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
+        
+    def save(self, *args, **kwargs):
+        if not self.perma_code:
+            self.perma_code = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(60))
+        super(User, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return "/users/%s/" % urlquote(self.email)
@@ -109,3 +117,10 @@ class User(AbstractBaseUser, PermissionsMixin):
             return 'uploads/' + self.image
         else:
             return 'img/generic_user.png'
+        
+    def create_temp_code(self):
+        temp_code = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(60))
+        self.temp_code = temp_code
+        self.temp_code_date = datetime.datetime.now()
+        return temp_code
+        

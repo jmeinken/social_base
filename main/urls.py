@@ -10,5 +10,6 @@ urlpatterns = [
    url(r'^create_account', views.create_account, name='create_account'),
    url(r'^account_settings', views.account_settings, name='account_settings'),
    url(r'^forgot_password', views.forgot_password, name='forgot_password'),
+   url(r'^reset_password/(?P<temp_code>[a-zA-Z0-9]+)', views.reset_password, name='reset_password'),
    url(r'^$', views.home, name='home')
 ]

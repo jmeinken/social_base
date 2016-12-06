@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect
+from datetime import datetime, timedelta
+
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -69,14 +71,33 @@ def forgot_password(request):
         form = forms.ForgotPasswordForm(request.POST)
         if form.is_valid():
             # email forgot password
-            form.email_forgot_password()
+            form.email_forgot_password(request)
             messages.success(request, ''''You should soon receive an email with 
                 instructions for resetting your password.  If you don't see it,
                 check your spam folder.
-            .''')
+            ''')
             return redirect('login')
     context['form'] = form
     return render(request, 'main/forgot_password.html', context)
+
+def reset_password(request, temp_code):
+    context = {}
+    oUser = get_user_model().objects.all().get(temp_code=temp_code)
+    thirty_days_ago = datetime.now() - timedelta(days=30)
+    if oUser.temp_code_date.replace(tzinfo=None) < thirty_days_ago:
+        messages.error(request, 'Your password reset code has expired.  Please request a new one.')
+        return redirect('forgot_password')
+    form = forms.PasswordForm(instance=oUser)
+    if request.POST:
+        form = forms.PasswordForm(request.POST, instance=oUser)
+        if form.is_valid():
+            oUser = form.save()
+            messages.success(request, 'Password successfully changed.')
+            user = authenticate(username=oUser.username, password=form.cleaned_data['password1'])
+            login(request, user)
+            return redirect('home')
+    context['form'] = form
+    return render(request, 'main/reset_password.html', context)
 
 def create_account(request):
     context = {}

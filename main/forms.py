@@ -4,6 +4,11 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, HTML, Field
 
 from django.contrib.auth import get_user_model
+from django.template.loader import render_to_string
+from django.shortcuts import reverse
+
+from email_handler.helpers import send_system_mail
+from main.helpers import constants
 
 
 
@@ -77,14 +82,33 @@ class ForgotPasswordForm(forms.Form):
         if not qUser:
             self.add_error('username_or_email', 'That username or email address wasn\'t found in our system.')
 
-    def email_forgot_password(self):
+    def email_forgot_password(self, request):
         id = self.cleaned_data.get('username_or_email')
         User = get_user_model()
         qUser = User.objects.all().filter(username=id)
         if not qUser:
             qUser = User.objects.all().filter(email=id)
         oUser = qUser[0]
+        oUser.create_temp_code()
+        oUser.save()
         print('email forgot password to ' + oUser.username)
+        body = '''Use the following link to reset your password.'''
+        email_context = {
+            'name' : oUser.get_short_name(),
+            'body' : body,                        # plain text (no html), line breaks will be converted to <br> in html version
+            'subject' : 'password reset',
+            'link' : constants['BASE_URL'] + reverse('reset_password', args={oUser.temp_code}),
+            'unsubscribe_code' : oUser.perma_code             
+        }
+        message = render_to_string('email_handler/email_generic.txt', email_context, request)
+        html_message = render_to_string('email_handler/email_generic.html', email_context, request)
+        send_system_mail(
+            subject = 'password reset',
+            message = message,
+            html_message = html_message,
+            from_mail = constants['CONTACT_EMAIL'],
+            to_list = [oUser.email]                     
+        )
     
 
        
@@ -183,6 +207,7 @@ class PasswordForm(forms.ModelForm):
         user = self.instance
         user.set_password( self.cleaned_data['password1'] )
         user.save()
+        return user
         
         
         
