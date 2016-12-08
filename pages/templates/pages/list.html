@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+{% block content %}
+	
+	
+	<h1>{{oPageCategory.title}}</h1>
+	
+	
+    {% for oChild in oPageCategory.child_set.all %}
+    	<a href="{% url 'pages:list' oChild.id %}">{{oChild.title}}</a><br>
+    {% endfor %}
+    
+    <hr>
+    
+    {% if oPageCategory.show_as_page %}
+    	show as page<br>
+	    {% for oPage in oPageCategory.page_set.all %}
+	    	{{ oPage.title }}<br>
+	    {% endfor %}
+	{% else %}
+		show as category<br>
+		{% for oPage in oPageCategory.page_set.all %}
+	    	<a href="{% url 'pages:view_page' oPage.id %}">{{ oPage.title }}</a><br>
+	    {% endfor %}
+	{% endif %}
+	
+	{% if oPageCategory.post_thread %}
+		<div class="row">
+			<div class="col-sm-7">
+				<div id="microfeed-container" data-user="{{user.id}}" data-thread="{{oPageCategory.post_thread.id}}" style="background-color:#999999"></div>
+			</div>
+		</div>
+		
+		{% include 'microfeed/snippets/javascript_templates.html' %}
+		<div id="microfeed-modals"></div>
+	{% endif %}
+
+	
+	
+
+
+{% endblock %}

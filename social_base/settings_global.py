@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'main',
     'images',
     'email_handler',
+    'microfeed',
+    'pages',
+    'field_trans'
 ]
 
 MIDDLEWARE = [

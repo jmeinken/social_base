@@ -1,0 +1,413 @@
+{% load i18n %}
+
+
+<script type="text/template" id="post-template">
+    	<div id="post-block-[[postId]]" class="post-block">
+			<div id="post-[[postId]]">
+  				<div class="post-user-image">
+					<img  alt="[[username]]" width=50 height=50
+						src="[[userImage]]">
+				</div>
+				<div id="post-user-options-[[postId]]" class="post-user-options"></div>
+  				<div class="post-content">
+					<div class="post-meta">
+						<span class="text-success">{% trans 'posted by' %} [[username]]</span><br>
+						<span class="text-muted">[[date]]</span>
+					</div>
+    				<div id="post-body-[[postId]]" class="post-body">
+						[[formatted_body]]
+					</div>
+					
+				</div>
+				<div id="post-image-thumbnails-block-[[postId]]"></div>
+			</div>
+			<div id="edit-post-[[postId]]" class="edit-post">
+				<label class="control-label" for="edit-post-form-[[postId]]">{% trans 'Edit post:' %}</label>
+				<form class="edit-post-form" id="edit-post-form-[[postId]]" data-post-id="[[postId]]">
+					<input type="hidden" name="post_id" value="[[postId]]" />
+					<textarea name="body" class="form-control" rows="4">[[body]]</textarea>
+					<div class="button-align">
+						<button type="button" class="btn btn-sm btn-default cancel-edit-post" data-post-id="[[postId]]">{% trans 'Cancel' %}</button>
+						<button type="submit" class="btn btn-sm btn-primary">{% trans 'Save' %}</button>
+					</div>
+				</form>
+			</div>
+			<div>
+				<div class="panel panel-default" style="margin-bottom:0;">
+					<div class="panel-footer" style="padding-bottom:3px;">
+						<div id="comments-[[postId]]" class="comments"></div>
+						<div id="comment-form-block-[[postId]]"></div>
+					</div>
+				</div>
+  			</div>
+		</div>
+</script>
+	
+<script type="text/template" id="event-post-template">
+	<div id="post-block-[[postId]]" class="post-block">
+		<div id="post-[[postId]]">
+			<div class="post-user-image">
+				<img  alt="[[username]]" width=50 height=50
+					src="[[userImage]]">
+			</div>
+			<div id="post-user-options-[[postId]]" class="post-user-options"></div>
+			<div class="post-content">
+				<div class="post-meta">
+					<span class="text-success">{% trans 'posted by' %} [[username]]</span><br>
+					<span class="text-muted">[[date]]</span>
+				</div>
+				<div id="post-body-[[postId]]" class="post-body">
+					<strong style="font-size:1.2em;"><a href="[[editLink]]"><i class="fa fa-calendar fa-2x" aria-hidden="true"></i> [[title]]</a></strong><br>
+					<div class="event-times text-muted" id="event-times-[[postId]]" style="margin-bottom:5px;border-bottom:1px solid #DDDDDD"></div>
+					<p>[[formatted_body]]</p>
+				</div>
+			</div>
+			<div id="post-image-thumbnails-block-[[postId]]"></div>
+		</div>
+		<div>
+			<div class="panel panel-default" style="margin-bottom:0;">
+				<div class="panel-footer" style="padding-bottom:3px;">
+					<div id="comments-[[postId]]" class="comments"></div>
+					<div id="comment-form-block-[[postId]]"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+	
+<script type="text/template" id="event-times-template">
+		[[startDate]] - [[timeRange]]<br>
+</script>
+	
+<script type="text/template" id="comment-form-template">
+	<form class="new-comment-form" id="new-comment-form-[[postId]]" data-post-id="[[postId]]">
+		<input type="hidden" name="post_id" value="[[postId]]">
+		<input type="hidden" name="uid" value="[[currentUid]]" />
+		<textarea name="body" class="form-control" rows="1"
+			placeholder="{% trans 'Add a comment...' %}"></textarea>
+		<div class="button-align">
+			<button type="submit" class="btn btn-xs btn-primary">{% trans 'Reply' %}</button>
+		</div>
+	</form>
+</script>
+	
+<script type="text/template" id="comment-template">
+	<div id="comment-block-[[commentId]]" class="comment-block">
+		<div id="comment-[[commentId]]" class="comment">
+			<div class="comment-user-image">
+				<img  alt="[[username]]" width=40 height=40
+					src="[[userImage]]">
+			</div>
+			<div id="comment-user-options-[[commentId]]" class="comment-user-options"></div>
+			<div class="comment-content">
+				<div class="comment-meta">
+					<span class="text-success">[[username]]</span>
+					<span class="text-muted"> | [[date]]</span>
+				</div>
+				<div id="comment-body-[[commentId]]" class="comment-body">
+					[[formatted_body]]
+				</div>
+			</div>
+		</div>
+		<div id="edit-comment-[[commentId]]" class="edit-comment">
+			<label class="control-label" for="edit-comment-form-[[commentId]]">{%trans 'Edit comment:' %}</label>
+			<form class="edit-comment-form" id="edit-comment-form-[[commentId]]" data-comment-id="[[commentId]]">
+				<input type="hidden" name="comment_id" value="[[commentId]]" />
+				<textarea name="body" class="form-control" rows="1">[[body]]</textarea>
+				<div class="button-align">
+					<button type="button" class="btn btn-sm btn-default cancel-edit-comment" data-comment-id="[[commentId]]">{%trans 'Cancel' %}</button>
+					<button type="submit" class="btn btn-sm btn-primary">{%trans 'Save' %}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</script>
+	
+	<script type="text/template" id="post-user-options-template">
+		<div class="btn-group">
+      		<a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        		<i class="fa fa-angle-down" aria-hidden="true"></i>
+      		</a>
+      		<ul class="dropdown-menu dropdown-menu-right">
+        		<li><a href="#" class="edit-post-btn" data-post-id="[[postId]]">{% trans 'Edit' %}</a></li>
+       			<li><a href="#" class="delete-post-btn" data-post-id="[[postId]]">{% trans 'Delete' %}</a></li>
+       		</ul>
+   		</div>
+	</script>
+	
+	<script type="text/template" id="comment-user-options-template">
+		<div class="btn-group">
+  	    	<a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+  		      	<i class="fa fa-angle-down" aria-hidden="true"></i>
+     	 	</a>
+     	 	<ul class="dropdown-menu dropdown-menu-right">
+     			<li><a href="#" class="edit-comment-btn" data-comment-id="[[commentId]]">{% trans 'Edit' %}</a></li>
+      			<li><a href="#" class="delete-comment-btn" data-comment-id="[[commentId]]">{% trans 'Delete' %}</a></li>
+      		</ul>
+    	</div>
+	</script>
+	
+	
+	<script type="text/template" id="hidden-comments-template">
+		<div id="hidden-comments-block-[[postId]]" class="hidden-comments-block"></div>
+		<div style="padding-bottom:10px;">
+			<a href="#" class="show-hidden-comments" data-post-id="[[postId]]">{% trans 'show previous comments' %}</a>
+		</div>
+	</script>
+	
+	<script type="text/template" id="more-posts-template">
+		<div id="show-more-posts-block">
+			<button type="button" id="show-more-posts-btn" class="btn btn-success">{% trans 'show more posts' %}</button>
+		</div>
+	</script>
+	
+	<script type="text/template" id="main-container-template">
+			<div id="post-form-block" style="display:none;border-bottom:#B0B0B0 1px solid;"></div>
+			<div id="output" ></div>
+	</script>
+	
+	<script type="text/template" id="post-form-template">
+		<form id="new-post-form">
+			<input type="hidden" name="uid" value="[[uid]]" />
+			<textarea id="new-post-form-body" name="body" class="form-control" rows="4" placeholder="{% trans 'Ask a question, sell something, share pictures, ...' %}"></textarea>
+			<div id="new-post-image-block" style="clear:both; overflow:hidden;background-color:black;"></div>
+				<div style="text-align:right;padding:3px 0 0 0;">
+					<button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#add-image-modal">{% trans 'Attach an Image' %}</button>
+					<button type="submit" id="new-post-btn" class="btn btn-sm btn-primary">{% trans 'Share' %}</button>
+				</div>
+				<a href="#" class="hide-post-form"><i class="fa fa-angle-double-up fa-2x" aria-hidden="true"></i></a>
+		</form>
+	</script>
+	
+	<script type="text/template" id="image-preview-template">
+		<div id="image-preview-[[index]]" style="float:left;background-color:white;padding:3px;margin:5px;position: relative;">
+			<button type="button" class="remove-image btn btn-danger btn-xs" data-image-index="[[index]]" style="position:absolute;right:0;top:0;">
+				<i class="fa fa-times fa-lg" aria-hidden="true"></i>
+			</button>
+			<img alt="[[alt]]" src="[[imageUri]]" width="120" height="90" />
+			<input type="hidden" name="images[]" value="[[imageUri]]" />
+		</div>
+	</script>
+	
+	<script type="text/template" id="image-placeholder-template">
+			<a href="#" id="image-placeholder" data-toggle="modal" data-target="#add-image-modal">
+				<div style="float:left;background-color:white;padding:3px;margin:5px;">
+					<div style="width:120px;height:90px;border: 2px dashed #95A5A6;text-align:center;padding-top:28px;">
+						<span class="text-muted"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></span>
+					</div>
+				</div>
+			</a>
+	</script>
+	
+	<script type="text/template" id="post-image-thumbnails-template-1">
+		<div class="row" style="margin:0 -5px 15px -5px;background-color:black;padding:5px;">
+			<div class="col-sm-6 col-sm-offset-3" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="[[postId]]">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="[[image1]]" />
+					</a>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	
+	<script type="text/template" id="post-image-thumbnails-template-2">
+		<div class="row" style="margin:0 -5px 15px -5px;background-color:black;padding:5px;">
+			<div class="col-xs-6" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="[[postId]]">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="[[image1]]" />
+					</a>
+				</div>
+			</div>
+			<div class="col-xs-6" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="[[postId]]">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="[[image2]]" />
+					</a>
+				</div>
+			</div>
+		</div>
+	</script>
+	
+	<script type="text/template" id="post-image-thumbnails-template-3">
+		<div class="row" style="margin:0 -5px 15px -5px;background-color:black;padding:5px;">
+			<div class="col-xs-8" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="[[postId]]">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="[[image1]]" />
+					</a>
+				</div>
+			</div>
+			<div class="col-xs-4" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="[[postId]]">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="[[image2]]" />
+					</a>
+				</div>
+				<div style="padding-bottom:7px;"></div>
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="[[postId]]">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="[[image3]]" />
+					</a>
+				</div>
+			</div>
+		</div>
+	</script>
+	
+	<script type="text/template" id="post-image-thumbnails-template-4">
+		<div class="row" style="margin:0 -5px 15px -5px;background-color:black;padding:5px;">
+			<div class="col-xs-8" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="[[postId]]">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="[[image1]]" />
+					</a>
+				</div>
+			</div>
+			<div class="col-xs-4" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="[[postId]]">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="[[image2]]" />
+					</a>
+				</div>
+				<div style="padding-bottom:7px;"></div>
+				<div class="post-image-thumbnail-container" style="background-color:white;position:relative;">
+					<a href="#" class="show-post-image-modal" data-post-id="[[postId]]">
+						<img class="img-responsive extra-image-thumbnail" alt="thumbnail" src="[[image3]]"
+								style="" />
+						<div class="extra-image-thumbnail-text">
+							<em>[[extra]] {% trans 'more pictures' %}</a></em>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</script>
+	
+<script type="text/template" id="modals-template">
+	<div class="modal" id="delete-post-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">{% trans 'Delete Post' %}</h4>
+				</div>
+				<div class="modal-body">
+					<p>{% trans 'Are you sure you want to delete this post?' %}</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
+					<form id="delete-post-form">
+						<input type="hidden" id="delete-post-id" name="post_id" value="" />
+						<button type="submit" class="btn btn-danger">{% trans 'Delete' %}</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal" id="delete-comment-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">{% trans 'Delete Comment' %}</h4>
+				</div>
+				<div class="modal-body">
+					<p>{% trans 'Are you sure you want to delete this comment?' %}</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
+					<form id="delete-comment-form">
+						<input type="hidden" id="delete-comment-id" name="comment_id" value="" />
+						<button type="submit" class="btn btn-danger">{% trans 'Delete' %}</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="add-image-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">{% trans 'Add Image' %}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="image-editor">
+						<div style="text-align:center;margin-bottom:10px;">
+							<label class="btn btn-default btn-file cropit-image-input">
+								{% trans 'select image' %} <input type="file" class="cropit-image-input" style="display: none;">
+							</label>
+							<button class="rotate-ccw btn btn-default"><i class="fa fa-undo" aria-hidden="true"></i></button>
+							<button class="rotate-cw btn btn-default"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+						</div>
+						<div class="cropit-preview"></div>
+						<div style="clear:both; overflow:hidden;margin-top:5px;">
+							<div style="float:right;">
+								<i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+							</div>
+							<div style="padding-top:8px;">
+								<i class="fa fa-picture-o" aria-hidden="true"></i>
+							</div>
+						</div>
+						<input type="range" class="cropit-image-zoom-input">
+						
+						<!--<button class="export">Export</button>-->
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
+					<button type="button" class="btn btn-success" id="add-image-btn">{% trans 'Add Image' %}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="post-images-modal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body" style="position:relative;">
+					<img class="img-responsive center-block" src="" id="post-images-modal-image" />
+					<a href="#" id="post-images-scroll-backward" style="position:absolute;left:5px;top:45%">
+						<i class="fa fa-chevron-circle-left fa-3x" aria-hidden="true"></i>
+					</a>
+					<a href="#" id="post-images-scroll-forward" style="position:absolute;right:5px;top:45%">
+						<i class="fa fa-chevron-circle-right fa-3x" aria-hidden="true"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="post-form-login-template">
+	<div class="alert alert-info">
+		{% url 'login' as login_url %}
+		{% url 'create_account' as create_account_url %}
+		{% blocktrans %}
+			Please <a href="{{login_url}}" class="alert-link">login</a> or <a href="{{create_account_url}}" class="alert-link">create an account</a> to post.
+		{% endblocktrans %}
+	</div>
+</script>
+
+<script type="text/template" id="comment-form-login-template">
+	<div style="font-size:0.9em;font-style: italic;text-align:center;">
+		<span class="text-muted">
+		{% url 'login' as login_url %}
+		{% url 'create_account' as create_account_url %}
+		{% blocktrans %}
+			<a href="{{login_url}}">login</a> or <a href="{{create_account_url}}" class="alert-link">create account</a> to comment
+		{% endblocktrans %}
+		</span>
+	</div>
+</script>
+	
+	
+	

@@ -1,0 +1,165 @@
+{% extends "core/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block content %}
+
+<script>
+  	tinymce.init({ 
+  		selector:'textarea',
+  		language: 'ja',
+  		plugins: "textcolor, link, image",
+	    toolbar: "bold, italic, underline, alignleft, aligncenter, alignright, alignjustify, fontselect, fontsizeselect, bullist, numlist, blockquote, undo, redo, removeformat, forecolor, backcolor, link" 
+	});
+</script>
+
+<script type="text/javascript">
+    $(function() {
+    	{% for child in children %}
+	        $('.{{child.css_class}}').formset({
+                prefix: '{{ child.prefix }}',
+                deleteCssClass: 'delete-row btn btn-sm btn-danger',
+                deleteText: '<i class="fa fa-times" aria-hidden="true"></i>',
+                addCssClass: 'add-row btn btn-success',
+                addText: '<i class="fa fa-plus" aria-hidden="true"></i>',
+	        });
+        {% endfor %}
+        
+        
+		// add selected image from cropit
+		$('#upload-image-btn').click(function() {
+			imageUri = $('.image-editor').cropit('export');
+			//$('#image-previews').append(
+			//		  '<div>'
+			//		+ '<img src="' + imageUri + '" alt="uploaded image" width="100" height="75" />'
+			//		+ ' <input onClick="this.select();" readonly value="/path/to/myimage.png" />');
+			//		+ '</div>'
+			//$('#add-image-modal').modal('hide');
+			$.ajax({
+				url: "/pages/upload_image",
+				data: {
+					image: imageUri
+				},
+				type: "POST",
+				dataType : "json",
+			})
+			.done(function( json ) {
+				//alert(json);
+				$('#image-previews').append(
+						  '<div class="row">'
+						+ '<div class="col-md-2">'
+						+ '<img src="' + json + '" alt="uploaded image" width="100" height="75" />'
+						+ '</div>'
+						+ '<div class="col-md-10">'
+						+ ' <input class="form-control" onClick="this.select();" readonly value="' + json + '" />');
+						+ '</div>'
+						+ '</div>'
+				$('#add-image-modal').modal('hide');
+			})
+			.fail(function( xhr, status, errorThrown ) {
+				alert( "error" );
+				console.log( "Error: " + errorThrown );
+				console.log( "Status: " + status );
+				console.dir( xhr );
+			})
+		});
+        
+        
+      //configure CROPIT
+        $('.image-editor').cropit({
+        	exportZoom : 1,
+        	maxZoom : 4,
+        	minZoom : 'fit',
+        	smallImage : 'allow'
+        });
+        $('.rotate-cw').click(function() {
+        	$('.image-editor').cropit('rotateCW');
+        });
+        $('.rotate-ccw').click(function() {
+    		$('.image-editor').cropit('rotateCCW');
+        });
+        $('.export').click(function() {
+        	var imageData = $('.image-editor').cropit('export');
+        	window.open(imageData);
+        });
+        
+    })
+</script>
+
+<style>
+	.delete-row {
+		margin-top: 1.1em;
+	}
+</style>
+
+<h1>{% trans 'Post a Page' %}</h1>
+
+<hr>
+
+
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+		<div class="well" id="image-previews">
+			<button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#add-image-modal">{% trans 'Add Image' %}</button>
+		</div>
+	
+	
+		<form method="post" id="myForm">
+			{% csrf_token %}
+			{{ form|crispy }}
+			<hr>
+			{% for child in children %}
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						{{ child.title }}
+					</div>
+					<div class="panel-body">
+						{% crispy child child.form.helper %}
+					</div>
+				</div>
+			{% endfor %}
+			<hr>
+			<button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+		</form>
+	</div>
+</div>
+
+
+	<div class="modal" id="add-image-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">{% trans 'Add Image' %}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="image-editor">
+						<div style="text-align:center;margin-bottom:10px;">
+							<label class="btn btn-default btn-file cropit-image-input">
+								{% trans 'select image' %} <input type="file" class="cropit-image-input" style="display: none;">
+							</label>
+							<button class="rotate-ccw btn btn-default"><i class="fa fa-undo" aria-hidden="true"></i></button>
+							<button class="rotate-cw btn btn-default"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+						</div>
+						<div class="cropit-preview"></div>
+						<div style="clear:both; overflow:hidden;margin-top:5px;">
+							<div style="float:right;">
+								<i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+							</div>
+							<div style="padding-top:8px;">
+								<i class="fa fa-picture-o" aria-hidden="true"></i>
+							</div>
+						</div>
+						<input type="range" class="cropit-image-zoom-input">
+						
+						<!--<button class="export">Export</button>-->
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
+					<button type="button" class="btn btn-success" id="upload-image-btn">{% trans 'Upload Image' %}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

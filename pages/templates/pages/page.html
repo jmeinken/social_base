@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+	<h1>{{oPage.title}}</h1>
+	
+	{% if oPage.post_thread %}
+		<div class="row">
+			<div class="col-sm-7">
+				<div id="microfeed-container" data-user="{{user.id}}" data-thread="{{oPage.post_thread.id}}" style="background-color:#999999"></div>
+			</div>
+		</div>
+		
+		{% include 'microfeed/snippets/javascript_templates.html' %}
+		<div id="microfeed-modals"></div>
+	{% endif %}
+
+
+
+{% endblock %}

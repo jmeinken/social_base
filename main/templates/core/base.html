@@ -28,10 +28,6 @@
   
   <!-- Django formset for inline formsets -->
   <script src="{% static 'js/jquery.formset.js' %}"></script>
-
-  <!-- microfeed (by me) for displaying microfeed items  -->
-  <script src="{% static 'js/microfeed/microfeed.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'js/microfeed/microfeed.css' %}">
   
   <!-- TinyMCE for WYSIWYG textareas -->
   <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
@@ -39,6 +35,10 @@
   <!-- My Images tool based off of CropIt -->
   <script src="{% static 'js/images/images.js' %}"></script>
   <link rel="stylesheet" href="{% static 'js/images/images.css' %}">
+  
+  <!-- My Microfeed -->
+  <script src="{% static 'js/microfeed/microfeed.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'js/microfeed/microfeed.css' %}">
   
 <style>
 	h1, h2, h3 {
@@ -54,6 +54,8 @@
 <script>
 	//required by images.js
 	var UPLOADS_URL_PATH = '{{constants.UPLOADS_URL_PATH}}';
+	
+
 
 </script>
 

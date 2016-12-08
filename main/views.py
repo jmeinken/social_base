@@ -9,9 +9,12 @@ from django.contrib.auth import get_user_model
 
 from . import forms
 
+from pages.models import PageCategory
+
 
 def home(request):
     context = {}
+    context['qPageCategory'] = PageCategory.objects.all().filter(parent=None)
     return render(request, 'main/home.html', context)
 
 @login_required
