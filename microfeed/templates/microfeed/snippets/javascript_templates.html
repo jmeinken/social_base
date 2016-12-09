@@ -32,15 +32,19 @@
 					</div>
 				</form>
 			</div>
-			<div>
-				<div class="panel panel-default" style="margin-bottom:0;">
-					<div class="panel-footer" style="padding-bottom:3px;">
-						<div id="comments-[[postId]]" class="comments"></div>
-						<div id="comment-form-block-[[postId]]"></div>
-					</div>
-				</div>
-  			</div>
+			<div id="comment-container-[[postId]]"></div>
 		</div>
+</script>
+
+<script type="text/template" id="comment-container-template">
+	
+		<div class="panel panel-default" style="margin-bottom:0;">
+			<div class="panel-footer" style="padding-bottom:3px;">
+				<div id="comments-[[postId]]" class="comments"></div>
+				<div id="comment-form-block-[[postId]]"></div>
+			</div>
+		</div>
+	
 </script>
 	
 <script type="text/template" id="event-post-template">
@@ -161,25 +165,43 @@
 		</div>
 	</script>
 	
+	<script type="text/template" id="main-form-template">
+		<div class="well well-sm">
+				<h3>Write a message:</h3>
+				<ul class="nav nav-pills">
+  					<li><a href="#" class="show-post-form" data-placeholder="write a general message...">General Message</a></li>
+  					<li><a href="#" class="show-post-form" data-placeholder="buy or sell something...">Classified Ad</a></li>
+					<li><a href="/microfeed/events/new">Event</a></li>
+				</ul>
+				<div id="post-form-block" style="display:none;margin:2px 0;padding-bottom:5px;"></div>
+		</div>
+	</script>
+	<script type="text/template" id="main-form-basic-template">
+		<div>
+			<div id="post-form-block" style="background-color:#999999;margin:1px 0;padding-bottom:5px;"></div>
+		</div>
+	</script>
+	
 	<script type="text/template" id="main-container-template">
-			<div id="post-form-block" style="display:none;border-bottom:#B0B0B0 1px solid;"></div>
-			<div id="output" ></div>
+			<div id="output" style="background-color:#999999"></div>
 	</script>
 	
 	<script type="text/template" id="post-form-template">
 		<form id="new-post-form">
 			<input type="hidden" name="uid" value="[[uid]]" />
-			<textarea id="new-post-form-body" name="body" class="form-control" rows="4" placeholder="{% trans 'Ask a question, sell something, share pictures, ...' %}"></textarea>
+			<textarea id="new-post-form-body" name="body" class="form-control" rows="4" placeholder="{% trans 'Write a comment...' %}"></textarea>
 			<div id="new-post-image-block" style="clear:both; overflow:hidden;background-color:black;"></div>
 				<div style="text-align:right;padding:3px 0 0 0;">
-					<button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#add-image-modal">{% trans 'Attach an Image' %}</button>
 					<button type="submit" id="new-post-btn" class="btn btn-sm btn-primary">{% trans 'Share' %}</button>
 				</div>
-				<a href="#" class="hide-post-form"><i class="fa fa-angle-double-up fa-2x" aria-hidden="true"></i></a>
 		</form>
 	</script>
 	
-	<script type="text/template" id="image-preview-template">
+	<script type="text/template" id="open-image-modal-button-template">
+		<button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#add-image-modal">{% trans 'Attach an Image' %}</button>
+	</script>
+	
+	<script type="text/template" id="image-preview-template-DEPRECATED">
 		<div id="image-preview-[[index]]" style="float:left;background-color:white;padding:3px;margin:5px;position: relative;">
 			<button type="button" class="remove-image btn btn-danger btn-xs" data-image-index="[[index]]" style="position:absolute;right:0;top:0;">
 				<i class="fa fa-times fa-lg" aria-hidden="true"></i>

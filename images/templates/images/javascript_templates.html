@@ -19,10 +19,12 @@
 </script>
 
 <script type="text/template" id="multi-image-image-preview-template">
-	<button type="button" class="remove-image btn btn-danger btn-xs" data-image-index="0" style="position:absolute;right:0;top:0;">
-		<i class="fa fa-times fa-lg" aria-hidden="true"></i>
-	</button>
-	<img width="[[width]]" height="[[height]]" alt="preview" src="[[src]]" />
+	<div id="[[imageIndex]]-image-preview" data-image-name="[[imgName]]" style="float:left;background-color:white;padding:3px;margin:5px;position:relative;">
+		<button type="button" class="remove-image btn btn-danger btn-xs" data-delete-id="[[imageIndex]]-image-preview" style="position:absolute;right:0;top:0;">
+			<i class="fa fa-times fa-lg" aria-hidden="true"></i>
+		</button>
+		<img width="[[width]]" height="[[height]]" alt="preview" src="[[src]]" />
+	</div>
 </script>
 
 <script type="text/template" id="multi-image-image-loading-template">

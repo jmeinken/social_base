@@ -65,6 +65,10 @@ mf.displayPost = function(objPost, order) {
 	} else {
 		$('#output').append(result);
 	}
+	if ( mf.allowComments ) {
+		var result = mf.templateEngine('comment-container-template', args);
+		$('#comment-container-' + args.postId).append(result);
+	}
 	//append event times
 	if (args.post_type == 'event') {
 		for (var i=0; i<args.times.length; i++) {
@@ -377,6 +381,7 @@ mf.appendPostEvents = function() {
 			.addClass('disabled')
 			.html('<i class="fa fa-spinner fa-pulse fa-fw"></i> Uploading');
 		var data = $("#new-post-form").serialize();		// uid, body, images[]
+		data += '&thread=' + mf.thread;
 		var url = mf.subfolder + "/microfeed/posts/new";
 		$.ajax({
 			url: url,
@@ -529,11 +534,20 @@ $( document ).ready(function() {
 	
 	mf.uid = $('#microfeed-container').attr('data-user');
 	mf.thread = $('#microfeed-container').attr('data-thread');
+	mf.allowComments = ( $('#microfeed-container').attr('data-allow-comments') === "yes" );
+	mf.allowComplexPosts = ( $('#microfeed-form').attr('data-allow-complex-post-types') === "yes" );
+	mf.allowImages = ( $('#microfeed-form').attr('data-allow-images') === "yes" );
 
 	//load main container
 	args = {
 		uid: mf.uid
 	}
+	if (mf.allowComplexPosts) {
+		var result = mf.templateEngine('main-form-template', args);
+	} else {
+		var result = mf.templateEngine('main-form-basic-template', args);
+	}
+	$('#microfeed-form').html(result);
 	var result = mf.templateEngine('main-container-template', args);
 	$('#microfeed-container').html(result);
 	// show the post form if the user is logged in
@@ -543,6 +557,10 @@ $( document ).ready(function() {
 	} else if (mf.addPostOption) {
 		var result = mf.templateEngine('post-form-login-template', args);
 		$('#post-form-block').html(result);
+	}
+	if ( mf.allowImages ) {
+		var result = mf.templateEngine('open-image-modal-button-template', args);
+		$('#new-post-btn').before(result);
 	}
 	
 	//load modals
@@ -572,9 +590,22 @@ $( document ).ready(function() {
     });
     
     $('.show-post-form').click(function() {
-    	$('#post-form-block').hide().slideDown();
-    	var placeholder = $(this).attr('data-placeholder');
-    	$('#new-post-form-body').attr('placeholder',placeholder);
+    	// highlight this button
+    	$('.show-post-form').parent().removeClass('active');
+    	$(this).parent().addClass('active');
+    	//show form
+    	var newPlaceholder = $(this).attr('data-placeholder');
+    	var currentPlaceholder = $('#new-post-form-body').attr('placeholder');
+    	var displayed = $('#post-form-block:visible').length != 0;
+    	if ( newPlaceholder == currentPlaceholder && displayed ) {
+    		$('#post-form-block').slideUp();
+    		$(this).parent().removeClass('active');
+    	} else {
+    		$('#post-form-block').slideDown();	
+        	$('#new-post-form-body').attr('placeholder',newPlaceholder);
+    	}
+    	return false;
+    	
     });
     
     $('.hide-post-form').click(function() {

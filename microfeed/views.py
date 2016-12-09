@@ -114,7 +114,9 @@ def new_post(request):
     currentUid = int( request.POST.get('uid') )
     images = request.POST.getlist('images[]')
     body = request.POST.get('body')
-    oPost = models.Post(user_id=currentUid,body=body)
+    thread_id = request.POST.get('thread')
+    print(thread_id)
+    oPost = models.Post(user_id=currentUid,body=body, thread_id=thread_id)
     oPost.save()
     if images:
         i = 1

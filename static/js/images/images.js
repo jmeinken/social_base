@@ -116,6 +116,8 @@ crp.addMultiImageEvents = function(inputId) {
     		$('#' + inputId).val(newVal);
     		var args2 = {}
     		args2.src = json.path;
+    		args2.imgName = json.name;
+    		args2.imageIndex = args.imageIndex;
     		args2.height = '90px';
     		if ( crp.aspectRatio == '1:1' ) {
     			args2.width = '90px';
@@ -123,7 +125,15 @@ crp.addMultiImageEvents = function(inputId) {
     			args2.width = '120px';
     		}
     		var imgHTML = crp.templateEngine('multi-image-image-preview-template', args2);
-    		$('#' + args.imageIndex + '-image-preview').html(imgHTML);
+    		$('#' + args.imageIndex + '-image-preview').replaceWith(imgHTML);
+    		$('.remove-image').unbind().click(function() {
+    			var previewId = $(this).attr('data-delete-id');
+    			var imgName = $('#'+previewId).attr('data-image-name');
+    			var imgListStr = $('#'+inputId).val();
+    			imgListStr = imgListStr.replace(imgName,'');
+    			$('#'+inputId).val(imgListStr);
+    			$('#'+previewId).remove();
+    		});
     	})
     	.fail(function( xhr, status, errorThrown ) {
     		alert( "error" );
@@ -205,13 +215,8 @@ crp.appendCropItTool = function (inputId) {
 	crp.minZoom = $('#'+inputId).attr('data-min-zoom') || 'fit';
 	crp.maxZoom = $('#'+inputId).attr('data-max-zoom') || 5;
 	crp.aspectRatio = $('#'+inputId).attr('data-aspect-ratio') || '4:3';
-	
-	if ( $('#'+inputId).attr('data-multiple-allowed') ) {
-		crp.multi = true;
-	} else {
-		crp.multi = false;
-	}
-	
+	crp.multi = ( $('#'+inputId).attr('data-multiple-allowed') === "yes" );
+
 	
 	crp.addCropItModal(inputId);
 	crp.addCropItModalEvents(inputId);
