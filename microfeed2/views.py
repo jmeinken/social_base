@@ -22,7 +22,11 @@ def home(request):
 def ajax_posts(request):
     '''Returns the html for a collection of posts.
     '''
-    qPost = models.Post.objects.all()[:10]
+    qPost = models.Post.objects.all()[:3]
+    # attach forms where appropriate
+    for oPost in qPost:
+        if oPost.user == request.user:
+            oPost.fPost = forms.PostForm(instance=oPost)
     context = {  
        'qPost' : qPost,        
     }
@@ -30,4 +34,32 @@ def ajax_posts(request):
     response = {}
     response['html'] = html
     return JsonResponse(response, safe=False)
+
+@login_required
+def ajax_edit_post(request, post_id):
+    context = {}
+    print(post_id)
+    oPost = models.Post.objects.all().get(pk=post_id)
+    form = forms.PostForm(instance=oPost)
+    if request.POST:
+        form = forms.PostForm(request.POST, instance=oPost)
+        if form.is_valid():
+            oPost = form.save(request.user)
+    oPost.fPost = form
+    context['oPost'] = oPost
+    html = render_to_string('microfeed2/blocks/post.html', context, request)
+    response = {}
+    response['html'] = html
+    response['destinationId'] = 'mf-post-' + str(post_id)
+    return JsonResponse(response, safe=False)
+
+
+
+
+
+
+
+
+
+
     

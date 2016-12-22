@@ -24,6 +24,8 @@
 		})
 		.done(function( json ) {
 			$('#mf-feed').html(json.html);
+			crp.load();
+			mf2.attachEvents();
 		})
 		.fail(function( xhr, status, errorThrown ) {
 			alert( "error" );
@@ -33,13 +35,98 @@
 		});
 	}
 	
+	mf2.attachEvents = function () {
+		$('.mf-edit-post-form').unbind().submit(function(event) {
+			var postId = $(this).attr('data-post-id');
+			event.preventDefault();
+			$.ajax({
+				url: "/microfeed2/ajax/posts/edit/" + postId,
+				type: "POST",
+				dataType : "json",
+				data : $(this).serialize()
+			})
+			.done(function( json ) {
+				$('#' + json.destinationId).html(json.html);
+				crp.load();
+				mf2.attachEvents();
+			})
+			.fail(function( xhr, status, errorThrown ) {
+				alert( "error" );
+				console.log( "Error: " + errorThrown );
+				console.log( "Status: " + status );
+				console.dir( xhr );
+			});
+		});
+		$('.mf-edit-post-btn').click(function() {
+			var postId = $(this).attr('data-post-id');
+			$('#mf-view-post-'+postId).hide();
+			$('#mf-edit-post-'+postId).show();
+			return false;
+		});
+	}
+	
 	$(document).ready(function() {
 		
-		mf2.loadFeed()
+		mf2.loadFeed();
 		
 	});
 	
 </script>
+
+<style>
+
+.mf-post-block {
+	background-color:white;
+	padding:5px;margin:10px;
+	border-radius:7px;
+}
+
+.mf-post {
+	margin-bottom: 10px;
+}
+
+.mf-post-user-image {
+	min-width:55px;
+	float:left;
+}
+
+.mf-post-user-options {
+	float:right;
+}
+
+.mf-post-meta {
+	border-left: 3px solid #CCCCCC;
+	margin-left: 55px;
+	padding: 3px 0 5px 10px;
+}
+
+.mf-post-body {
+	margin-top: 5px;
+	clear: both;
+}
+
+.mf-post-media {
+	margin:10px -5px 15px -5px;
+	background-color:black;
+	padding:5px;
+}
+
+.mf-comment {
+	border-top:1px solid #B0B0B0; 
+}
+
+.mf-comment-user-image {
+	min-width:45px;
+	float:left;
+}
+
+.mf-comment-user-options {
+	float:right;
+}
+
+
+
+</style>
 
 
 <div class="row">

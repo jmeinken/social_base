@@ -1,6 +1,7 @@
 crp = {}
 
 crp.imageIndex = 0;
+crp.inputIds = [];			// track which elements have already been added
 
 crp.templateEngine = function (templateId, args) {
 	var args = args || {};
@@ -91,6 +92,7 @@ crp.addMultiImageTool = function(inputId) {
 		args2.imgName = existingImages[i];
 		args2.imageIndex = crp.imageIndex;
 		args2.height = '90px';
+		args2.inputId = inputId;
 		if ( crp.aspectRatio == '1:1' ) {
 			args2.width = '90px';
 		} else {
@@ -103,9 +105,14 @@ crp.addMultiImageTool = function(inputId) {
 	$('.remove-image').unbind().click(function() {
 		var previewId = $(this).attr('data-delete-id');
 		var imgName = $('#'+previewId).attr('data-image-name');
-		var imgListStr = $('#'+inputId).val();
+		var matchingInputId = $('#'+previewId).attr('data-input-id');
+		var imgListStr = $('#'+matchingInputId).val();
+		console.log('removing image');
+		console.log(previewId);
+		console.log(imgName);
+		console.log(inputId);
 		imgListStr = imgListStr.replace(imgName,'');
-		$('#'+inputId).val(imgListStr);
+		$('#'+matchingInputId).val(imgListStr);
 		$('#'+previewId).remove();
 	});
 	
@@ -155,6 +162,7 @@ crp.addMultiImageEvents = function(inputId) {
     		args2.imgName = json.name;
     		args2.imageIndex = crp.imageIndex;
     		args2.height = '90px';
+    		args2.inputId = inputId;
     		if ( crp.aspectRatio == '1:1' ) {
     			args2.width = '90px';
     		} else {
@@ -268,14 +276,19 @@ crp.appendCropItTool = function (inputId) {
 	}
 }
 
-
-
-$(document).ready(function() {
-	
+crp.load = function() {
 	$('.image_input').each(function(index) {
 		//create crop-it tool for all image inputs
 		var inputId = $(this).attr('id');
-		crp.appendCropItTool(inputId);
+		if ( $.inArray(inputId, crp.inputIds) ) {
+			crp.appendCropItTool(inputId);
+			crp.inputIds.push(inputId);
+		}
 	});
+}
+
+$(document).ready(function() {
+	crp.load();
+	
 	
 });

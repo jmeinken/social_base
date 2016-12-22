@@ -10,6 +10,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from main.pretty_date import pretty_date
 
+
+
 def replace_url_to_link(value):
     # Replace url to link
     urls = re.compile(r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)", re.MULTILINE|re.UNICODE)
@@ -51,7 +53,13 @@ class Post(TimeStampedModel):
     # COMMENTS: commentId, uid, username, userImage, body, date
     # IMAGES: array of image paths
     
+    #def get_form(self):
+    #    fPost = forms.PostForm(instance=self)
+    #    return fPost
     
+    def get_pretty_date(self):
+        return pretty_date( localtime( self.created ).replace(tzinfo=None) )
+        
     def get_formatted_body(self):
         value = self.body.replace('\n', '<br />')
         value = value.replace(' www.', ' http://www.')
@@ -142,11 +150,17 @@ class PostImage(TimeStampedModel):
     
     class Meta:
         ordering = ['order']
+        
+    def get_image(self):
+        return 'uploads/' + self.image_name
     
 class PostComment(TimeStampedModel):
     user        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post        = models.ForeignKey("Post", on_delete=models.CASCADE)
     body        = models.TextField(max_length=1000, verbose_name=_('body'))
+    
+    def get_pretty_date(self):
+        return pretty_date( localtime( self.created ).replace(tzinfo=None) )
     
     def get_formatted_body(self):
         value = self.body.replace('\n', '<br />')

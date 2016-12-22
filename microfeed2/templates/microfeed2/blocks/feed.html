@@ -1,115 +1,39 @@
-<div id="post-block-18" class="post-block">
-			<div id="post-18">
-  				<div class="post-user-image">
-					<img alt="jmeinken" src="/static/uploads/user_image_70.png" width="50" height="50">
-				</div>
-				<div id="post-user-options-18" class="post-user-options">
-		<div class="btn-group">
-      		<a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-        		<i class="fa fa-angle-down" aria-hidden="true"></i>
-      		</a>
-      		<ul class="dropdown-menu dropdown-menu-right">
-        		<li><a href="#" class="edit-post-btn" data-post-id="18">Edit</a></li>
-       			<li><a href="#" class="delete-post-btn" data-post-id="18">Delete</a></li>
-       		</ul>
-   		</div>
-	</div>
-  				<div class="post-content">
-					<div class="post-meta">
-						<span class="text-success">posted by jmeinken</span><br>
-						<span class="text-muted">26 minutes ago</span>
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% for oPost in qPost %}
+	<div class="mf-post-block">
+		<div class="mf-post" id="mf-post-{{oPost.id}}">
+			{% include 'microfeed2/blocks/post.html' %}
+		</div>
+		<div class="mf-comment-block well well-sm">
+			{% for oComment in oPost.postcomment_set.all %}
+				<div class="mf-comment">
+					<div class="mf-comment-user-image">
+						<img alt="{{oComment.user.get_short_name}}" src="{% static oComment.user.get_image %}" width="40" height="40">
 					</div>
-    				<div id="post-body-18" class="post-body">
-						gfsgfds
+					<div class="mf-comment-user-options">
+						<div class="btn-group">
+							<a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								<i class="fa fa-angle-down" aria-hidden="true"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="#" class="edit-comment-btn" data-comment-id="14">Edit</a></li>
+								<li><a href="#" class="delete-comment-btn" data-comment-id="14">Delete</a></li>
+							</ul>
+						</div>
 					</div>
-					
-				</div>
-				<div id="post-image-thumbnails-block-18">
-		<div class="row" style="margin:0 -5px 15px -5px;background-color:black;padding:5px;">
-			<div class="col-xs-6" style="padding:5px">
-				<div class="post-image-thumbnail-container">
-					<a href="#" class="show-post-image-modal" data-post-id="18">
-						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="/static/uploads/post_image_114.png">
-					</a>
-				</div>
-			</div>
-			<div class="col-xs-6" style="padding:5px">
-				<div class="post-image-thumbnail-container">
-					<a href="#" class="show-post-image-modal" data-post-id="18">
-						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="/static/uploads/post_image_115.png">
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-			</div>
-			<div id="edit-post-18" class="edit-post">
-				<label class="control-label" for="edit-post-form-18">Edit post:</label>
-				<form class="edit-post-form" id="edit-post-form-18" data-post-id="18">
-					<input name="post_id" value="18" type="hidden">
-					<textarea name="body" class="form-control" rows="4">gfsgfds</textarea>
-					<div class="button-align">
-						<button type="button" class="btn btn-sm btn-default cancel-edit-post" data-post-id="18">Cancel</button>
-						<button type="submit" class="btn btn-sm btn-primary">Save</button>
+					<div class="mf-comment-meta">
+						<span class="text-success">{{ oComment.user.get_short_name }}</span>
+						<span class="text-muted"> | {{ oComment.get_pretty_date }}</span>
 					</div>
-				</form>
-			</div>
-			<div id="comment-container-18">
-	
-		<div class="panel panel-default" style="margin-bottom:0;">
-			<div class="panel-footer" style="padding-bottom:3px;">
-				<div id="comments-18" class="comments">
-	<div id="comment-block-14" class="comment-block">
-		<div id="comment-14" class="comment">
-			<div class="comment-user-image">
-				<img alt="jmeinken" src="/static/uploads/user_image_70.png" width="40" height="40">
-			</div>
-			<div id="comment-user-options-14" class="comment-user-options">
-		<div class="btn-group">
-  	    	<a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-  		      	<i class="fa fa-angle-down" aria-hidden="true"></i>
-     	 	</a>
-     	 	<ul class="dropdown-menu dropdown-menu-right">
-     			<li><a href="#" class="edit-comment-btn" data-comment-id="14">Edit</a></li>
-      			<li><a href="#" class="delete-comment-btn" data-comment-id="14">Delete</a></li>
-      		</ul>
-    	</div>
+					<div class="mf-comment-body">
+						{{ oComment.body }}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		
 	</div>
-			<div class="comment-content">
-				<div class="comment-meta">
-					<span class="text-success">jmeinken</span>
-					<span class="text-muted"> | now</span>
-				</div>
-				<div id="comment-body-14" class="comment-body">
-					test
-				</div>
-			</div>
-		</div>
-		<div id="edit-comment-14" class="edit-comment">
-			<label class="control-label" for="edit-comment-form-14">Edit comment:</label>
-			<form class="edit-comment-form" id="edit-comment-form-14" data-comment-id="14">
-				<input name="comment_id" value="14" type="hidden">
-				<textarea name="body" class="form-control" rows="1">test</textarea>
-				<div class="button-align">
-					<button type="button" class="btn btn-sm btn-default cancel-edit-comment" data-comment-id="14">Cancel</button>
-					<button type="submit" class="btn btn-sm btn-primary">Save</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-				<div id="comment-form-block-18">
-	<form class="new-comment-form" id="new-comment-form-18" data-post-id="18">
-		<input name="post_id" value="18" type="hidden">
-		<input name="uid" value="1" type="hidden">
-		<textarea name="body" class="form-control" rows="1" placeholder="Add a comment..."></textarea>
-		<div class="button-align">
-			<button type="submit" class="btn btn-xs btn-primary">Reply</button>
-		</div>
-	</form>
-</div>
-			</div>
-		</div>
-	
-</div>
-		</div>
+{% endfor %}
+

@@ -1,0 +1,72 @@
+{% load static %}
+
+
+{% if oPost.postimage_set.all.count == 1 %}
+	{% for oImage in oPost.postimage_set.all %}
+		<div class="col-sm-6 col-sm-offset-3" style="padding:5px">
+			<div class="post-image-thumbnail-container">
+				<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+					<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
+				</a>
+			</div>
+		</div>
+	{% endfor %}
+{% endif %}
+
+{% if oPost.postimage_set.all.count == 2 %}
+	{% for oImage in oPost.postimage_set.all %}
+		<div class="col-xs-6" style="padding:5px">
+			<div class="post-image-thumbnail-container">
+				<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+					<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
+				</a>
+			</div>
+		</div>
+	{% endfor %}
+{% endif %}
+
+{% if oPost.postimage_set.all.count == 3 %}
+	{% for oImage in oPost.postimage_set.all %}
+		{% if forloop.counter == 1 %}
+			<div class="col-xs-8" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
+					</a>
+				</div>
+			</div>
+		{% else %}
+			<div class="col-xs-4" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
+					</a>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+{% if oPost.postimage_set.all.count >= 4 %}
+	{% for oImage in oPost.postimage_set.all %}
+		{% if forloop.counter == 1 %}
+			<div class="col-xs-8" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
+					</a>
+				</div>
+			</div>
+		{% else %}
+			<div class="col-xs-4" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
+					</a>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+

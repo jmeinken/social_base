@@ -24,9 +24,15 @@ class PostForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         #self.helper.disable_csrf = True
+        oPost = kwargs.get('instance', None)
+        if oPost:
+            css_id  = 'id_images-' + str(oPost.id)
+        else:
+            css_id = 'id_images'
         self.helper.layout = Layout(
             'body',
             Field('images', 
+                id = css_id,
                 css_class = 'image_input',             # tells JS crp tool that this is a crop-it image input
                 data_multiple_allowed = 'yes',        # 
                 data_label = 'User Image',            # give human readable title for image
@@ -37,7 +43,6 @@ class PostForm(forms.ModelForm):
             ),
         )
         super(PostForm, self).__init__(*args, **kwargs)
-        oPost = kwargs.get('instance', None)
         if oPost:
             qPostImages = oPost.postimage_set.all()
             images_str = ''
@@ -62,3 +67,4 @@ class PostForm(forms.ModelForm):
             oPostImage = models.PostImage(post=oPost, image_name=image, order=i)
             oPostImage.save()
             i = i + 1
+        return oPost
