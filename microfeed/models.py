@@ -107,7 +107,7 @@ class Post(TimeStampedModel):
         result['images'] = []
         qPostImage = PostImage.objects.all().filter(post=self)
         for oPostImage in qPostImage:
-            result['images'].append('/static/uploads/post_images/' + oPostImage.image_name)
+            result['images'].append('/static/uploads/' + oPostImage.image_name)
         return result
         
     class Meta:
@@ -138,7 +138,7 @@ class EventPostTime(TimeStampedModel):
 class PostImage(TimeStampedModel):
     post        = models.ForeignKey("Post", on_delete=models.CASCADE)
     image_name  = models.CharField(max_length=30)
-    order       = models.IntegerField()
+    order       = models.IntegerField(blank=True, null=True)
     
     class Meta:
         ordering = ['order']

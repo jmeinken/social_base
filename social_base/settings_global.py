@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'images',
     'email_handler',
     'microfeed',
+    'microfeed2',
     'pages',
     'field_trans'
 ]

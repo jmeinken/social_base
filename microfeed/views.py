@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.timezone import localtime
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from . import models
 from . import functions
@@ -17,6 +18,34 @@ from main.helpers import constants
 def home(request):
     data = "hello world from microfeed"
     return HttpResponse(json.dumps(data), content_type = "application/json")
+
+@login_required
+def new_post_test(request):
+    context = {}
+    form = forms.PostForm()
+    if request.POST:
+        form = forms.PostForm(request.POST)
+        if form.is_valid():
+            oPost = form.save(request.user)
+            messages.success(request, 'Success.')
+            return redirect('home')
+    context['form'] = form
+    return render(request, 'microfeed/new_post_test.html', context)
+
+@login_required
+def edit_post_test(request, post_id):
+    context = {}
+    oPost = models.Post.objects.all().get(pk=post_id)
+    form = forms.PostForm(instance=oPost)
+    if request.POST:
+        form = forms.PostForm(request.POST, instance=oPost)
+        if form.is_valid():
+            oPost = form.save(request.user)
+            messages.success(request, 'Success.')
+            return redirect('home')
+    context['form'] = form
+    return render(request, 'microfeed/new_post_test.html', context)
+    
 
 
 @csrf_exempt

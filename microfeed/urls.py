@@ -8,6 +8,9 @@ urlpatterns = [
     
     url(r'^posts/view/(?P<post_id>[0-9]+)', views.view_post, name='view_post'),
     
+    url(r'^posts/new_test', views.new_post_test, name='new_post_test'),
+    url(r'^posts/edit_test/(?P<post_id>[0-9]+)', views.edit_post_test, name='edit_post_test'),
+    
     url(r'^posts/new', views.new_post, name='new_post'),
     url(r'^posts/edit', views.edit_post, name='edit_post'),
     url(r'^posts/delete', views.delete_post, name='delete_post'),
@@ -21,6 +24,7 @@ urlpatterns = [
     
     url(r'^events/new', views.new_event, name='new_event'),
     url(r'^events/edit/(?P<post_id>[0-9]+)', views.edit_event, name='edit_event'),
+    
     
     # url(r'^javascript_templates', views.javascript_templates, name='javascript_templates'),
 ]

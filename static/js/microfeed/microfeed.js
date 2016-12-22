@@ -203,12 +203,12 @@ mf.appendImageEvents = function() {
 		mf.appendEvents();
 	});
 	
-	$('.remove-image').unbind();
-	$('.remove-image').click(function() {
-		var index = $(this).attr('data-image-index');
-		mf.images.splice(index, 1);
-		$('#image-preview-'+index).remove();
-	});
+	//$('.remove-image').unbind();
+	//$('.remove-image').click(function() {
+	//	var index = $(this).attr('data-image-index');
+	//	mf.images.splice(index, 1);
+	//	$('#image-preview-'+index).remove();
+	//});
 	
 	$('.show-post-image-modal').unbind();
 	$('.show-post-image-modal').click(function() {

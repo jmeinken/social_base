@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^images/', include('images.urls', namespace="images")),
     url(r'^email_handler/', include('email_handler.urls', namespace="email_handler")),
+    url(r'^microfeed2/', include('microfeed2.urls', namespace="microfeed2")),
     url(r'^microfeed/', include('microfeed.urls', namespace="microfeed")),
     url(r'^pages/', include('pages.urls', namespace="pages")),
     url(r'^', include('main.urls')),

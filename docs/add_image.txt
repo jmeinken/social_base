@@ -1,0 +1,78 @@
+
+### ADD AN IMAGE TO YOUR FORM #######################################################
+
+--- 1. Add text input on your model table -------------------------------------------
+
+	image = models.CharField(max_length=30, blank=True, null=True)
+
+	def get_image(self):
+        if self.image:
+            return 'uploads/' + self.image
+        else:
+            return 'img/generic_user.png'
+
+--- 2. Add image to form using Crispy Forms FormHelper ------------------------------
+
+from django import forms
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Div, HTML, Field
+
+class MyForm(forms.ModelForm):
+
+	class Meta:
+        model = MyModel
+        fields = ['image', ...]
+        widgets = {
+            'image' : forms.HiddenInput			# be sure to hide the image input
+        }
+        
+        
+    def __init__(self, *args, **kwargs):
+	    self.helper = FormHelper()
+	    self.helper.form_tag = False
+	    #self.helper.disable_csrf = True
+	    self.helper.layout = Layout(
+            ...
+            Field('image', 
+                css_class = 'image_input', 			# tells JS crp tool that this is a crop-it image input
+                data_label = 'User Image',			# give human readable title for image
+                data_export_zoom = 2,				# set crop-it zoom over original size
+                data_min_zoom = 'fill',				# set min zoom to fill or fit
+                data_aspect_ratio = '1:1'			# currently supported are 1:1 and 4:3
+            ),
+	    )
+	    super(MyForm, self).__init__(*args, **kwargs)
+	    
+--- 3. Add JS to your view ----------------------------------------------------------
+
+<!-- cropit picture tool -->
+<script src="{% static 'js/cropit/jquery.cropit.js' %}"></script>
+  
+<!-- My Images tool based off of CropIt -->
+<script src="{% static 'js/images/images.js' %}"></script>
+<link rel="stylesheet" href="{% static 'js/images/images.css' %}">
+
+----------------------------
+
+{% include 'images/javascript_templates.html' %}
+
+
+--- 4. Display the image somewhere ---------------------------------------------------
+
+<img src="{% static oMyModel.get_image %}" height="30" width="30" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

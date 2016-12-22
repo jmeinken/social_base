@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib import admin
 
 class TimeStampedModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -22,3 +23,12 @@ class Image(TimeStampedModel):
         else:
             base = 'image'
         return base + '_' + str(self.id) + '.png'
+    
+    def __str__(self):
+        return self.get_image_name()
+
+    
+class ImageAdmin(admin.ModelAdmin):
+    pass
+    
+admin.site.register(Image, ImageAdmin)

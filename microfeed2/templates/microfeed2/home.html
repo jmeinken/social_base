@@ -1,0 +1,66 @@
+{% extends "core/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<script>
+	mf2 = {}
+	
+	mf2.postCount = 10;
+	mf2.lastPostId = 0;
+	mf2.thread = 1;
+	
+	mf2.loadFeed = function() {
+		var data = {
+			lastPostId: mf.lastPostId,
+			postCount: mf.postCount,
+			thread: mf.thread
+		}
+		$.ajax({
+			url: "/microfeed2/ajax/posts",
+			type: "GET",
+			dataType : "json",
+			data : data
+		})
+		.done(function( json ) {
+			$('#mf-feed').html(json.html);
+		})
+		.fail(function( xhr, status, errorThrown ) {
+			alert( "error" );
+			console.log( "Error: " + errorThrown );
+			console.log( "Status: " + status );
+			console.dir( xhr );
+		});
+	}
+	
+	$(document).ready(function() {
+		
+		mf2.loadFeed()
+		
+	});
+	
+</script>
+
+
+<div class="row">
+	<div class="col-sm-6  col-sm-offset-3">
+		<div class="well well-sm">
+			<h3>Write a message:</h3>
+			<form method="post">
+				{% crispy fPost fPost.helper %}
+				<button type="submit" class="btn btn-success btn-block" name="account_form">
+					Submit Form
+				</button>
+			</form>	
+		</div>
+		<div id="mf-feed" style="background-color: gray; padding:10px;"></div>
+	</div>
+</div>
+
+
+
+
+{% include 'images/javascript_templates.html' %}
+    
+    
+{% endblock %}

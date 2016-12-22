@@ -14,6 +14,14 @@ crp.templateEngine = function (templateId, args) {
 	return template;
 }
 
+crp.parseImageList = function (inputId) {
+	var listStr = $('#' + inputId).val();
+	result = listStr.split(/[,\s]+/).filter(function(v){return v!==''});
+	return result;
+}
+
+
+
 crp.addCropItModal = function (inputId) {
 	var args = {};
 	args.id = inputId;
@@ -72,6 +80,36 @@ crp.addMultiImageTool = function(inputId) {
 	}
 	var ImagePreviewHTML = crp.templateEngine('multi-image-preview-template', args);
 	$('#'+inputId).after(ImagePreviewHTML);
+	var existingImages = crp.parseImageList(inputId);
+	if (existingImages.length > 0) {
+		$('#' + inputId + '-picture-box').slideDown();
+	}
+	for (var i=0; i<existingImages.length; i++) {
+		console.log(existingImages[i]);
+		var args2 = {}
+		args2.src = UPLOADS_URL_PATH + existingImages[i];
+		args2.imgName = existingImages[i];
+		args2.imageIndex = crp.imageIndex;
+		args2.height = '90px';
+		if ( crp.aspectRatio == '1:1' ) {
+			args2.width = '90px';
+		} else {
+			args2.width = '120px';
+		}
+		var imgHTML = crp.templateEngine('multi-image-image-preview-template', args2);
+		$('#' + inputId + '-picture-box .multi-image-add-new').before(imgHTML);
+		crp.imageIndex++;
+	}
+	$('.remove-image').unbind().click(function() {
+		var previewId = $(this).attr('data-delete-id');
+		var imgName = $('#'+previewId).attr('data-image-name');
+		var imgListStr = $('#'+inputId).val();
+		imgListStr = imgListStr.replace(imgName,'');
+		$('#'+inputId).val(imgListStr);
+		$('#'+previewId).remove();
+	});
+	
+	
 }
 
 crp.addMultiImageEvents = function(inputId) {
@@ -91,7 +129,6 @@ crp.addMultiImageEvents = function(inputId) {
 		var args = {}
 		args.src = imageUri
 		args.imageIndex = crp.imageIndex;
-		crp.imageIndex++;
 		args.height = '90px';
 		if ( crp.aspectRatio == '1:1' ) {
 			args.width = '90px';
@@ -105,19 +142,18 @@ crp.addMultiImageEvents = function(inputId) {
     		url: "/images/upload",
     		data: {
     			image: imageUri,
-    			base_name: 'user_image'
+    			base_name: crp.baseName
     		},
     		type: "POST",
     		dataType : "json",
     	})
     	.done(function( json ) {
-    		console.log('success');
     		newVal = $('#' + inputId).val() + ',' + (json.name);
     		$('#' + inputId).val(newVal);
     		var args2 = {}
     		args2.src = json.path;
     		args2.imgName = json.name;
-    		args2.imageIndex = args.imageIndex;
+    		args2.imageIndex = crp.imageIndex;
     		args2.height = '90px';
     		if ( crp.aspectRatio == '1:1' ) {
     			args2.width = '90px';
@@ -125,7 +161,7 @@ crp.addMultiImageEvents = function(inputId) {
     			args2.width = '120px';
     		}
     		var imgHTML = crp.templateEngine('multi-image-image-preview-template', args2);
-    		$('#' + args.imageIndex + '-image-preview').replaceWith(imgHTML);
+    		$('#' + crp.imageIndex + '-image-preview').replaceWith(imgHTML);
     		$('.remove-image').unbind().click(function() {
     			var previewId = $(this).attr('data-delete-id');
     			var imgName = $('#'+previewId).attr('data-image-name');
@@ -134,6 +170,7 @@ crp.addMultiImageEvents = function(inputId) {
     			$('#'+inputId).val(imgListStr);
     			$('#'+previewId).remove();
     		});
+    		crp.imageIndex++;
     	})
     	.fail(function( xhr, status, errorThrown ) {
     		alert( "error" );
@@ -187,7 +224,7 @@ crp.addSingleImageEvents = function(inputId) {
     		url: "/images/upload",
     		data: {
     			image: imageUri,
-    			base_name: 'user_image'
+    			base_name: crp.baseName
     		},
     		type: "POST",
     		dataType : "json",
@@ -216,6 +253,7 @@ crp.appendCropItTool = function (inputId) {
 	crp.maxZoom = $('#'+inputId).attr('data-max-zoom') || 5;
 	crp.aspectRatio = $('#'+inputId).attr('data-aspect-ratio') || '4:3';
 	crp.multi = ( $('#'+inputId).attr('data-multiple-allowed') === "yes" );
+	crp.baseName = $('#'+inputId).attr('data-base-name') || 'image';
 
 	
 	crp.addCropItModal(inputId);
@@ -239,5 +277,5 @@ $(document).ready(function() {
 		var inputId = $(this).attr('id');
 		crp.appendCropItTool(inputId);
 	});
-
+	
 });
