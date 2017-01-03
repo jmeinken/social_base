@@ -17,7 +17,10 @@ class PostForm(forms.ModelForm):
         model = models.Post
         fields = ['body']
         widgets = {
-          'body': forms.Textarea(attrs={'rows':10, 'cols':30}),
+          'body': forms.Textarea(attrs={'rows':4, 'cols':30}),
+        }
+        labels = {
+          'body': '',
         }
         
     def __init__(self, *args, **kwargs):
@@ -30,12 +33,14 @@ class PostForm(forms.ModelForm):
         else:
             css_id = 'id_images'
         self.helper.layout = Layout(
-            'body',
+            Field('body',
+                placeholder = 'Write a general message...'   
+            ),
             Field('images', 
                 id = css_id,
                 css_class = 'image_input',             # tells JS crp tool that this is a crop-it image input
                 data_multiple_allowed = 'yes',        # 
-                data_label = 'User Image',            # give human readable title for image
+                data_label = '',            # give human readable title for image
                 data_export_zoom = 2,                # set crop-it zoom over original size
                 data_min_zoom = 'fill',                # set min zoom to fill or fit
                 data_aspect_ratio = '4:3',            # currently supported are 1:1 and 4:3
@@ -68,3 +73,36 @@ class PostForm(forms.ModelForm):
             oPostImage.save()
             i = i + 1
         return oPost
+    
+    
+class PostCommentForm(forms.ModelForm):
+    
+    class Meta:
+        model = models.PostComment
+        fields = ['body']
+        widgets = {
+          'body': forms.Textarea(attrs={'rows':1, 'cols':30}),
+        }
+        labels = {
+          'body': '',
+        }
+        
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        #self.helper.disable_csrf = True
+        self.helper.layout = Layout(
+            Field('body',
+                placeholder = 'Add a comment...'   
+            ),
+        )
+        super(PostCommentForm, self).__init__(*args, **kwargs)
+        
+    def save(self, user=None, post_id=None):
+        oPostComment = super(PostCommentForm, self).save(commit=False)
+        if user:
+            oPostComment.user = user
+        if post_id:
+            oPostComment.post_id = post_id
+        oPostComment.save()
+        return oPostComment

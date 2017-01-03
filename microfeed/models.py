@@ -46,7 +46,7 @@ class PostThread(TimeStampedModel):
 # NOTE: You must create the first PostThread before you can add posts
 class Post(TimeStampedModel):
     user        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    body        = models.TextField(max_length=3000, blank=True, null=True, verbose_name=_('body'))
+    body        = models.TextField(max_length=3000, verbose_name=_('body'))
     thread      = models.ForeignKey('PostThread', on_delete=models.CASCADE, default=1)
     
     # POST: postId, uid, username, userImage, body, date, editable

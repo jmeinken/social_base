@@ -200,7 +200,11 @@ crp.addSingleImageTool = function(inputId) {
 	} else {
 		args.defaultSource = $('#'+inputId).attr('data-default-source');
 	}
-	args.label = $('#'+inputId).attr('data-label');
+	if ( $('#'+inputId).attr('data-label') ) {
+		args.label = '<label>' + $('#'+inputId).attr('data-label') + '</label>';
+	} else {
+		args.label = '';
+	}
 	args.modalId = inputId + '-modal';
 	var ImagePreviewHTML = crp.templateEngine('image-preview-template', args);
 	$('#'+inputId).after(ImagePreviewHTML);

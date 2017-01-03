@@ -10,10 +10,12 @@
 			<a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 				<i class="fa fa-angle-down" aria-hidden="true"></i>
 			</a>
-			<ul class="dropdown-menu dropdown-menu-right">
-				<li><a href="#" class="mf-edit-post-btn" data-post-id="{{oPost.id}}">Edit</a></li>
-				<li><a href="#" class="mf-delete-post-btn" data-post-id="{{oPost.id}}">Delete</a></li>
-			</ul>
+			{% if oPost.user == user %}
+				<ul class="dropdown-menu dropdown-menu-right">
+					<li><a href="#" class="mf-edit-post-btn" data-post-id="{{oPost.id}}">Edit</a></li>
+					<li><a href="#" class="mf-delete-post-btn" data-post-id="{{oPost.id}}">Delete</a></li>
+				</ul>
+			{% endif %}
 		</div>
 	</div>
 	<div class="mf-post-meta">
@@ -29,12 +31,4 @@
 			{% include 'microfeed2/blocks/post_image.html' %}
 		</div>
 	{% endif %}
-</div>
-<div class="mf-edit-post" id="mf-edit-post-{{oPost.id}}" style="display:none;">
-	<form method="post" class="mf-edit-post-form" data-post-id="{{oPost.id}}">
-		{% crispy oPost.fPost oPost.fPost.helper %}
-		<button type="submit" class="btn btn-success btn-block" name="submit_form">
-			Submit Form
-		</button>
-	</form>
 </div>
