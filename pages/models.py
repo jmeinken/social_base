@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-
+from django.shortcuts import reverse
 from django.db import models
 from django.conf import settings
 from django.utils.timezone import localtime
@@ -31,6 +31,7 @@ class ActivePageManager(models.Manager):
 
 class PageCategory(TimeStampedModel):
     title             = models.CharField(max_length=255, verbose_name=_('title'),)
+    icon              = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('icon'),)
     parent            = models.ForeignKey("self", blank=True, null=True, related_name='child_set')
     show_as_page      = models.BooleanField(default=False)
     # add_microfeed     = models.BooleanField(default=False)
@@ -38,6 +39,28 @@ class PageCategory(TimeStampedModel):
     
     def __str__(self):
         return self.title
+    
+    def has_category_children(self):
+        qChildren = self.child_set.all().filter(show_as_page=False)
+        if qChildren:
+            return True
+        else:
+            return False
+        
+    def get_hierarchy(self):
+        current_object = self
+        result = [self]
+        while True:
+            if current_object.parent:
+                result.insert(0, current_object.parent)
+                current_object = current_object.parent
+            else:
+                break
+        return result
+    
+    def get_url(self):
+        return reverse('pages:list', args=[self.id])
+        
         
 class Page(TimeStampedModel):
     title           = models.CharField(max_length=255, verbose_name=_('title'),)
@@ -49,7 +72,7 @@ class Page(TimeStampedModel):
     order           = models.IntegerField(default=0, verbose_name=_('order'),)
     category        = models.ForeignKey('PageCategory', on_delete=models.PROTECT)
     visible         = models.BooleanField(default=True)
-    # add_microfeed     = models.BooleanField(default=False)
+    # add_microfeed     = models.BooleanField(default=True)
     post_thread       = models.ForeignKey(PostThread, blank=True, null=True, on_delete=models.SET_NULL)
     
     objects = models.Manager() # The default manager.
@@ -57,6 +80,15 @@ class Page(TimeStampedModel):
     
     def __str__(self):
         return self.title
+    
+    def get_url(self):
+        return reverse('pages:view_page', args=[self.id])
+    
+    def get_hierarchy(self):
+        category = self.category
+        hierarchy = category.get_hierarchy()
+        hierarchy.append(self)
+        return hierarchy
     
     def has_translation(self):
         title = get_translation('page', 'title', self.id)
@@ -109,7 +141,7 @@ class Page(TimeStampedModel):
             return ''
     
     class Meta:
-        ordering = ['order', '-id']
+        ordering = ['order', 'title']
         
         
 class PageImage(TimeStampedModel):

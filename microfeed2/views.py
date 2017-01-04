@@ -162,16 +162,14 @@ def delete_post(request, post_id):
 
 
 
-@login_required
+
 def ajax_posts(request):
     '''Returns the html for a collection of posts.
     '''
     last_post_id = int( request.GET.get('last_post_id', 1000000) )
-    qPost = models.Post.objects.filter(id__lt=last_post_id)[:3]
+    thread_id = int( request.GET.get('thread_id', 1) )
+    qPost = models.Post.objects.filter(thread_id=thread_id).filter(id__lt=last_post_id)[:3]
     # attach forms where appropriate
-    for oPost in qPost:
-        if oPost.user == request.user:
-            oPost.fPost = forms.PostForm(instance=oPost)
     fPostComment = forms.PostCommentForm()
     context = {  
        'qPost' : qPost, 
@@ -181,6 +179,8 @@ def ajax_posts(request):
     html = render_to_string('microfeed2/blocks/feed.html', context, request)
     response = {}
     response['html'] = html
+    modals = render_to_string('microfeed2/blocks/feed_modals.html', {}, request)
+    response['modals'] = modals
     if qPost:
         for oPost in qPost:
             response['lastPostId'] = oPost.id

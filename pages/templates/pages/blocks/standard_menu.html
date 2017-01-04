@@ -1,0 +1,6 @@
+
+{% for oCategory in qCategory %}
+    
+    <a href="{% url 'pages:list' oCategory.id %}">{{ oCategory.icon|default:""|safe }} {{ oCategory.title }}</a><br>
+
+{% endfor %}

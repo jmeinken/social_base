@@ -3,20 +3,60 @@
 
 {% block content %}
 
-	<h1>{{oPage.title}}</h1>
-	
-	{% if oPage.post_thread %}
-		<div class="row">
-			<div class="col-sm-7">
+	<ul class="breadcrumb">	
+		<li><a href="{% url 'home' %}">Home</a></li>
+		{% for obj in hierarchy %}
+			{% if forloop.last %}
+				<li class="active">{{ obj.title }}</li>
+			{% else %}
+				<li><a href="{{ obj.get_url }}">{{ obj.title }}</a></li>
+			{% endif %}
+		{% endfor %}
+	</ul>
 
-				<div id="microfeed-form" data-allow-images="no" data-allow-complex-post-types="no"></div>
-				<div id="microfeed-container" data-user="{{user.id}}" data-allow-comments="no" data-thread="{{oPage.post_thread.id}}" style="background-color:#999999"></div>
-			</div>
+	<h1>{{oPage.title}}</h1>
+
+	<div class="row">
+		<div class="col-sm-9">
+		
+			{{ oPage.body }}
+			
+			
+			<hr>
+			{% if oPage.post_thread %}
+
+				{% include 'microfeed2/blocks/new_post_form.html' %}
+				<div id="mf-feed" data-thread-id="{{oPage.post_thread.id}}" style="background-color: gray; padding:1px 0;"></div>
+				
+				{% comment %}
+				
+				leaving this off is a not very elegant way to prevent images on the page
+				{% include 'images/javascript_templates.html' %}
+				
+				{% endcomment %}
+			{% endif %}
 		</div>
 		
-		{% include 'microfeed/snippets/javascript_templates.html' %}
-		<div id="microfeed-modals"></div>
-	{% endif %}
+		<div class="col-sm-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">Cincinnati Info</div>
+				<div class="panel-body">
+   					{% include 'pages/blocks/standard_menu.html' %}
+				</div>
+			</div>
+			{% if user.is_staff %}
+				<div class="panel panel-warning">
+ 					<div class="panel-heading">Staff Controls</div>
+ 					<div class="panel-body">
+	   					<a href="{% url 'pages:edit_page' oPage.id %}" class="btn btn-warning btn-sm">
+							<i class="fa fa-edit" aria-hidden="true"></i>
+							Edit Page
+						</a>
+ 					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
 
 
 

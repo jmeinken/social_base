@@ -1,0 +1,13 @@
+<ul>
+{% for oCategory in qCategory %}
+    
+    {% if oCategory.has_category_children %}
+    	<li>+ <a href="{% url 'pages:list' oCategory.id %}">{{ oCategory.title }}</a></li>
+        {% with oCategory.child_set.all as qCategory %}
+            {% include 'pages/blocks/recursive_menu.html' %}
+        {% endwith %}    
+    {% else %}
+    	<li><a href="{% url 'pages:list' oCategory.id %}">{{ oCategory.title }}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>

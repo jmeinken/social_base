@@ -15,15 +15,17 @@ class PostForm(forms.ModelForm):
     
     class Meta:
         model = models.Post
-        fields = ['body']
+        fields = ['body', 'thread']
         widgets = {
-          'body': forms.Textarea(attrs={'rows':4, 'cols':30}),
+          'body' : forms.Textarea(attrs={'rows':4, 'cols':30}),
+          'thread' : forms.HiddenInput()
         }
         labels = {
           'body': '',
         }
         
     def __init__(self, *args, **kwargs):
+        print(kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
         #self.helper.disable_csrf = True
@@ -33,6 +35,7 @@ class PostForm(forms.ModelForm):
         else:
             css_id = 'id_images'
         self.helper.layout = Layout(
+            'thread',
             Field('body',
                 placeholder = 'Write a general message...'   
             ),

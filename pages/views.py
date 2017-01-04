@@ -17,12 +17,16 @@ from field_trans.helpers import set_translation, get_verbose_language
 
 from . import models
 from . import forms
+from . import helpers
+from microfeed2.forms import PostForm
 
 
 def list(request, page_category_id):
     context = {}
     oPageCategory = models.PageCategory.objects.get(pk=page_category_id)
+    context['qCategory'] = models.PageCategory.objects.all().filter(parent=None)
     context['oPageCategory'] = oPageCategory
+    context['hierarchy'] = oPageCategory.get_hierarchy()
     return render(request, 'pages/list.html', context)
 
 
@@ -30,8 +34,95 @@ def view_page(request, page_id):
     context = {}
     oPage = models.Page.visible_obj.get(pk=page_id)
     context['oPage'] = oPage
+    context['fPost'] = PostForm(initial={'thread': oPage.post_thread})
+    context['qCategory'] = models.PageCategory.objects.all().filter(parent=None)
+    context['hierarchy'] = oPage.get_hierarchy()
     return render(request, 'pages/page.html', context)
 
+
+@login_required
+def new_page(request):
+    context = {}
+    initial = {}
+    category_id = request.GET.get('category_id', None)
+    if category_id:
+        initial = {'category' : int( category_id ) }
+    form = forms.PageForm(initial=initial)
+    children = [forms.PageLinkFormSet]
+    if request.method == 'POST':
+        form, children, is_valid = helpers.validate_form_with_inlines(form, children, request.POST)
+        if is_valid:
+            oPage = form.save(commit=False)
+            oPage.user = request.user
+            oPage.save()
+            for child in children:
+                child.instance = oPage
+                child.save()
+            messages.success( request, _('Page successfully added.') )
+            return redirect('pages:view_page', page_id=oPage.id)
+    context['form'] = form
+    context['children'] = children
+    return render(request, 'pages/new_page.html', context)
+
+@login_required
+def edit_page(request, page_id):
+    context = {}
+    oPage = get_object_or_404(models.Page, pk=page_id)
+    if not oPage.visible:
+        raise Http404("Page has been deleted.")
+    form = forms.PageForm(instance=oPage)
+    children = [forms.PageLinkFormSet]
+    if request.method == 'POST':
+        form, children, is_valid = helpers.validate_form_with_inlines(form, children, request.POST, oPage)
+        if is_valid:
+            oPage = form.save(commit=False)
+            oPage.user = request.user
+            oPage.save()
+            for child in children:
+                child.instance = oPage
+                child.save()
+            messages.success( request, _('Page successfully edited.') )
+            return redirect('pages:view_page', page_id=oPage.id)
+    else:
+        temp_children = []
+        for child in children:
+            temp_children.append( child(instance=oPage) )
+        children = temp_children
+    context['form'] = form
+    context['children'] = children
+    return render(request, 'pages/new_page.html', context)
+
+
+@login_required
+def new_category(request):
+    context = {}
+    initial = {}
+    parent_id = request.GET.get('parent_id', None )
+    if parent_id:
+        initial = {'parent' : int( parent_id ) }
+    form = forms.PageCategoryForm(initial=initial)
+    if request.POST:
+        form = forms.PageCategoryForm(request.POST)
+        if form.is_valid():
+            oPageCategory = form.save()
+            messages.success(request, 'Success.')
+            return redirect('home')
+    context['form'] = form
+    return render(request, 'pages/new_category.html', context)
+    
+@login_required
+def edit_category(request, category_id):
+    context = {}
+    oPageCategory = models.PageCategory.objects.all().get(pk=category_id)
+    form = forms.PageCategoryForm(instance=oPageCategory)
+    if request.POST:
+        form = forms.PageCategoryForm(request.POST, instance=oPageCategory)
+        if form.is_valid():
+            oPageCategory = form.save()
+            messages.success(request, 'Success.')
+            return redirect('home')
+    context['form'] = form
+    return render(request, 'pages/new_category.html', context)
 
 ### OLD ##########################################################
 
@@ -66,25 +157,7 @@ def home(request):
 
 
 
-@login_required
-def new_page(request):
-    context = {}
-    form = forms.PageForm()
-    children = [forms.PageLinkFormSet]
-    if request.method == 'POST':
-        form, children, is_valid = validate_form_with_inlines(form, children, request.POST)
-        if is_valid:
-            oPage = form.save(commit=False)
-            oPage.user = request.user
-            oPage.save()
-            for child in children:
-                child.instance = oPage
-                child.save()
-            messages.success( request, _('Page successfully added.') )
-            return redirect('pages:page', page_id=oPage.id)
-    context['form'] = form
-    context['children'] = children
-    return render(request, 'pages/new_page.html', context)
+
 
 @csrf_exempt
 def delete_page(request):
@@ -96,33 +169,7 @@ def delete_page(request):
     return redirect('home')
 
 
-@login_required
-def edit_page(request, page_id):
-    context = {}
-    oPage = get_object_or_404(models.Page, pk=page_id)
-    if not oPage.visible:
-        raise Http404("Page has been deleted.")
-    form = forms.PageForm(instance=oPage)
-    children = [forms.PageLinkFormSet]
-    if request.method == 'POST':
-        form, children, is_valid = validate_form_with_inlines(form, children, request.POST, oPage)
-        if is_valid:
-            oPage = form.save(commit=False)
-            oPage.user = request.user
-            oPage.save()
-            for child in children:
-                child.instance = oPage
-                child.save()
-            messages.success( request, _('Page successfully edited.') )
-            return redirect('pages:page', page_id=oPage.id)
-    else:
-        temp_children = []
-        for child in children:
-            temp_children.append( child(instance=oPage) )
-        children = temp_children
-    context['form'] = form
-    context['children'] = children
-    return render(request, 'pages/new_page.html', context)
+
 
 @login_required
 def translate_page(request, page_id):

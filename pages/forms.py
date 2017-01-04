@@ -9,6 +9,7 @@ from crispy_forms.layout import Layout, Div, HTML
 
 
 from . import models
+from microfeed.models import PostThread
 
 
 
@@ -20,6 +21,19 @@ class PageForm(forms.ModelForm):
         widgets = {
           'body': forms.Textarea(attrs={'rows':25, 'cols':30}),
         }
+    
+    def save(self, commit=True):
+        oPage = super(PageForm, self).save(commit=False)
+        # create and attach a comment thread
+        oPostThread = PostThread(title=oPage.title)
+        oPostThread.allow_comments = False
+        oPostThread.save()
+        oPage.post_thread = oPostThread
+        if commit:
+            oPage.save()
+        return oPage
+       
+        
  
         
 class PageLinkForm(forms.ModelForm):
@@ -33,8 +47,8 @@ class PageLinkForm(forms.ModelForm):
         self.helper.layout = Layout(
             HTML('<div class="' + self.css_class + ' row">'),
             'id',
-            Div('title', css_class="col-sm-3"),
-            Div('url', css_class="col-sm-3"),
+            Div('title', css_class="col-sm-5"),
+            Div('url', css_class="col-sm-5"),
             'DELETE',
             HTML('</div>')
         )
@@ -47,6 +61,24 @@ class PageLinkForm(forms.ModelForm):
 PageLinkFormSet = inlineformset_factory( models.Page, models.PageLink, form=PageLinkForm, extra=2 )
 PageLinkFormSet.title = _('Page Links')
 PageLinkFormSet.css_class = 'page-link-form'
+
+
+class PageCategoryForm(forms.ModelForm):
+    class Meta:
+        model = models.PageCategory
+        fields = ['parent', 'title','show_as_page']
+    
+    def save(self, commit=True):
+        oPageCategory = super(PageCategoryForm, self).save(commit=False)
+        # create and attach a comment thread
+        if oPageCategory.show_as_page:
+            oPostThread = PostThread(title=oPageCategory.title)
+            oPostThread.allow_comments = False
+            oPostThread.save()
+            oPageCategory.post_thread = oPostThread
+        if commit:
+            oPageCategory.save()
+        return oPageCategory
 
 
 #class PageImageForm(forms.ModelForm):

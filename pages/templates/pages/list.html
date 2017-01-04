@@ -4,40 +4,93 @@
 
 
 {% block content %}
+
+	<ul class="breadcrumb">	
+		<li><a href="{% url 'home' %}">Home</a></li>
+		{% for obj in hierarchy %}
+			{% if forloop.last %}
+				<li class="active">{{ obj.title }}</li>
+			{% else %}
+				<li><a href="{{ obj.get_url }}">{{ obj.title }}</a></li>
+			{% endif %}
+		{% endfor %}
+	</ul>
 	
 	
 	<h1>{{oPageCategory.title}}</h1>
 	
 	
-    {% for oChild in oPageCategory.child_set.all %}
-    	<a href="{% url 'pages:list' oChild.id %}">{{oChild.title}}</a><br>
-    {% endfor %}
+    
     
     <hr>
     
-    {% if oPageCategory.show_as_page %}
-    	show as page<br>
-	    {% for oPage in oPageCategory.page_set.all %}
-	    	{{ oPage.title }}<br>
-	    {% endfor %}
-	{% else %}
-		show as category<br>
-		{% for oPage in oPageCategory.page_set.all %}
-	    	<a href="{% url 'pages:view_page' oPage.id %}">{{ oPage.title }}</a><br>
-	    {% endfor %}
-	{% endif %}
+    
 	
-	{% if oPageCategory.post_thread %}
+	
 		<div class="row">
-			<div class="col-sm-7">
-				<div id="microfeed-form" data-allow-images="no" data-allow-complex-post-types="no"></div>
-				<div id="microfeed-container" data-user="{{user.id}}" data-thread="{{oPageCategory.post_thread.id}}" style="background-color:#999999"></div>
+			<div class="col-sm-9">
+				{% for oChild in oPageCategory.child_set.all %}
+					<div class="well">
+			    		<h2><a href="{% url 'pages:list' oChild.id %}">{{oChild.title}}</a></h2>
+			    	</div>
+			    {% endfor %}
+			    
+				{% if oPageCategory.show_as_page %}
+				    {% for oPage in oPageCategory.page_set.all %}
+				    	<div class="well">
+				    		<h3>{{ oPage.title }}</h3>
+				    		{{ oPage.body }}
+				    	</div>
+				    {% endfor %}
+				    
+				{% else %}<!-- show as category -->
+					{% for oPage in oPageCategory.page_set.all %}
+						<div class="well">
+				    		<h3><a href="{% url 'pages:view_page' oPage.id %}">{{ oPage.title }}</a></h3>
+				    		{{ oPage.teaser }}
+				    		<div style="text-align:right">
+				    			<a href="{% url 'pages:view_page' oPage.id %}">more...</a>
+				    		</div>
+				    	</div>
+				    {% endfor %}
+				{% endif %}
+				
+				<hr>thread goes here if set
 			</div>
+			
+			<div class="col-sm-3">
+				<div class="panel panel-default">
+  					<div class="panel-heading">Cincinnati Info</div>
+  					<div class="panel-body">
+    					{% include 'pages/blocks/standard_menu.html' %}
+  					</div>
+				</div>
+				{% if user.is_staff %}
+					<div class="panel panel-warning">
+	 					<div class="panel-heading">Staff Controls</div>
+	 					<div class="panel-body">
+		   					<a href="{% url 'pages:edit_category' oPageCategory.id %}" class="btn btn-warning btn-sm">
+								<i class="fa fa-edit" aria-hidden="true"></i>
+								Edit Category
+							</a><br><br>
+							<a href="{% url 'pages:new_category' %}?parent_id={{oPageCategory.id}}" class="btn btn-warning btn-sm">
+								<i class="fa fa-plus" aria-hidden="true"></i>
+								Add New Category
+							</a><br><br>
+							<a href="{% url 'pages:new_page' %}?category_id={{oPageCategory.id}}" class="btn btn-warning btn-sm">
+								<i class="fa fa-plus" aria-hidden="true"></i>
+								Add New Page
+							</a>
+	 					</div>
+					</div>
+				{% endif %}
+			</div>
+			
 		</div>
 		
-		{% include 'microfeed/snippets/javascript_templates.html' %}
-		<div id="microfeed-modals"></div>
-	{% endif %}
+
+
+
 
 	
 	

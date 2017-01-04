@@ -4,24 +4,27 @@
 	<div class="mf-post" id="mf-post-{{oPost.id}}">
 		{% include 'microfeed2/blocks/post.html' %}
 	</div>
-	<div class="mf-comment-block well well-sm">
-		<div class="mf-post-comment-list" id="mf-post-comment-list-{{oPost.id}}">
-			{% for oComment in oPost.postcomment_set.all %}
-				<div class="mf-comment" id="mf-comment-{{oComment.id}}">
-					{% include 'microfeed2/blocks/comment.html' %}
-				</div>
-			{% endfor %}
+	
+	{% if oPost.thread.allow_comments %}
+		<div class="mf-comment-block well well-sm">
+			<div class="mf-post-comment-list" id="mf-post-comment-list-{{oPost.id}}">
+				{% for oComment in oPost.postcomment_set.all %}
+					<div class="mf-comment" id="mf-comment-{{oComment.id}}">
+						{% include 'microfeed2/blocks/comment.html' %}
+					</div>
+				{% endfor %}
+			</div>
+			<div class="mf-new-comment">
+				<form method="post" class="mf-new-comment-form" id="mf-new-comment-form-{{oPost.id}}" data-post-id="{{oPost.id}}">
+					{% crispy fPostComment fPostComment.helper %}
+					<div style="text-align:right;margin-top:-10px">
+						<button type="submit" class="btn btn-primary btn-xs" name="submit_form">
+							Reply
+						</button>
+					</div>
+				</form>
+			</div>
 		</div>
-		<div class="mf-new-comment">
-			<form method="post" class="mf-new-comment-form" id="mf-new-comment-form-{{oPost.id}}" data-post-id="{{oPost.id}}">
-				{% crispy fPostComment fPostComment.helper %}
-				<div style="text-align:right;margin-top:-10px">
-					<button type="submit" class="btn btn-primary btn-xs" name="submit_form">
-						Reply
-					</button>
-				</div>
-			</form>
-		</div>
-	</div>
+	{% endif %}
 	
 </div>

@@ -2,46 +2,38 @@
 
 {% block content %}
     
-    <h1>HOME</h1>
     <div class="row">
-    	<div class="col-sm-4">
-    		<div class="well">
-				{% for oCat in qPageCategory %}
-					<a href="{% url 'pages:list' oCat.id %}">{{ oCat.title }}</a><br>
-				{% endfor %}
-			</div>
-			<input class="image_input" 
-					data-aspect-ratio="4:3" 
-					data-export-zoom="2" 
-					data-label="User Image" 
-					data-min-zoom="fit" 
-					id="id_image" 
-					maxlength="30" 
-					name="image" 
-					value="user_image_70.png" 
-					type="text"
-					data-multiple-allowed="yes"
-					data-button-template="test-button-template"
-					data-image-container="test-image-container"
-					data-uploads-url="{{ constants.UPLOADS_URL_PATH }}" />
-			<hr>
-			<div id="test-image-container"></div>
-		</div>
+    	
+		
 		<div class="col-sm-7">
-			<div id="microfeed-form" data-allow-images="yes" data-allow-complex-post-types="yes"></div>
-			<div style="background-color:#999999; display: inline-block;padding: 10px 15px;color:#fff;">Messages</div>
-			<div id="microfeed-container" data-user="{{user.id|default:0}}" data-allow-comments="yes" data-thread="1" style="background-color:#999999"></div>
+			{% include 'microfeed2/blocks/new_post_form.html' %}
+			<div style="background-color:gray;color: white;display:inline-block; padding:10px 12px;">Messages</div>
+			<div id="mf-feed" data-thread-id="1" style="background-color: gray; padding:1px 0;"></div>
 		</div>
+		
+		<div class="col-sm-3 col-sm-offset-2">
+			<div class="panel panel-default">
+ 					<div class="panel-heading">Cincinnati Info</div>
+ 					<div class="panel-body">
+   					{% include 'pages/blocks/standard_menu.html' %}
+ 					</div>
+			</div>
+			{% if user.is_staff %}
+				<div class="panel panel-warning">
+ 					<div class="panel-heading">Staff Controls</div>
+ 					<div class="panel-body">
+						<a href="{% url 'pages:new_category' %}" class="btn btn-warning btn-sm">
+							<i class="fa fa-plus" aria-hidden="true"></i>
+							Add New Category
+						</a>
+ 					</div>
+				</div>
+			{% endif %}
+		</div>
+		
 	</div>
 	
-	
-	<script type="text/template" id="test-button-template">
-		<button class="btn btn-warning" id="id_image-show-picture-box">My new button</button>
-	</script>
-	
-	
-	{% include 'microfeed/snippets/javascript_templates.html' %}
-	<div id="microfeed-modals"></div>
+
 	
 	{% include 'images/javascript_templates.html' %}
     

@@ -8,13 +8,15 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 
 from . import forms
+from microfeed2.forms import PostForm
 
 from pages.models import PageCategory
 
 
 def home(request):
     context = {}
-    context['qPageCategory'] = PageCategory.objects.all().filter(parent=None)
+    context['qCategory'] = PageCategory.objects.all().filter(parent=None)
+    context['fPost'] = PostForm(initial={'thread': 1})
     return render(request, 'main/home.html', context)
 
 @login_required
