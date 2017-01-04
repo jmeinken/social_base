@@ -132,12 +132,19 @@ def edit_post(request, post_id):
                 return render(request, 'microfeed2/edit_post.html', context)
             
 @login_required
+@csrf_exempt
 def delete_post(request, post_id):
+    context = {}        # context for rendering views
+    response = {}       # json response object
+    
     if request.POST:        # nothing actually needs to be sent in the post, just used to prevent accidental deleting
         oPost = models.Post.objects.get(pk=post_id)
         oPost.delete()
         if request.is_ajax():
-            response['status'] = 'Successfully deleted.'
+            context['message'] = 'Post successfully deleted.'
+            response['html'] = render_to_string('microfeed2/snippets/delete_confirmation.html', context, request)
+            response['status'] = 'success'
+            response['destinationId'] = 'mf-post-block-' + str(post_id)
             return JsonResponse(response, safe=False)
         else:
             messages.success(request, 'Successfully deleted.')
@@ -159,7 +166,8 @@ def delete_post(request, post_id):
 def ajax_posts(request):
     '''Returns the html for a collection of posts.
     '''
-    qPost = models.Post.objects.all()[:3]
+    last_post_id = int( request.GET.get('last_post_id', 1000000) )
+    qPost = models.Post.objects.filter(id__lt=last_post_id)[:3]
     # attach forms where appropriate
     for oPost in qPost:
         if oPost.user == request.user:
@@ -167,11 +175,18 @@ def ajax_posts(request):
     fPostComment = forms.PostCommentForm()
     context = {  
        'qPost' : qPost, 
-       'fPostComment' : fPostComment
+       'fPostComment' : fPostComment,
+       'last_post_id' : last_post_id
     }
     html = render_to_string('microfeed2/blocks/feed.html', context, request)
     response = {}
     response['html'] = html
+    if qPost:
+        for oPost in qPost:
+            response['lastPostId'] = oPost.id
+        response['status'] = 'unfinished'
+    else:
+        response['status'] = 'finished'
     return JsonResponse(response, safe=False)
 
 @login_required

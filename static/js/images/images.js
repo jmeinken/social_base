@@ -58,12 +58,12 @@ crp.addCropItModalEvents = function(inputId) {
 		}
 	}
 	
-	$(editorId).cropit(conf);
+	$(editorId).unbind().cropit(conf);
 	
-    $(editorId + ' .rotate-cw').click(function() {
+    $(editorId + ' .rotate-cw').unbind().click(function() {
     	$(editorId).cropit('rotateCW');
     });
-    $(editorId + ' .rotate-ccw').click(function() {
+    $(editorId + ' .rotate-ccw').unbind().click(function() {
 		$(editorId).cropit('rotateCCW');
     });
 }
@@ -121,17 +121,17 @@ crp.addMultiImageTool = function(inputId) {
 
 crp.addMultiImageEvents = function(inputId) {
 	var editorId = '#' + inputId + '-image-editor'
-	$('#' + inputId + '-remove-image').click(function() {
+	$('#' + inputId + '-remove-image').unbind().click(function() {
 		$('#' + inputId).val('');
 		$('#' + inputId + '-preview').attr('src', '');
 		$('#' + inputId + '-preview').hide();
 		$('#' + inputId + '-remove-image').hide();
 		$('#' + inputId + '-modal').modal('hide');
 	});
-	$('#' + inputId + '-show-picture-box').click(function() {
+	$('#' + inputId + '-show-picture-box').unbind().click(function() {
 		$('#' + inputId + '-picture-box').slideDown();
 	});
-	$('#' + inputId + '-upload-image').click(function() {
+	$('#' + inputId + '-upload-image').unbind().click(function() {
 		var imageUri = $(editorId).cropit('export');
 		var args = {}
 		args.src = imageUri
@@ -219,14 +219,14 @@ crp.addSingleImageEvents = function(inputId) {
 	var args = {};
 	args.id = inputId;
 	var editorId = '#' + inputId + '-image-editor'
-	$('#' + inputId + '-remove-image').click(function() {
+	$('#' + inputId + '-remove-image').unbind().click(function() {
 		$('#' + inputId).val('');
 		$('#' + inputId + '-preview').attr('src', '');
 		$('#' + inputId + '-preview').hide();
 		$('#' + inputId + '-remove-image').hide();
 		$('#' + inputId + '-modal').modal('hide');
 	});
-	$('#' + inputId + '-upload-image').click(function() {
+	$('#' + inputId + '-upload-image').unbind().click(function() {
     	var imageUri = $(editorId).cropit('export');
     	$('#' + inputId + '-preview').attr('src', imageUri).css({ opacity: 0.3 }).show();
     	var loadingIconHTML = crp.templateEngine('loading-icon-template', args);
