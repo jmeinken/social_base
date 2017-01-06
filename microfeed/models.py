@@ -48,7 +48,7 @@ class Post(TimeStampedModel):
     user        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     body        = models.TextField(max_length=3000, verbose_name=_('body'))
     thread      = models.ForeignKey('PostThread', on_delete=models.CASCADE, default=1)
-    title       = models.TextField(max_length=120, blank=True, null=True, verbose_name=_('title'))
+    title       = models.CharField(max_length=120, blank=True, null=True, verbose_name=_('title'))
     
     # POST: postId, uid, username, userImage, body, date, editable
     # COMMENTS: commentId, uid, username, userImage, body, date
@@ -66,6 +66,14 @@ class Post(TimeStampedModel):
         value = value.replace(' www.', ' http://www.')
         value = replace_url_to_link(value)
         return value
+    
+    def get_form_type(self):
+        if self.title:
+            return 'classified'
+        if hasattr(self, 'eventpost'):
+            return 'event'
+        else:
+            return 'general'
     
     def objectify(self, currentUid):
         result = {}

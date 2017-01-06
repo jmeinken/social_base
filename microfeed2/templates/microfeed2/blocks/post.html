@@ -6,17 +6,17 @@
 		<img alt="{{oPost.user.get_short_name}}" src="{% static oPost.user.get_image %}" width="50" height="50">
 	</div>
 	<div class="mf-post-user-options">
-		<div class="btn-group">
-			<a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-				<i class="fa fa-angle-down" aria-hidden="true"></i>
-			</a>
-			{% if oPost.user == user %}
+		{% if oPost.user == user %}
+			<div class="btn-group">
+				<a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					<i class="fa fa-angle-down" aria-hidden="true"></i>
+				</a>
 				<ul class="dropdown-menu dropdown-menu-right">
 					<li><a href="#" class="mf-edit-post-btn" data-post-id="{{oPost.id}}">Edit</a></li>
 					<li><a href="#" class="mf-delete-post-btn" data-post-id="{{oPost.id}}">Delete</a></li>
 				</ul>
-			{% endif %}
-		</div>
+			</div>
+		{% endif %}
 	</div>
 	<div class="mf-post-meta">
 		<span class="text-success">posted by {{ oPost.user.get_full_name }}</span><br>
@@ -24,6 +24,12 @@
 	</div>
 	
 	<div class="mf-post-body">
+		{% if oPost.title %}
+			<div class="text-warning" style="font-size:1.4em;font-weight:bold; padding: 5px 0;">
+				<i class="fa fa-bell fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;
+				<span>{{ oPost.title }}</span>
+			</div>
+		{% endif %}
 		{{ oPost.body }}
 	</div>
 	{% if oPost.postimage_set.all.count > 0 %}

@@ -5,15 +5,17 @@
 		<img alt="{{oComment.user.get_short_name}}" src="{% static oComment.user.get_image %}" width="40" height="40">
 	</div>
 	<div class="mf-comment-user-options">
-		<div class="btn-group">
-			<a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-				<i class="fa fa-angle-down" aria-hidden="true"></i>
-			</a>
-			<ul class="dropdown-menu dropdown-menu-right">
-				<li><a href="#" class="mf-edit-comment-btn" data-comment-id="{{oComment.id}}">Edit</a></li>
-				<li><a href="#" class="mf-delete-comment-btn" data-comment-id="{{oComment.id}}">Delete</a></li>
-			</ul>
-		</div>
+		{% if oComment.user == user %}
+			<div class="btn-group">
+				<a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					<i class="fa fa-angle-down" aria-hidden="true"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-right">
+					<li><a href="#" class="mf-edit-comment-btn" data-comment-id="{{oComment.id}}">Edit</a></li>
+					<li><a href="#" class="mf-delete-comment-btn" data-comment-id="{{oComment.id}}">Delete</a></li>
+				</ul>
+			</div>
+		{% endif %}
 	</div>
 	<div class="mf-comment-meta">
 		<span class="text-success">{{ oComment.user.get_short_name }}</span>

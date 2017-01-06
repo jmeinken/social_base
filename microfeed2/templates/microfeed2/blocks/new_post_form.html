@@ -32,8 +32,16 @@
 				</div>
 		    </div>
 		    <div id="classified" class="tab-pane fade">
-		      	<h3>Menu 2</h3>
-		      	<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+		      	<div class="mf-new-post">
+					<form method="post" class="mf-new-post-form" action="{{callback}}">
+						{% crispy fPostClassified fPostClassified.helper %}
+						<div style="text-align:right;">
+							<button type="submit" class="btn btn-success" name="submit_form">
+								Share
+							</button>
+						</div>
+					</form>
+				</div>
 		    </div>
 		    <div id="event" class="tab-pane fade">
 		      	<h3>Menu 3</h3>
@@ -45,7 +53,7 @@
 	
 {% else %}
 
-	<div class="well">
+	<div class="well text-muted">
 		<a href="{% url 'login' %}">Login</a> or <a href="{% url 'create_account' %}">create an account</a> to post.
 	</div>
 

@@ -22,10 +22,11 @@
 			{{ oPage.body }}
 			
 			
-			<hr>
+			
 			{% if oPage.post_thread %}
-
-				{% include 'microfeed2/blocks/new_post_form.html' %}
+				<hr>
+				<h4>COMMENTS:</h4>
+				{% include 'microfeed2/blocks/new_comment_style_post.html' %}
 				<div id="mf-feed" data-thread-id="{{oPage.post_thread.id}}" style="background-color: gray; padding:1px 0;"></div>
 				
 				{% comment %}

@@ -1,0 +1,28 @@
+{% load crispy_forms_tags %}
+
+
+{% if user.is_authenticated %}
+
+	<div class="well">
+	
+		<div class="mf-new-post">
+			<form method="post" class="mf-new-post-form" action="{{callback}}">
+				{% crispy fPost fPost.helper %}
+				<div style="text-align:right;">
+					<button type="submit" class="btn btn-success" name="submit_form">
+						Share
+					</button>
+				</div>
+			</form>
+		</div>
+		
+	</div>
+	
+{% else %}
+
+	<div class="well text-muted">
+		<a href="{% url 'login' %}">Login</a> or <a href="{% url 'create_account' %}">create an account</a> to post.
+	</div>
+
+{% endif %}
+

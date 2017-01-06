@@ -33,6 +33,24 @@
 			$('#mf-load-more-posts-btn').click(function() {
 				mf2.loadFeed();
 			});
+			$('#mf-confirm-delete-post-btn').click(function() {
+				$.ajax({
+					url: "/microfeed2/posts/delete/" + mf2.postIdToDelete,
+					type: "POST",
+					dataType : "json",
+					data : {dummy : 'nothing'}
+				})
+				.done(function( json ) {
+					$('#' + json.destinationId).replaceWith(json.html);
+				})
+				.fail(function( xhr, status, errorThrown ) {
+					alert( "error" );
+					console.log( "Error: " + errorThrown );
+					console.log( "Status: " + status );
+					console.dir( xhr );
+				});
+				$('#mf-delete-post-modal').modal('hide');
+			});
 		})
 		.fail(function( xhr, status, errorThrown ) {
 			alert( "error" );
@@ -53,7 +71,8 @@
 			})
 			.done(function( json ) {
 				$('#mf-feed').prepend(json.html);
-				$('.mf-new-post-form #id_body').val('');
+				// $('.mf-new-post-form').find("input[type=text], textarea").val("");
+				$('.mf-new-post-form').trigger('reset');
 				mf2.attachEvents();
 			})
 			.fail(function( xhr, status, errorThrown ) {
@@ -214,24 +233,7 @@
 		mf2.threadId = $('#mf-feed').attr('data-thread-id');
 		mf2.loadFeed();
 		
-		$('#mf-confirm-delete-post-btn').click(function() {
-			$.ajax({
-				url: "/microfeed2/posts/delete/" + mf2.postIdToDelete,
-				type: "POST",
-				dataType : "json",
-				data : {dummy : 'nothing'}
-			})
-			.done(function( json ) {
-				$('#' + json.destinationId).replaceWith(json.html);
-			})
-			.fail(function( xhr, status, errorThrown ) {
-				alert( "error" );
-				console.log( "Error: " + errorThrown );
-				console.log( "Status: " + status );
-				console.dir( xhr );
-			});
-			$('#mf-delete-post-modal').modal('hide');
-		});
+		
 		
 		
 		

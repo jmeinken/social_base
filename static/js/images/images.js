@@ -284,7 +284,7 @@ crp.load = function() {
 	$('.image_input').each(function(index) {
 		//create crop-it tool for all image inputs
 		var inputId = $(this).attr('id');
-		if ( $.inArray(inputId, crp.inputIds) ) {
+		if ( $.inArray(inputId, crp.inputIds) === -1 ) {
 			crp.appendCropItTool(inputId);
 			crp.inputIds.push(inputId);
 		}

@@ -18,7 +18,7 @@ from field_trans.helpers import set_translation, get_verbose_language
 from . import models
 from . import forms
 from . import helpers
-from microfeed2.forms import PostForm
+from microfeed2.forms import get_post_form
 
 
 def list(request, page_category_id):
@@ -32,6 +32,7 @@ def list(request, page_category_id):
 
 def view_page(request, page_id):
     context = {}
+    PostForm = get_post_form()
     oPage = models.Page.visible_obj.get(pk=page_id)
     context['oPage'] = oPage
     context['fPost'] = PostForm(initial={'thread': oPage.post_thread})

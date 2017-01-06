@@ -22,7 +22,8 @@ def home(request):
 @login_required
 def home2(request):
     context = {}
-    context['fPost'] = forms.PostForm()
+    PostForm = forms.get_post_form()
+    context['fPost'] = PostForm()
     context['callback'] = reverse('microfeed2:new_post')
     return render(request, 'microfeed2/home2.html', context)
 
@@ -45,20 +46,23 @@ def new_post(request):
     context = {}        # context for rendering views
     response = {}       # json response object
     
+    
     ### return blank form if not post ###
     if not request.POST:
+        PostForm = forms.get_post_form( request.GET.get('form_type', None) )
         # set up context
-        context['fPost'] = forms.PostForm()
+        context['fPost'] = PostForm()
         context['callback'] = reverse('microfeed2:new_post')
         if request.is_ajax():
-            response['html'] = render_to_string('microfeed2/blocks/post_form.html', context, request)
+            response['html'] = render_to_string('microfeed2/blocks/new_post_form.html', context, request)
             return JsonResponse(response, safe=False)
         else:
             return render(request, 'microfeed2/new_post.html', context)
         
     ### return form with errors or confirmation
     else:
-        fPost = forms.PostForm(request.POST)
+        PostForm = forms.get_post_form( request.POST.get('form_type', None) )
+        fPost = PostForm(request.POST)
         
         ### return confirmation
         if fPost.is_valid():
@@ -78,7 +82,7 @@ def new_post(request):
             context['form'] = fPost
             if request.is_ajax():
                 context['callback'] = reverse('microfeed2:new_post')
-                response['html'] = render_to_string('microfeed2/blocks/post_form.html', context, request)
+                response['html'] = render_to_string('microfeed2/blocks/new_post_form.html', context, request)
                 return JsonResponse(response, safe=False)
             else:
                 return render(request, 'microfeed2/new_post.html', context)
@@ -87,12 +91,15 @@ def new_post(request):
 def edit_post(request, post_id):
     context = {}        # context for rendering views
     response = {}       # json response object
+    
+    
     oPost = models.Post.objects.get(pk=post_id)
+    PostForm = forms.get_post_form(oPost.get_form_type())
     
     ### return blank form if not post ###
     if not request.POST:
         # set up context
-        context['fPost'] = forms.PostForm(instance=oPost)
+        context['fPost'] = PostForm(instance=oPost)
         context['callback'] = reverse('microfeed2:edit_post', args=[post_id])
         context['oPost'] = oPost
         if request.is_ajax():
@@ -104,7 +111,7 @@ def edit_post(request, post_id):
         
     ### return form with errors or confirmation
     else:
-        fPost = forms.PostForm(request.POST, instance=oPost)
+        fPost = PostForm(request.POST, instance=oPost)
         
         ### return confirmation
         if fPost.is_valid():
