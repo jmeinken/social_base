@@ -79,7 +79,8 @@ def new_post(request):
             
         ### return form with errors
         else:
-            context['form'] = fPost
+            context['fPost'] = fPost
+            context['fPostClassified'] = fPost
             if request.is_ajax():
                 context['callback'] = reverse('microfeed2:new_post')
                 response['html'] = render_to_string('microfeed2/blocks/new_post_form.html', context, request)
@@ -175,7 +176,7 @@ def ajax_posts(request):
     '''
     last_post_id = int( request.GET.get('last_post_id', 1000000) )
     thread_id = int( request.GET.get('thread_id', 1) )
-    qPost = models.Post.objects.filter(thread_id=thread_id).filter(id__lt=last_post_id)[:3]
+    qPost = models.Post.objects.filter(thread_id=thread_id).filter(id__lt=last_post_id)[:10]
     # attach forms where appropriate
     fPostComment = forms.PostCommentForm()
     context = {  
