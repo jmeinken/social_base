@@ -1,13 +1,22 @@
 import re
 
+# constants = {}
+# constants['TITLE'] = 'Social Base'
+# constants['LOGO'] = '<i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>'
+# constants['CONTACT_EMAIL'] = 'info@cincinnati-jouhou.com'
+# constants['UPLOADS_DIRECTORY'] = '/home/ubuntu/django/social-base-env/social_base/static/uploads/'
+# constants['UPLOADS_URL_PATH'] = '/static/uploads/'
+# constants['LOGS_DIRECTORY'] = '/home/ubuntu/django/social-base-env/social_base/logs/'
+# constants['BASE_URL'] = 'http://johnmeinken.com'
+
 constants = {}
-constants['TITLE'] = 'Social Base'
+constants['TITLE'] = 'Cincinnati Jouhou'
 constants['LOGO'] = '<i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>'
 constants['CONTACT_EMAIL'] = 'info@cincinnati-jouhou.com'
-constants['UPLOADS_DIRECTORY'] = '/home/ubuntu/django/social-base-env/social_base/static/uploads/'
+constants['UPLOADS_DIRECTORY'] = '/home/ubuntu/django/cincinnati-env/cincinnati-jouhou/static/uploads/'
 constants['UPLOADS_URL_PATH'] = '/static/uploads/'
-constants['LOGS_DIRECTORY'] = '/home/ubuntu/django/social-base-env/social_base/logs/'
-constants['BASE_URL'] = 'http://johnmeinken.com'
+constants['LOGS_DIRECTORY'] = '/home/ubuntu/django/cincinnati-env/cincinnati-jouhou/logs/'
+constants['BASE_URL'] = 'http://cincinnati-jouhou.com'
 
 
 def get_constants(request=None):
