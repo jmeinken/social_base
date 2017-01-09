@@ -1,5 +1,6 @@
 {% load crispy_forms_tags %}
-{% load static %}		
+{% load static %}	
+{% load mycustom %}	
 	
 <div class="mf-view-post" id="mf-view-post-{{oPost.id}}">			
 	<div class="mf-post-user-image">
@@ -30,7 +31,7 @@
 				<span>{{ oPost.title }}</span>
 			</div>
 		{% endif %}
-		{{ oPost.body }}
+		{{ oPost.body|pretty_html|safe }}
 	</div>
 	{% if oPost.postimage_set.all.count > 0 %}
 		<div class="row mf-post-media">

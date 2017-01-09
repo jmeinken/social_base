@@ -1,25 +1,53 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
+{% load mycustom %}
+{% load i18n %}
 
 {% block content %}
 
-	<ul class="breadcrumb">	
-		<li><a href="{% url 'home' %}">Home</a></li>
-		{% for obj in hierarchy %}
-			{% if forloop.last %}
-				<li class="active">{{ obj.title }}</li>
-			{% else %}
-				<li><a href="{{ obj.get_url }}">{{ obj.title }}</a></li>
-			{% endif %}
-		{% endfor %}
-	</ul>
+	
 
-	<h1>{{oPage.title}}</h1>
-
+	
 	<div class="row">
 		<div class="col-sm-9">
-		
-			{{ oPage.body }}
+			<ul class="breadcrumb">	
+				<li><a href="{% url 'home' %}">Home</a></li>
+				{% for obj in hierarchy %}
+					{% if forloop.last %}
+						<li class="active">{{ obj.title }}</li>
+					{% else %}
+						<li><a href="{{ obj.get_url }}">{{ obj.title }}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+			<h1>{{oPage.title}}</h1>
+			<hr>
+			<div class="row">
+				<div class="col-sm-8">
+					{{ oPage.body|pretty_html|safe }}
+				</div>
+				<div class="col-sm-4">
+					{% if oPage.pagelink_set.all %}
+						<div class="well">
+							<p>{% trans 'LINKS' %}</p>
+							{% for oLink in oPage.pagelink_set.all %}
+								<p>
+									<a href="{{oLink.url}}">
+										<i class="fa fa-external-link" aria-hidden="true"></i>
+										{{oLink.title}}
+									</a>
+								</p>
+							{% endfor %}
+						</div>
+					{% endif %}
+					{% if oPage.address %}
+						<div class="well">
+							<p>{% trans 'LOCATION' %}</p>
+							<a target="_blank" href="http://maps.google.com/?q={{oPage.address}}">{{oPage.address}}</a>
+						</div>
+					{% endif %}
+				</div>
+			</div>
 			
 			
 			

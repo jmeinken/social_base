@@ -3,25 +3,26 @@
 
 {% if user.is_authenticated %}
 
-	<div class="well">
-	
-		<div class="row" style="font-size:1.2em;">
-			<div class="col-sm-3 text-muted" style="padding-top:10px;">
-				NEW MESSAGE:
+	<div class="well well-sm">
+		<div id="mf-post-form-teaser-container">
+			<textarea class="textarea form-control" id="mf-post-form-teaser" rows="1" 
+					placeholder="Post a message, classified ad, or event"></textarea>
+		</div>
+		<div id="mf-post-forms-container" style="display:none;">
+			<div style="float:right">
+				<button class="btn btn-default btn-sm" id="mf-cancel-new-post">X</button>
 			</div>
-			<div class="col-sm-9">
+			<div style="font-size:1.2em;">
 				<ul class="nav nav-pills">
-					<li><a data-toggle="pill" href="#general">General Message</a></li>
-					<li><a data-toggle="pill" href="#classified">Classified Ad</a></li>
-					<li><a data-toggle="pill" href="#event">Event</a></li>
+					<li class="active"><a href="#" class="mf-show-pill" data-target-id="#mf-general">General Message</a></li>
+					<li><a href="#" class="mf-show-pill" data-target-id="#mf-classified">Classified Ad</a></li>
+					<li><a href="#" class="mf-show-pill" data-target-id="#mf-event">Event</a></li>
 				</ul>
 			</div>
-		</div>
-		<br>
-		<div class="tab-content">
-			<div id="general" class="tab-pane fade">
+			<br>
+			<div id="mf-general" class="mf-post-form-container">
 		      	<div class="mf-new-post">
-					<form method="post" class="mf-new-post-form" action="{{callback}}">
+					<form method="post" id="default-post-form" class="mf-new-post-form" action="{{callback}}">
 						{% crispy fPost fPost.helper %}
 						<div style="text-align:right;">
 							<button type="submit" class="btn btn-success" name="submit_form">
@@ -31,7 +32,7 @@
 					</form>
 				</div>
 		    </div>
-		    <div id="classified" class="tab-pane fade">
+		    <div id="mf-classified" class="mf-post-form-container" style="display:none;">
 		      	<div class="mf-new-post">
 					<form method="post" class="mf-new-post-form" action="{{callback}}">
 						{% crispy fPostClassified fPostClassified.helper %}
@@ -43,12 +44,10 @@
 					</form>
 				</div>
 		    </div>
-		    <div id="event" class="tab-pane fade">
-		      	<h3>Menu 3</h3>
-		      	<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+		    <div id="mf-event" class="mf-post-form-container" style="display:none;">
+		      	<h3>coming soon</h3>
 		    </div>
 		</div>
-		
 	</div>
 	
 {% else %}

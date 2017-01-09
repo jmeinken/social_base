@@ -233,6 +233,25 @@
 		mf2.threadId = $('#mf-feed').attr('data-thread-id');
 		mf2.loadFeed();
 		
+		$('#mf-post-form-teaser').click(function() {
+			$('#mf-post-form-teaser-container').hide();
+			$('#mf-post-forms-container').slideDown();
+			$('#default-post-form textarea').focus();
+		});
+		
+		$('.mf-show-pill').click(function() {
+			var targetId = $(this).attr('data-target-id');
+			$('.mf-show-pill').parent().removeClass('active');
+			$(this).parent().addClass('active');
+			$('.mf-post-form-container').hide();
+			$(targetId).fadeIn();
+		});
+		
+		$('#mf-cancel-new-post').click(function() {
+			$('#mf-post-forms-container').hide();
+			$('#mf-post-form-teaser-container').show();
+		});
+		
 		
 		
 		

@@ -14,7 +14,7 @@ from images.helpers import parse_image_str
 def get_post_form(form_type="general"):
     
     if form_type == 'classified':
-        placeholder = 'Buy or sell something...'
+        placeholder = 'Details...'
     else:
         placeholder = 'Write a general message...'
 
@@ -49,7 +49,7 @@ def get_post_form(form_type="general"):
                 'form_type',
                 'thread',
                 Field('title',
-                    placeholder = 'Title'
+                    placeholder = 'Classified ad title'
                 ),
                 Field('body',
                     placeholder = placeholder

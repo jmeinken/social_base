@@ -1,5 +1,7 @@
 *.pyc
 
+settings_production.py
+
 # settings.py
 
 uploads/

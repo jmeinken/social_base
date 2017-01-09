@@ -5,30 +5,27 @@
 
 {% block content %}
 
-	<ul class="breadcrumb">	
-		<li><a href="{% url 'home' %}">Home</a></li>
-		{% for obj in hierarchy %}
-			{% if forloop.last %}
-				<li class="active">{{ obj.title }}</li>
-			{% else %}
-				<li><a href="{{ obj.get_url }}">{{ obj.title }}</a></li>
-			{% endif %}
-		{% endfor %}
-	</ul>
-	
-	
-	<h1>{{oPageCategory.title}}</h1>
-	
-	
-    
-    
-    <hr>
-    
-    
-	
+
 	
 		<div class="row">
 			<div class="col-sm-9">
+				
+				<ul class="breadcrumb">	
+					<li><a href="{% url 'home' %}">Home</a></li>
+					{% for obj in hierarchy %}
+						{% if forloop.last %}
+							<li class="active">{{ obj.title }}</li>
+						{% else %}
+							<li><a href="{{ obj.get_url }}">{{ obj.title }}</a></li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+				
+				
+				<h1>{{oPageCategory.title}}</h1>
+			    <hr>
+			
+			
 				{% for oChild in oPageCategory.child_set.all %}
 					<div class="well">
 			    		<h2><a href="{% url 'pages:list' oChild.id %}">{{oChild.title}}</a></h2>

@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-
-
-# This is added as a context processor in settings_global.TEMPLATES
-# it is already available in your templates
-# To use other places in your code, access it directly here
+import re
 
 constants = {}
 constants['TITLE'] = 'Social Base'
@@ -17,3 +12,23 @@ constants['BASE_URL'] = 'http://johnmeinken.com'
 
 def get_constants(request=None):
     return {'constants' : constants}
+
+
+def replace_url_to_link(value):
+    # Replace url to link
+    urls = re.compile(r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)", re.MULTILINE|re.UNICODE)
+    value = urls.sub(r'<a href="\1" target="_blank">\1</a>', value)
+    # Replace email to mailto
+    urls = re.compile(r"([\w\-\.]+@(\w[\w\-]+\.)+[\w\-]+)", re.MULTILINE|re.UNICODE)
+    value = urls.sub(r'<a href="mailto:\1">\1</a>', value)
+    return value
+
+def pretty_html(value):
+    value = value.replace('\n', '<br />')
+    value = value.replace(' www.', ' http://www.')
+    value = replace_url_to_link(value)
+    return value
+
+
+
+
