@@ -3,6 +3,8 @@
 
 import re
 
+from django.utils.translation import ugettext as _
+
 # constants = {}
 # constants['TITLE'] = 'Social Base'
 # constants['LOGO'] = '<i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>'

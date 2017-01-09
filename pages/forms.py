@@ -5,7 +5,7 @@ from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, HTML
+from crispy_forms.layout import Layout, Div, HTML, Field
 
 
 from . import models
@@ -17,10 +17,36 @@ from microfeed.models import PostThread
 class PageForm(forms.ModelForm):
     class Meta:
         model = models.Page
-        fields = ['category','title','body','teaser','address']
+        fields = ['category','title','body','teaser','address','image']
         widgets = {
           'body': forms.Textarea(attrs={'rows':25, 'cols':30}),
+          'image': forms.HiddenInput()
         }
+        
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        #self.helper.disable_csrf = True
+        self.helper.layout = Layout(
+                # 'id',
+                'category',
+                'title',
+                'body',
+                'teaser',
+                'address',
+                Field('image', 
+                    css_class = 'image_input', 
+                    data_label = 'Page Image',
+                    data_export_zoom = 2,
+                    data_min_zoom = 'fill',
+                    data_aspect_ratio = '2:1'
+                ),
+        )
+        super(PageForm, self).__init__(*args, **kwargs)
+        if kwargs.get('instance', None):
+            self.editing_existing = True
+        else:
+            self.editing_existing = False
     
     def save(self, commit=True):
         oPage = super(PageForm, self).save(commit=False)

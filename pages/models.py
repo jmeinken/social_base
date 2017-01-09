@@ -72,8 +72,8 @@ class Page(TimeStampedModel):
     order           = models.IntegerField(default=0, verbose_name=_('order'),)
     category        = models.ForeignKey('PageCategory', on_delete=models.PROTECT)
     visible         = models.BooleanField(default=True)
-    # add_microfeed     = models.BooleanField(default=True)
-    post_thread       = models.ForeignKey(PostThread, blank=True, null=True, on_delete=models.SET_NULL)
+    post_thread     = models.ForeignKey(PostThread, blank=True, null=True, on_delete=models.SET_NULL)
+    image           = models.CharField(max_length=30, blank=True, null=True)
     
     objects = models.Manager() # The default manager.
     visible_obj = ActivePageManager() # The only show visible manager.
@@ -137,6 +137,12 @@ class Page(TimeStampedModel):
         translation = get_translation('page', 'teaser', self.id)
         if translation:
             return translation
+        else:
+            return ''
+        
+    def get_image(self):
+        if self.image:
+            return 'uploads/' + self.image
         else:
             return ''
     

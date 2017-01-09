@@ -20,6 +20,9 @@
 					{% endif %}
 				{% endfor %}
 			</ul>
+			{% if oPage.image %}
+				<img style="width:100%;" src="{% static oPage.get_image %}" alt="{{obj.title}}" />
+			{% endif %}
 			<h1>{{oPage.title}}</h1>
 			<hr>
 			<div class="row">

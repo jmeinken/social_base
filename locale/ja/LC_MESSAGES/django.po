@@ -1,0 +1,469 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-09 20:08+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: main/models.py:71
+msgid "email address"
+msgstr ""
+
+#: main/models.py:72
+msgid "first name"
+msgstr ""
+
+#: main/models.py:73
+msgid "last name"
+msgstr ""
+
+#: main/models.py:74
+msgid "staff status"
+msgstr ""
+
+#: main/models.py:75
+msgid "Designates whether the user can log into this admin site."
+msgstr ""
+
+#: main/models.py:77
+msgid "active"
+msgstr ""
+
+#: main/models.py:78
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+#: main/models.py:80
+msgid "date joined"
+msgstr ""
+
+#: main/models.py:91
+msgid "user"
+msgstr ""
+
+#: main/models.py:92
+msgid "users"
+msgstr ""
+
+#: main/pretty_date.py:6
+msgid " ago"
+msgstr ""
+
+#: main/pretty_date.py:7
+msgid "in "
+msgstr ""
+
+#: main/pretty_date.py:42
+msgid "now"
+msgstr ""
+
+#: main/pretty_date.py:43
+msgid " seconds"
+msgstr ""
+
+#: main/pretty_date.py:44
+msgid "a minute ago"
+msgstr ""
+
+#: main/pretty_date.py:44
+msgid "in a minute"
+msgstr ""
+
+#: main/pretty_date.py:45
+msgid " minutes"
+msgstr ""
+
+#: main/pretty_date.py:46
+msgid "an hour ago"
+msgstr ""
+
+#: main/pretty_date.py:46
+msgid "in an hour"
+msgstr ""
+
+#: main/pretty_date.py:47
+msgid " hours"
+msgstr ""
+
+#: main/pretty_date.py:49
+msgid "today"
+msgstr ""
+
+#: main/pretty_date.py:50
+msgid "yesterday"
+msgstr ""
+
+#: main/pretty_date.py:50
+msgid "tomorrow"
+msgstr ""
+
+#: main/pretty_date.py:51
+msgid "day before"
+msgstr ""
+
+#: main/pretty_date.py:51
+msgid "day after"
+msgstr ""
+
+#: main/pretty_date.py:53
+msgid "last week"
+msgstr ""
+
+#: main/pretty_date.py:53
+msgid "next week"
+msgstr ""
+
+#: main/pretty_date.py:55
+msgid "last month"
+msgstr ""
+
+#: main/pretty_date.py:55
+msgid "next month"
+msgstr ""
+
+#: main/pretty_date.py:56
+msgid " months"
+msgstr ""
+
+#: main/pretty_date.py:57
+msgid "last year"
+msgstr ""
+
+#: main/pretty_date.py:57
+msgid "next year"
+msgstr ""
+
+#: main/pretty_date.py:58
+msgid " years"
+msgstr ""
+
+#: main/templates/core/base.html:92 main/templates/core/base_private.html:81
+msgid "CONTACT US"
+msgstr ""
+
+#: main/templates/core/navbar.html:26
+#: main/templates/core/navbar_private.html:21
+msgid "Logged in as"
+msgstr ""
+
+#: main/templates/core/navbar.html:29
+#: main/templates/core/navbar_private.html:24
+msgid "Account Settings"
+msgstr ""
+
+#: main/templates/core/navbar.html:30
+#: main/templates/core/navbar_private.html:25
+msgid "Logout"
+msgstr ""
+
+#: main/templates/core/navbar.html:37
+msgid "create account"
+msgstr ""
+
+#: main/templates/core/navbar.html:40
+msgid "forgot password"
+msgstr ""
+
+#: main/templates/core/navbar.html:47
+msgid "username or email"
+msgstr ""
+
+#: main/templates/core/navbar.html:48
+msgid "password"
+msgstr ""
+
+#: main/templates/core/navbar.html:50
+msgid "login"
+msgstr ""
+
+#: main/templates/main/home.html:11
+msgid "Recent Posts"
+msgstr "最近のポスト"
+
+#: main/templates/main/home.html:18
+msgid "Cincinnati Info"
+msgstr ""
+
+#: microfeed/models.py:49 microfeed/models.py:169 pages/models.py:70
+msgid "body"
+msgstr ""
+
+#: microfeed/models.py:51 microfeed/models.py:135 pages/models.py:33
+#: pages/models.py:66 pages/models.py:166
+msgid "title"
+msgstr ""
+
+#: microfeed/models.py:145
+msgid "start date"
+msgstr ""
+
+#: microfeed/models.py:146
+msgid "start time"
+msgstr ""
+
+#: microfeed/models.py:147
+msgid "end time"
+msgstr ""
+
+#: microfeed/templates/microfeed/new_event.html:27
+msgid "Add another event time"
+msgstr ""
+
+#: microfeed/templates/microfeed/new_event.html:47
+msgid "Post an Event"
+msgstr ""
+
+#: microfeed/templates/microfeed/new_event.html:61
+#: pages/templates/pages/new_page.html:46
+msgid "Submit"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:14
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:60
+msgid "posted by"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:25
+msgid "Edit post:"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:30
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:122
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:322
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:343
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:384
+#: microfeed/templates/microfeed/view_post.html:52
+msgid "Cancel"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:31
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:123
+msgid "Save"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:91
+msgid "Add a comment..."
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:93
+msgid "Reply"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:117
+msgid "Edit comment:"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:136
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:148
+msgid "Edit"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:137
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:149
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:325
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:346
+#: microfeed/templates/microfeed/view_post.html:57
+msgid "Delete"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:158
+msgid "show previous comments"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:164
+msgid "show more posts"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:192
+msgid "Write a comment..."
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:195
+msgid "Share"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:201
+msgid "Attach an Image"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:302
+msgid "more pictures"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:316
+msgid "Delete Post"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:319
+msgid "Are you sure you want to delete this post?"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:337
+msgid "Delete Comment"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:340
+msgid "Are you sure you want to delete this comment?"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:358
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:385
+msgid "Add Image"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:364
+msgid "select image"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:416
+#, python-format
+msgid ""
+"\n"
+"\t\t\tPlease <a href=\"%(login_url)s\" class=\"alert-link\">login</a> or <a "
+"href=\"%(create_account_url)s\" class=\"alert-link\">create an account</a> "
+"to post.\n"
+"\t\t"
+msgstr ""
+
+#: microfeed/templates/microfeed/snippets/javascript_templates.html:427
+#, python-format
+msgid ""
+"\n"
+"\t\t\t<a href=\"%(login_url)s\">login</a> or <a href=\"%(create_account_url)s"
+"\" class=\"alert-link\">create account</a> to comment\n"
+"\t\t"
+msgstr ""
+
+#: microfeed/templates/microfeed/view_post.html:11
+#: microfeed/templates/microfeed/view_post.html:46
+msgid "Delete Event"
+msgstr ""
+
+#: microfeed/templates/microfeed/view_post.html:12
+msgid "Edit Event"
+msgstr ""
+
+#: microfeed/templates/microfeed/view_post.html:16
+msgid "Event"
+msgstr ""
+
+#: microfeed/templates/microfeed/view_post.html:49
+msgid "Are you sure you want to delete this event?"
+msgstr ""
+
+#: pages/forms.py:88 pages/models.py:173 pages/models.py:183
+msgid "Page Links"
+msgstr ""
+
+#: pages/models.py:34
+msgid "icon"
+msgstr ""
+
+#: pages/models.py:69
+msgid "teaser"
+msgstr ""
+
+#: pages/models.py:71 pages/models.py:177
+msgid "address"
+msgstr ""
+
+#: pages/models.py:72 pages/models.py:168 pages/models.py:178
+msgid "order"
+msgstr ""
+
+#: pages/models.py:167
+msgid "url"
+msgstr ""
+
+#: pages/models.py:172 pages/models.py:182
+msgid "Page Link"
+msgstr ""
+
+#: pages/templates/pages/new_page.html:23
+msgid "Post a Page"
+msgstr ""
+
+#: pages/templates/pages/page.html:35
+msgid "LINKS"
+msgstr ""
+
+#: pages/templates/pages/page.html:48
+msgid "LOCATION"
+msgstr ""
+
+#: pages/templates/pages/translate_page.html:17
+msgid "Home"
+msgstr ""
+
+#: pages/templates/pages/translate_page.html:24
+msgid "Translate Page"
+msgstr ""
+
+#: pages/templates/pages/translate_page.html:40
+#: pages/templates/pages/translate_page.html:57
+#: pages/templates/pages/translate_page.html:74
+msgid "Translation"
+msgstr ""
+
+#: pages/views.py:62
+msgid "Page successfully added."
+msgstr ""
+
+#: pages/views.py:85
+msgid "Page successfully edited."
+msgstr ""
+
+#: pages/views.py:144
+msgid "Restaurants"
+msgstr ""
+
+#: pages/views.py:145
+msgid "Local Destinations"
+msgstr ""
+
+#: pages/views.py:146
+msgid "Regional Destinations"
+msgstr ""
+
+#: pages/views.py:147
+msgid "Housing"
+msgstr ""
+
+#: pages/views.py:148
+msgid "Shopping"
+msgstr ""
+
+#: pages/views.py:149
+msgid "Medical"
+msgstr ""
+
+#: pages/views.py:150
+msgid "Transportation"
+msgstr ""
+
+#: pages/views.py:151
+msgid "Education"
+msgstr ""
+
+#: pages/views.py:169
+msgid "Page successfully deleted."
+msgstr ""
+
+#: pages/views.py:187
+msgid "Page successfully translated."
+msgstr ""

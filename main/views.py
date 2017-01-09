@@ -6,15 +6,30 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.utils import translation
 
 from . import forms
 from microfeed2.forms import get_post_form
 
 from pages.models import PageCategory
 
+def set_english(request):
+    user_language = 'en'
+    request.session[translation.LANGUAGE_SESSION_KEY] = user_language
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+def set_japanese(request):
+    user_language = 'ja'
+    request.session[translation.LANGUAGE_SESSION_KEY] = user_language
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
+
 
 def home(request):
     context = {}
+    #user_language = 'en-us'
+    #if translation.LANGUAGE_SESSION_KEY in request.session:
+    #    user_language= request.session[translation.LANGUAGE_SESSION_KEY]
+    #translation.activate(user_language)
     PostForm = get_post_form()
     ClassifiedForm = get_post_form('classified')
     context['qCategory'] = PageCategory.objects.all().filter(parent=None)

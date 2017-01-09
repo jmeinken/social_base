@@ -30,7 +30,7 @@
 	
 		<form method="post" id="myForm">
 			{% csrf_token %}
-			{{form|crispy}}
+			{% crispy form form.helper %}
 			<hr>
 			{% for child in children %}
 				<div class="panel panel-primary">
@@ -48,6 +48,6 @@
 	</div>
 </div>
 
-
+{% include 'images/javascript_templates.html' %}
 
 {% endblock %}

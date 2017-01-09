@@ -33,6 +33,8 @@ crp.addCropItModal = function (inputId) {
 	//append a cropit modal
 	if ( crp.aspectRatio == '1:1' ) {
 		args.aspectRatioClass = 'cropit-preview-square';
+	} else if(crp.aspectRatio == '2:1') {
+		args.aspectRatioClass = 'cropit-preview-wider';
 	} else {
 		args.aspectRatioClass = 'cropit-preview-wide';
 	}
@@ -76,6 +78,8 @@ crp.addMultiImageTool = function(inputId) {
 	args.height = '90px';
 	if ( crp.aspectRatio == '1:1' ) {
 		args.width = '90px';
+	} else if ( crp.aspectRatio == '2:1' ) {
+		args.width = '180px';
 	} else {
 		args.width = '120px';
 	}
@@ -95,6 +99,8 @@ crp.addMultiImageTool = function(inputId) {
 		args2.inputId = inputId;
 		if ( crp.aspectRatio == '1:1' ) {
 			args2.width = '90px';
+		} else if ( crp.aspectRatio == '2:1' ) {
+			args.width = '180px';
 		} else {
 			args2.width = '120px';
 		}
@@ -139,6 +145,8 @@ crp.addMultiImageEvents = function(inputId) {
 		args.height = '90px';
 		if ( crp.aspectRatio == '1:1' ) {
 			args.width = '90px';
+		} else if(crp.aspectRatio == '2:1') {
+			args.width = '180px';
 		} else {
 			args.width = '120px';
 		}
@@ -165,6 +173,8 @@ crp.addMultiImageEvents = function(inputId) {
     		args2.inputId = inputId;
     		if ( crp.aspectRatio == '1:1' ) {
     			args2.width = '90px';
+    		} else if(crp.aspectRatio == '2:1') {
+    			args.width = '180px';
     		} else {
     			args2.width = '120px';
     		}
