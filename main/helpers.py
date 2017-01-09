@@ -13,7 +13,7 @@ import re
 # constants['BASE_URL'] = 'http://johnmeinken.com'
 
 constants = {}
-constants['TITLE'] = 'Cincinnati Jōhō'
+constants['TITLE'] = u'Cincinnati Jōhō'
 constants['LOGO'] = '<i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>'
 constants['CONTACT_EMAIL'] = 'info@cincinnati-jouhou.com'
 constants['UPLOADS_DIRECTORY'] = '/home/ubuntu/django/cincinnati-env/cincinnati-jouhou/static/uploads/'
