@@ -101,9 +101,11 @@ class Page(TimeStampedModel):
     def trans_title(self):
         translation = get_translation('page', 'title', self.id)
         if translation:
-            return translation
+            result = translation + '<a href="#" class="field-trans-string" data-table-name="page" data-field-name="title" data-record-id="' + str(self.id) + '">[tr]</a>'
+            return result
         else:
-            return self.title
+            result = self.title + '<a href="#" class="field-trans-string" data-table-name="page" data-field-name="title" data-record-id="' + str(self.id) + '">[tr]</a>'
+            return result
         
     def trans_body(self):
         translation = get_translation('page', 'body', self.id)

@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^microfeed2/', include('microfeed2.urls', namespace="microfeed2")),
     url(r'^microfeed/', include('microfeed.urls', namespace="microfeed")),
     url(r'^pages/', include('pages.urls', namespace="pages")),
+    url(r'^field_trans/', include('field_trans.urls', namespace="field_trans")),
     url(r'^', include('main.urls')),
 ]

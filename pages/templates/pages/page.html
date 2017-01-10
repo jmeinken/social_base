@@ -5,7 +5,37 @@
 
 {% block content %}
 
-	
+<script>
+
+	var ft = {}
+
+	$(document).ready(function() {
+		$('.field-trans-string').click(function() {
+			var data = {}
+			data.tableName = $(this).attr('data-table-name');
+			data.fieldName = $(this).attr('data-field-name');
+			data.recordId = $(this).attr('data-record-id');
+			$.ajax({
+				url: "/field_trans/translate",
+				type: "GET",
+				dataType : "json",
+				data : data
+			})
+			.done(function( json ) {
+				$('#field-trans-modal .modal-body').html(json.html);
+				$('#field-trans-modal').modal('show');
+			})
+			.fail(function( xhr, status, errorThrown ) {
+				alert( "error" );
+				console.log( "Error: " + errorThrown );
+				console.log( "Status: " + status );
+				console.dir( xhr );
+			})
+			
+		});
+	});
+
+</script>	
 
 	
 	<div class="row">
@@ -21,10 +51,17 @@
 				{% endfor %}
 			</ul>
 			{% if oPage.image %}
-				<img style="width:100%;" src="{% static oPage.get_image %}" alt="{{obj.title}}" />
+				<div style="position:relative;margin-bottom:15px;">
+					<img style="width:100%;" src="{% static oPage.get_image %}" alt="{{obj.title}}" />
+					<span style="position:absolute;bottom:0px;left:0px;background-color:rgba(0,0,0,0.4);padding:5px 15px;width:100%">
+						<span style="color:white;font-size:1.5em;">{{oPage.trans_title|safe}}</span>
+					</span>
+				</div>
+			{% else %}
+				<h1>{{oPage.trans_title|safe}}</h1>
+				<hr>
 			{% endif %}
-			<h1>{{oPage.title}}</h1>
-			<hr>
+			
 			<div class="row">
 				<div class="col-sm-8">
 					{{ oPage.body|pretty_html|safe }}
@@ -87,6 +124,19 @@
  					</div>
 				</div>
 			{% endif %}
+		</div>
+	</div>
+	
+	<div class="modal" id="field-trans-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				  	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				  	<h4 class="modal-title">Translate Text</h4>
+				</div>
+				<div class="modal-body">
+				</div>
+			</div>
 		</div>
 	</div>
 
