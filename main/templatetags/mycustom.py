@@ -7,3 +7,8 @@ register = template.Library()
 @register.filter
 def pretty_html(value):
     return helpers.pretty_html(value)
+
+
+@register.filter
+def keyvalue(dict, key):    
+    return dict[key]

@@ -12,6 +12,10 @@ from . import models
 from microfeed2.models import PostThread
 
 
+class TranslateForm(forms.Form):
+    title = forms.CharField(widget=forms.TextInput)
+    body = forms.CharField(widget=forms.TextInput)
+    teaser = forms.CharField(widget=forms.TextInput)
 
 
 class PageForm(forms.ModelForm):
@@ -28,12 +32,10 @@ class PageForm(forms.ModelForm):
         self.helper.form_tag = False
         #self.helper.disable_csrf = True
         self.helper.layout = Layout(
-                # 'id',
-                'language'
+                HTML('<div class="row"><div class="col-sm-4">'),
+                'language',
                 'category',
                 'title',
-                'body',
-                'teaser',
                 'address',
                 Field('image', 
                     css_class = 'image_input', 
@@ -42,6 +44,11 @@ class PageForm(forms.ModelForm):
                     data_min_zoom = 'fill',
                     data_aspect_ratio = '2:1'
                 ),
+                HTML('</div><div class="col-sm-8">'),
+                'teaser',
+                'body',
+                HTML('</div></div>')
+                
         )
         super(PageForm, self).__init__(*args, **kwargs)
         if kwargs.get('instance', None):

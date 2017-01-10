@@ -1,112 +1,97 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
 {% load i18n %}
+{% load mycustom %}
 
 {% block content %}
 
-	<script>
-	  	tinymce.init({ 
-	  		selector:'textarea',
-	  		language: 'en',
-	  		plugins: "textcolor, link, image",
-		    toolbar: "undo, redo, removeformat, bold, italic, underline, forecolor, fontsizeselect, bullist, numlist, blockquote, link" 
-		});
-	</script>
-	
-	<ul class="breadcrumb">
-	  <li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
-	  <li><a href="{% url 'pages:list' oPage.category %}">{% trans oPage.category %}</a></li>
-	  <li><a href="{% url 'pages:page' oPage.id %}">{{ oPage.trans_title }}</a></li>
-	  <li class="active">translate</li>
-	</ul>
-	
-	
-	<h1>{% trans 'Translate Page' %} : {{verbose_language}}</h1>
-	<hr>
-	<form method="post">
+<ul class="breadcrumb">	
+	<li><a href="{% url 'home' %}">Home</a></li>
+	{% for obj in hierarchy %}
+		<li><a href="{{ obj.get_url }}">{{ obj.title }}</a></li>
+	{% endfor %}
+	<li class="active">Translate</li>
+</ul>
 
-		<input name="language" type="hidden" value="{{language}}">
+{% get_current_language as LANGUAGE_CODE %}
 
-		{% csrf_token %}
-		<div class="panel panel-default">
-		    <div class="panel-heading">Title</div>
-		    <div class="panel-body">
-		        <div class="row">
-					<div class="col-sm-6">
-						{{oPage.title}}
+
+<ul class="nav nav-tabs">
+	{% for oLanguage in qLanguage %}
+		{% if oLanguage != oPage.language %}
+			<li{% if oLanguage.code == LANGUAGE_CODE %} class="active"{% endif %}>
+				<a href="#ft-{{oLanguage.code}}" data-toggle="tab">{{ oLanguage.name }}</a>
+			</li>
+		{% endif %}
+	{% endfor %}
+</ul>
+<br>
+<div id="myTabContent" class="tab-content">
+	{% for oLanguage in qLanguage %}
+		{% if oLanguage != oPage.language %}
+			<div class="tab-pane fade{% if oLanguage.code == LANGUAGE_CODE %} active in{% endif %}" id="ft-{{oLanguage.code}}">
+				<form method="POST">
+					{% csrf_token %}
+					<div style="text-align:right;">
+						<button class="btn btn-success">
+							<i class="fa fa-floppy-o" aria-hidden="true"></i>
+							Save {{ oLanguage.name }} Translation
+						</button>
 					</div>
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label class="control-label">{% trans 'Translation' %}</label>
-							<input class="form-control" type="text" name="title" value="{{oPage.trans_only_title}}">
-						</div>
-					</div>
-				</div>
-		     </div>
-		</div>
-		
-		<div class="panel panel-default">
-		    <div class="panel-heading">Body</div>
-		    <div class="panel-body">
-		        <div class="row">
-					<div class="col-sm-6">
-						{{oPage.body|safe}}
-					</div>
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label class="control-label">{% trans 'Translation' %}</label>
-							<textarea class="textarea form-control" rows="25" id="textArea" name="body">{{oPage.trans_only_body}}</textarea>
-						</div>
-					</div>
-				</div>
-		     </div>
-		</div>
-		
-		<div class="panel panel-default">
-		    <div class="panel-heading">Teaser</div>
-		    <div class="panel-body">
-		        <div class="row">
-					<div class="col-sm-6">
-						{{oPage.teaser|safe}}
-					</div>
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label class="control-label">{% trans 'Translation' %}</label>
-							<textarea class="textarea form-control" rows="15" id="textArea" name="teaser">{{oPage.trans_only_teaser}}</textarea>
-						</div>
-					</div>
-				</div>
-		     </div>
-		</div>
-		
-		{% comment %}
-		{% if oPage.pagelink_set.all %}
-			<div class="panel panel-default">
-			    <div class="panel-heading">Links</div>
-			    <div class="panel-body">
-			    	{% for oLink in oPage.pagelink_set.all %}
-				        <div class="row">
-							<div class="col-sm-6">
-								<a href="{{oLink.url}}">{{oLink.title}}</a>
+					<input type="hidden" name="language" value={{oLanguage.code}} />
+					<div class="row">
+				  		<div class="col-sm-6">
+				  			<h3>Original</h3>
+				  		</div>
+				  		<div class="col-sm-6">
+				  			<h3>{{oLanguage.name}} Translation</h3>
+				  		</div>
+				  	</div>
+				  	<div class="row well">
+				  		<div class="col-sm-6">
+				  			{{ oPage.title }}
+				  		</div>
+				  		<div class="col-sm-6">
+				  			<div id="div_id_title" class="form-group">
+								<label class="control-label">Title</label> 
+								<div class="controls "> 
+									<input class="textinput textInput form-control" maxlength="255" name="title" type="text"
+										{% if oLanguage.code in oPage.all_trans_title %}value="{{oPage.all_trans_title|keyvalue:oLanguage.code}}"{% endif %}> 
+								</div> 
 							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label class="control-label">{% trans 'Translation' %}</label>
-									<input class="form-control" type="text" name="link_titles[]">
-								</div>
+				  		</div>
+				  	</div>
+				  	<div class="row well">
+				  		<div class="col-sm-6">
+				  			{{ oPage.teaser|pretty_html|safe }}
+				  		</div>
+				  		<div class="col-sm-6">
+				  			<div id="div_id_title" class="form-group">
+								<label class="control-label">Teaser</label> 
+								<div class="controls "> 
+									<textarea class="textarea form-control" cols="30" name="teaser" rows="4">{% if oLanguage.code in oPage.all_trans_teaser %}{{oPage.all_trans_teaser|keyvalue:oLanguage.code}}{% endif %}</textarea>
+								</div> 
 							</div>
-						</div>
-					{%  endfor%}
-			     </div>
+				  		</div>
+				  	</div>
+				  	<div class="row well">
+				  		<div class="col-sm-6">
+				  			{{ oPage.body|pretty_html|safe }}
+				  		</div>
+				  		<div class="col-sm-6">
+				  			<div id="div_id_title" class="form-group">
+								<label class="control-label">Body</label> 
+								<div class="controls "> 
+									<textarea class="textarea form-control" cols="30" name="body" rows="25">{% if oLanguage.code in oPage.all_trans_body %}{{oPage.all_trans_body|keyvalue:oLanguage.code}}{% endif %}</textarea>
+								</div> 
+							</div>
+				  		</div>
+				  	</div>
+				</form>
 			</div>
 		{% endif %}
-		{% endcomment %}
-		
-		<div style="text-align:right;">
-			<button class="btn btn-success">Submit</button>
-		</div>
-		
+	{% endfor %}
+</div>
 
-	</form>
 
 {% endblock %}

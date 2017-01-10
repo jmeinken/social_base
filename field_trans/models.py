@@ -21,7 +21,7 @@ class Translation(TimeStampedModel):
     table_name           = models.CharField(max_length=255)
     field_name           = models.CharField(max_length=255)
     field_id             = models.IntegerField()                   
-    language             = models.CharField(max_length=32)
+    language             = models.ForeignKey('Language', on_delete=models.PROTECT)
     text                 = models.TextField()
     
     def __str__(self):

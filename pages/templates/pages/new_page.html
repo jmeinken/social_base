@@ -4,6 +4,16 @@
 
 {% block content %}
 
+{% if hierarchy %}
+	<ul class="breadcrumb">	
+		<li><a href="{% url 'home' %}">Home</a></li>
+		{% for obj in hierarchy %}
+			<li><a href="{{ obj.get_url }}">{{ obj.title }}</a></li>
+		{% endfor %}
+		<li class="active">Edit</li>
+	</ul>
+{% endif %}
+
 
 <script type="text/javascript">
     $(function() {
@@ -26,7 +36,7 @@
 
 
 <div class="row">
-	<div class="col-sm-10 col-sm-offset-1">
+	<div class="col-sm-12">
 	
 		<form method="post" id="myForm">
 			{% csrf_token %}

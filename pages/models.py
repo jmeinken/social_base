@@ -7,7 +7,7 @@ from django.utils.timezone import localtime
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from field_trans.helpers import get_translation
+from field_trans.helpers import get_translation, get_translations
 
 from microfeed2.models import PostThread
 from field_trans.models import Language
@@ -108,11 +108,10 @@ class Page(TimeStampedModel):
     def trans_title(self):
         translation = get_translation('page', 'title', self.id)
         if translation:
-            result = translation + '<a href="#" class="field-trans-string" data-table-name="page" data-field-name="title" data-record-id="' + str(self.id) + '">[tr]</a>'
-            return result
+            return translation
         else:
-            result = self.title + '<a href="#" class="field-trans-string" data-table-name="page" data-field-name="title" data-record-id="' + str(self.id) + '">[tr]</a>'
-            return result
+            return self.title
+        
         
     def trans_body(self):
         translation = get_translation('page', 'body', self.id)
@@ -127,6 +126,15 @@ class Page(TimeStampedModel):
             return translation
         else:
             return self.teaser
+        
+    def all_trans_title(self):
+        return get_translations('page', 'title', self.id)
+    
+    def all_trans_body(self):
+        return get_translations('page', 'body', self.id)
+    
+    def all_trans_teaser(self):
+        return get_translations('page', 'teaser', self.id)
         
     def trans_only_title(self):
         translation = get_translation('page', 'title', self.id)

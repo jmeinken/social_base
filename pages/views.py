@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
+from field_trans.models import Language
 
 # from feed.functions import validate_form_with_inlines
 
@@ -91,7 +92,27 @@ def edit_page(request, page_id):
         children = temp_children
     context['form'] = form
     context['children'] = children
+    context['hierarchy'] = oPage.get_hierarchy()
     return render(request, 'pages/new_page.html', context)
+
+@login_required
+def translate_page(request, page_id):
+    context = {}
+    oPage = models.Page.visible_obj.all().get(pk=page_id)
+    context['oPage'] = oPage
+    print('trans')
+    print( str( oPage.all_trans_title() ) )
+    if request.POST:
+        language = request.POST.get('language')
+        set_translation('page', 'title', oPage.id, language, request.POST.get('title'))
+        set_translation('page', 'teaser', oPage.id, language, request.POST.get('teaser'))
+        set_translation('page', 'body', oPage.id, language, request.POST.get('body'))
+        messages.success( request, _('Page successfully translated.') )
+        return redirect('pages:view_page', page_id=oPage.id)
+    qLanguage = Language.objects.all()
+    context['qLanguage'] = qLanguage
+    context['hierarchy'] = oPage.get_hierarchy()
+    return render(request, 'pages/translate_page.html', context)
 
 
 @login_required
@@ -106,8 +127,8 @@ def new_category(request):
         form = forms.PageCategoryForm(request.POST)
         if form.is_valid():
             oPageCategory = form.save()
-            messages.success(request, 'Success.')
-            return redirect('home')
+            messages.success(request, 'Successfully created category.')
+            return redirect('pages:list', page_category_id=oPageCategory.id)
     context['form'] = form
     return render(request, 'pages/new_category.html', context)
     
@@ -120,8 +141,8 @@ def edit_category(request, category_id):
         form = forms.PageCategoryForm(request.POST, instance=oPageCategory)
         if form.is_valid():
             oPageCategory = form.save()
-            messages.success(request, 'Success.')
-            return redirect('home')
+            messages.success(request, 'Successfully edited category.')
+            return redirect('pages:list', page_category_id=category_id)
     context['form'] = form
     return render(request, 'pages/new_category.html', context)
 
@@ -172,28 +193,7 @@ def delete_page(request):
 
 
 
-@login_required
-def translate_page(request, page_id):
-    context = {}
-    oPage = models.Page.visible_obj.all().get(pk=page_id)
-    if request.method == 'POST':
-        language = request.POST.get('language')
-        title = request.POST.get('title', '')
-        body = request.POST.get('body', '')
-        teaser = request.POST.get('teaser', '')
-        set_translation('page', 'title', oPage.id, language, title)
-        set_translation('page', 'body', oPage.id, language, body)
-        set_translation('page', 'teaser', oPage.id, language, teaser)
-        messages.success( request, _('Page successfully translated.') )
-        return redirect('pages:page', page_id=oPage.id)
-    context['oPage'] = oPage
-    lang = request.GET.get('language')
-    if lang:
-        context['language'] = lang
-    else:
-        context['language'] = request.LANGUAGE_CODE
-    context['verbose_language'] = get_verbose_language(context['language'])
-    return render(request, 'pages/translate_page.html', context)
+
     
 
 def page(request, page_id):

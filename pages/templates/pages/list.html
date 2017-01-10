@@ -1,6 +1,7 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
 {% load i18n %}
+{% load mycustom %}
 
 
 {% block content %}
@@ -35,16 +36,35 @@
 				{% if oPageCategory.show_as_page %}
 				    {% for oPage in oPageCategory.page_set.all %}
 				    	<div class="well">
-				    		<h3>{{ oPage.title }}</h3>
-				    		{{ oPage.body }}
+				    		{% if oPage.image %}
+				    			<div style="float:right; padding:10px;width:50%;min-width:200px;">
+				    				<img src="{% static oPage.get_image %}" alt="oPage.title" class="img-responsive" />
+				    			</div>
+				    		{% endif %}
+				    		<h3>{{ oPage.trans_title }}</h3>
+				    		<p>{{ oPage.trans_body|pretty_html|safe }}</p>
+				    		{% if oPage.address %}
+								<p>
+									{% trans 'LOCATION' %}
+									<a target="_blank" href="http://maps.google.com/?q={{oPage.address}}">{{oPage.address}}</a>
+								</p>
+							{% endif %}
+				    		{% for oLink in oPage.pagelink_set.all %}
+								<p>
+									<a href="{{oLink.url}}">
+										<i class="fa fa-external-link" aria-hidden="true"></i>
+										{{oLink.title}}
+									</a>
+								</p>
+							{% endfor %}
 				    	</div>
 				    {% endfor %}
 				    
 				{% else %}<!-- show as category -->
 					{% for oPage in oPageCategory.page_set.all %}
 						<div class="well">
-				    		<h3><a href="{% url 'pages:view_page' oPage.id %}">{{ oPage.title }}</a></h3>
-				    		{{ oPage.teaser }}
+				    		<h3><a href="{% url 'pages:view_page' oPage.id %}">{{ oPage.trans_title }}</a></h3>
+				    		{{ oPage.trans_teaser|pretty_html|safe }}
 				    		<div style="text-align:right">
 				    			<a href="{% url 'pages:view_page' oPage.id %}">more...</a>
 				    		</div>
@@ -52,7 +72,7 @@
 				    {% endfor %}
 				{% endif %}
 				
-				<hr>thread goes here if set
+
 			</div>
 			
 			<div class="col-sm-3">
@@ -80,6 +100,8 @@
 							</a>
 	 					</div>
 					</div>
+				{% else %}
+					Want to contribute to these pages?  <a href="mailto:{{constants.CONTACT_EMAIL}}">Contact us</a> to request a Contributor Account.
 				{% endif %}
 			</div>
 			

@@ -54,17 +54,17 @@
 				<div style="position:relative;margin-bottom:15px;">
 					<img style="width:100%;" src="{% static oPage.get_image %}" alt="{{obj.title}}" />
 					<span style="position:absolute;bottom:0px;left:0px;background-color:rgba(0,0,0,0.4);padding:5px 15px;width:100%">
-						<span style="color:white;font-size:1.5em;">{{oPage.trans_title|safe}}</span>
+						<span style="color:white;font-size:1.5em;">{{oPage.trans_title}}</span>
 					</span>
 				</div>
 			{% else %}
-				<h1>{{oPage.trans_title|safe}}</h1>
+				<h1>{{oPage.trans_title}}</h1>
 				<hr>
 			{% endif %}
 			
 			<div class="row">
 				<div class="col-sm-8">
-					{{ oPage.body|pretty_html|safe }}
+					{{ oPage.trans_body|pretty_html|safe }}
 				</div>
 				<div class="col-sm-4">
 					{% if oPage.pagelink_set.all %}
@@ -114,12 +114,26 @@
 				</div>
 			</div>
 			{% if user.is_staff %}
+				{% get_current_language as LANGUAGE_CODE %}
+			
 				<div class="panel panel-warning">
  					<div class="panel-heading">Staff Controls</div>
  					<div class="panel-body">
-	   					<a href="{% url 'pages:edit_page' oPage.id %}" class="btn btn-warning btn-sm">
-							<i class="fa fa-edit" aria-hidden="true"></i>
-							Edit Page
+ 						{% if oPage.language.code == LANGUAGE_CODE %}
+		   					<a href="{% url 'pages:edit_page' oPage.id %}" class="btn btn-warning btn-sm">
+								<i class="fa fa-edit" aria-hidden="true"></i>
+								Edit Page
+							</a>
+						{% else %}
+							<a href="{% url 'pages:edit_page' oPage.id %}" class="btn btn-warning btn-sm">
+								<i class="fa fa-edit" aria-hidden="true"></i>
+								Edit Original ({{ oPage.language.name }})
+							</a>
+						{% endif %}
+						<br><br>
+						<a href="{% url 'pages:translate_page' oPage.id %}" class="btn btn-warning btn-sm">
+							<i class="fa fa-language" aria-hidden="true"></i>
+							Create/Edit Translations
 						</a>
  					</div>
 				</div>
