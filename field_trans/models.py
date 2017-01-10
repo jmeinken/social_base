@@ -29,3 +29,10 @@ class Translation(TimeStampedModel):
     
     class Meta:
         unique_together = (("table_name", "field_name", "field_id", "language"),)
+        
+class Language(models.Model):
+    code            = models.CharField(max_length=6, primary_key=True)
+    name            = models.CharField(max_length=20)
+    
+    def __str__(self):
+        return self.name

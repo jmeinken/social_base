@@ -9,7 +9,7 @@ from crispy_forms.layout import Layout, Div, HTML, Field
 
 
 from . import models
-from microfeed.models import PostThread
+from microfeed2.models import PostThread
 
 
 
@@ -17,7 +17,7 @@ from microfeed.models import PostThread
 class PageForm(forms.ModelForm):
     class Meta:
         model = models.Page
-        fields = ['language','category','title','body','teaser','address','image']
+        fields = ['language', 'category','title','body','teaser','address','image']
         widgets = {
           'body': forms.Textarea(attrs={'rows':25, 'cols':30}),
           'image': forms.HiddenInput()

@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 
 from . import forms
-from microfeed import models
+from microfeed2 import models
 
 
 

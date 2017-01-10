@@ -9,8 +9,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from field_trans.helpers import get_translation
 
-from microfeed.models import PostThread
-from main.models import Language
+from microfeed2.models import PostThread
+from field_trans.models import Language
 
 
 

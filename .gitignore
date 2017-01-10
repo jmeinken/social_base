@@ -1,6 +1,7 @@
 *.pyc
 
 settings_production.py
+private_*.py
 
 # settings.py
 
