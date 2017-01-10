@@ -12,18 +12,18 @@
 			<div class="col-sm-9">
 				
 				<ul class="breadcrumb">	
-					<li><a href="{% url 'home' %}">Home</a></li>
+					<li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
 					{% for obj in hierarchy %}
 						{% if forloop.last %}
-							<li class="active">{{ obj.title }}</li>
+							<li class="active">{{ obj.trans_title }}</li>
 						{% else %}
-							<li><a href="{{ obj.get_url }}">{{ obj.title }}</a></li>
+							<li><a href="{{ obj.get_url }}">{{ obj.trans_title }}</a></li>
 						{% endif %}
 					{% endfor %}
 				</ul>
 				
 				
-				<h1>{{oPageCategory.title}}</h1>
+				<h1>{{oPageCategory.trans_title}}</h1>
 			    <hr>
 			
 			
@@ -89,6 +89,10 @@
 		   					<a href="{% url 'pages:edit_category' oPageCategory.id %}" class="btn btn-warning btn-sm">
 								<i class="fa fa-edit" aria-hidden="true"></i>
 								Edit Category
+							</a><br><br>
+							<a href="{% url 'pages:translate_category' oPageCategory.id %}" class="btn btn-warning btn-sm">
+								<i class="fa fa-edit" aria-hidden="true"></i>
+								Translate Category
 							</a><br><br>
 							<a href="{% url 'pages:new_category' %}?parent_id={{oPageCategory.id}}" class="btn btn-warning btn-sm">
 								<i class="fa fa-plus" aria-hidden="true"></i>

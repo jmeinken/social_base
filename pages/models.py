@@ -37,6 +37,7 @@ class PageCategory(TimeStampedModel):
     
    
     title             = models.CharField(max_length=255, verbose_name=_('title'),)
+    language          = models.ForeignKey(Language)
     icon              = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('icon'),)
     parent            = models.ForeignKey("self", blank=True, null=True, related_name='child_set')
     show_as_page      = models.BooleanField(default=False)
@@ -45,6 +46,16 @@ class PageCategory(TimeStampedModel):
     
     def __str__(self):
         return self.title
+    
+    def trans_title(self):
+        translation = get_translation('page_category', 'title', self.id)
+        if translation:
+            return translation
+        else:
+            return self.title
+    
+    def all_trans_title(self):
+        return get_translations('page_category', 'title', self.id)
     
     def has_category_children(self):
         qChildren = self.child_set.all().filter(show_as_page=False)

@@ -100,8 +100,6 @@ def translate_page(request, page_id):
     context = {}
     oPage = models.Page.visible_obj.all().get(pk=page_id)
     context['oPage'] = oPage
-    print('trans')
-    print( str( oPage.all_trans_title() ) )
     if request.POST:
         language = request.POST.get('language')
         set_translation('page', 'title', oPage.id, language, request.POST.get('title'))
@@ -113,6 +111,20 @@ def translate_page(request, page_id):
     context['qLanguage'] = qLanguage
     context['hierarchy'] = oPage.get_hierarchy()
     return render(request, 'pages/translate_page.html', context)
+
+@login_required
+def translate_category(request, category_id):
+    context = {}
+    oCategory = models.PageCategory.objects.all().get(pk=category_id)
+    context['oCategory'] = oCategory
+    if request.POST:
+        language = request.POST.get('language')
+        set_translation('page_category', 'title', oCategory.id, language, request.POST.get('title'))
+        messages.success( request, _('Title successfully translated.') )
+    qLanguage = Language.objects.all()
+    context['qLanguage'] = qLanguage
+    context['hierarchy'] = oCategory.get_hierarchy()
+    return render(request, 'pages/translate_category.html', context)
 
 
 @login_required

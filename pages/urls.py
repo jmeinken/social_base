@@ -15,4 +15,5 @@ urlpatterns = [
     
     url(r'^categories/new', views.new_category, name='new_category'),
     url(r'^categories/edit/(?P<category_id>[0-9]+)', views.edit_category, name='edit_category'),
+    url(r'^categories/translate/(?P<category_id>[0-9]+)', views.translate_category, name='translate_category'),
 ]

@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load mycustom %}
+
+{% block content %}
+
+<ul class="breadcrumb">	
+	<li><a href="{% url 'home' %}">Home</a></li>
+	{% for obj in hierarchy %}
+		<li><a href="{{ obj.get_url }}">{{ obj.trans_title }}</a></li>
+	{% endfor %}
+	<li class="active">Translate</li>
+</ul>
+
+<h2>Translate Category <strong>"{{ oCategory.title }}"</strong></h2>
+
+{% for oLanguage in qLanguage %}
+	{% if oLanguage != oCategory.language %}
+		<form method="POST">
+			{% csrf_token %}
+			<input type="hidden" name="language" value={{oLanguage.code}} />
+			<div class="row well well-sm">
+				<div class="col-sm-3" style="padding-top:7px;">
+		  			{{oLanguage.name}}
+		  		</div>
+		  		<div class="col-sm-3" style="padding-top:7px;">
+		  			"{{oCategory.all_trans_title|keyvalue:oLanguage.code|default:"(not set)"}}"
+		  		</div>
+		  		<div class="col-sm-3">
+		  			<input class="textinput textInput form-control" maxlength="255" name="title" type="text" placeholder="new value"
+										{% if oLanguage.code in oCategory.all_trans_title %}value="{{oCategory.all_trans_title|keyvalue:oLanguage.code}}"{% endif %}> 
+		  		</div>
+		  		<div class="col-sm-3">
+		  			<button type="submit" class="btn btn-primary">
+		  				<i class="fa fa-floppy-o" aria-hidden="true"></i>
+		  				Save Changes
+		  			</button>
+		  		</div>
+		  	</div>
+		</form>
+	{% endif %}
+{% endfor %}
+
+{% endblock %}

@@ -8,7 +8,7 @@
 <ul class="breadcrumb">	
 	<li><a href="{% url 'home' %}">Home</a></li>
 	{% for obj in hierarchy %}
-		<li><a href="{{ obj.get_url }}">{{ obj.title }}</a></li>
+		<li><a href="{{ obj.get_url }}">{{ obj.trans_title }}</a></li>
 	{% endfor %}
 	<li class="active">Translate</li>
 </ul>
@@ -41,7 +41,7 @@
 					<input type="hidden" name="language" value={{oLanguage.code}} />
 					<div class="row">
 				  		<div class="col-sm-6">
-				  			<h3>Original</h3>
+				  			<h3>Original ({{ oPage.language.name }})</h3>
 				  		</div>
 				  		<div class="col-sm-6">
 				  			<h3>{{oLanguage.name}} Translation</h3>

@@ -10,5 +10,7 @@ def pretty_html(value):
 
 
 @register.filter
-def keyvalue(dict, key):    
-    return dict[key]
+def keyvalue(dict, key):  
+    if key in dict:  
+        return dict[key]
+    return ''

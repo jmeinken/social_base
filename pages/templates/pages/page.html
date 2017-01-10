@@ -41,12 +41,12 @@
 	<div class="row">
 		<div class="col-sm-9">
 			<ul class="breadcrumb">	
-				<li><a href="{% url 'home' %}">Home</a></li>
+				<li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
 				{% for obj in hierarchy %}
 					{% if forloop.last %}
-						<li class="active">{{ obj.title }}</li>
+						<li class="active">{{ obj.trans_title }}</li>
 					{% else %}
-						<li><a href="{{ obj.get_url }}">{{ obj.title }}</a></li>
+						<li><a href="{{ obj.get_url }}">{{ obj.trans_title }}</a></li>
 					{% endif %}
 				{% endfor %}
 			</ul>

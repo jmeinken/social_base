@@ -100,7 +100,7 @@ PageLinkFormSet.css_class = 'page-link-form'
 class PageCategoryForm(forms.ModelForm):
     class Meta:
         model = models.PageCategory
-        fields = ['parent', 'title','show_as_page']
+        fields = ['parent', 'language', 'title','show_as_page']
     
     def save(self, commit=True):
         oPageCategory = super(PageCategoryForm, self).save(commit=False)
