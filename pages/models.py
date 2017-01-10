@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from field_trans.helpers import get_translation
 
 from microfeed.models import PostThread
+from main.models import Language
 
 
 
@@ -29,7 +30,12 @@ class ActivePageManager(models.Manager):
         return super(ActivePageManager, self).get_queryset().filter(visible=True)
     
 
+
+    
+
 class PageCategory(TimeStampedModel):
+    
+   
     title             = models.CharField(max_length=255, verbose_name=_('title'),)
     icon              = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('icon'),)
     parent            = models.ForeignKey("self", blank=True, null=True, related_name='child_set')
@@ -74,6 +80,7 @@ class Page(TimeStampedModel):
     visible         = models.BooleanField(default=True)
     post_thread     = models.ForeignKey(PostThread, blank=True, null=True, on_delete=models.SET_NULL)
     image           = models.CharField(max_length=30, blank=True, null=True)
+    language        = models.ForeignKey(Language, on_delete=models.PROTECT)
     
     objects = models.Manager() # The default manager.
     visible_obj = ActivePageManager() # The only show visible manager.

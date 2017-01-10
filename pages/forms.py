@@ -17,7 +17,7 @@ from microfeed.models import PostThread
 class PageForm(forms.ModelForm):
     class Meta:
         model = models.Page
-        fields = ['category','title','body','teaser','address','image']
+        fields = ['language','category','title','body','teaser','address','image']
         widgets = {
           'body': forms.Textarea(attrs={'rows':25, 'cols':30}),
           'image': forms.HiddenInput()
@@ -29,6 +29,7 @@ class PageForm(forms.ModelForm):
         #self.helper.disable_csrf = True
         self.helper.layout = Layout(
                 # 'id',
+                'language'
                 'category',
                 'title',
                 'body',

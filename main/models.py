@@ -18,6 +18,13 @@ from django.contrib.auth.models import BaseUserManager
 # User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
 # User.objects.create_superuser('john', 'lennon@thebeatles.com', 'johnpassword')
 
+class Language(models.Model):
+    code            = models.CharField(max_length=6, primary_key=True)
+    name            = models.CharField(max_length=20)
+    
+    def __str__(self):
+        return self.name
+
 class CustomUserManager(BaseUserManager):
 
     use_in_migrations = True
