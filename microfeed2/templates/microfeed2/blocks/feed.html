@@ -1,4 +1,4 @@
-
+{% load i18n %}
 
 {% for oPost in qPost %}
 	{% include 'microfeed2/blocks/post_block.html' %}
@@ -7,7 +7,7 @@
 
 
 <button class="btn btn-primary" id="mf-load-more-posts-btn">
-	Load more posts
+	{% trans 'Load more posts' %}
 </button>
 
 

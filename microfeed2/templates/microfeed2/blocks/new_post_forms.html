@@ -1,4 +1,5 @@
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 
 {% if user.is_authenticated %}
@@ -6,7 +7,7 @@
 	<div class="well well-sm">
 		<div id="mf-post-form-teaser-container">
 			<textarea class="textarea form-control" id="mf-post-form-teaser" rows="1" 
-					placeholder="Post a message, classified ad, or event"></textarea>
+					placeholder="{% trans 'Post a message, classified ad, or event' %}"></textarea>
 		</div>
 		<div id="mf-post-forms-container" style="display:none;">
 			<div style="float:right">
@@ -14,9 +15,9 @@
 			</div>
 			<div style="font-size:1.2em;">
 				<ul class="nav nav-pills">
-					<li class="active"><a href="#" class="mf-show-pill" data-target-id="#mf-general">General Message</a></li>
-					<li><a href="#" class="mf-show-pill" data-target-id="#mf-classified">Classified Ad</a></li>
-					<li><a href="#" class="mf-show-pill" data-target-id="#mf-event">Event</a></li>
+					<li class="active"><a href="#" class="mf-show-pill" data-target-id="#mf-general">{% trans 'General Message' %}</a></li>
+					<li><a href="#" class="mf-show-pill" data-target-id="#mf-classified">{% trans 'Classified Ad' %}</a></li>
+					<li><a href="#" class="mf-show-pill" data-target-id="#mf-event">{% trans 'Event' %}</a></li>
 				</ul>
 			</div>
 			<br>
@@ -26,7 +27,7 @@
 						{% crispy fPost fPost.helper %}
 						<div style="text-align:right;">
 							<button type="submit" class="btn btn-success" name="submit_form">
-								Share
+								{% trans 'Share' %}
 							</button>
 						</div>
 					</form>
@@ -38,14 +39,14 @@
 						{% crispy fPostClassified fPostClassified.helper %}
 						<div style="text-align:right;">
 							<button type="submit" class="btn btn-success" name="submit_form">
-								Share
+								{% trans 'Share' %}
 							</button>
 						</div>
 					</form>
 				</div>
 		    </div>
 		    <div id="mf-event" class="mf-post-form-container" style="display:none;">
-		      	<h3>coming soon</h3>
+		      	<h3>{% trans 'coming soon' %}</h3>
 		    </div>
 		</div>
 	</div>

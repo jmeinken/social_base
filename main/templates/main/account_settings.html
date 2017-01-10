@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 {% block content %}
 
@@ -15,19 +16,19 @@
 	<div class="col-sm-4">
 		<form method="post">
 			{% crispy form form.helper %}
-			<button type="submit" class="btn btn-success" name="account_form"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Changes</button>
-			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete My Account</button>
+			<button type="submit" class="btn btn-success" name="account_form"><i class="fa fa-floppy-o" aria-hidden="true"></i> {% trans 'Save Changes' %}</button>
+			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal"><i class="fa fa-trash-o" aria-hidden="true"></i> {% trans 'Delete My Account' %}</button>
 		</form>
 	</div>
 	<div class="col-sm-4 col-sm-offset-2">
 		<div class="panel panel-warning">
 	  		<div class="panel-heading">
-	    		<h3 class="panel-title">Change Password</h3>
+	    		<h3 class="panel-title">{% trans 'Change Password' %}</h3>
 	  		</div>
 	  		<div class="panel-body">
 	    		<form method="post">
 					{% crispy password_form password_form.helper %}
-					<button type="submit" class="btn btn-success" name="password_form"><i class="fa fa-key" aria-hidden="true"></i> Change Password</button>
+					<button type="submit" class="btn btn-success" name="password_form"><i class="fa fa-key" aria-hidden="true"></i> {% trans 'Change Password' %}</button>
 				</form>
 	  		</div>
 		</div>
@@ -41,14 +42,14 @@
 			<div class="modal-content">
 				<div class="modal-header">
 				  	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				  	<h4 class="modal-title text-danger"><i class="fa fa-lg fa-exclamation-triangle" aria-hidden="true"></i> Delete Account</h4>
+				  	<h4 class="modal-title text-danger"><i class="fa fa-lg fa-exclamation-triangle" aria-hidden="true"></i> {% trans 'Delete Account' %}</h4>
 				</div>
 				<div class="modal-body">
-				  	<p>This will permanently delete your account.  Are you sure you want to continue?</p>
+				  	<p>{% trans 'This will permanently delete your account.  Are you sure you want to continue?' %}</p>
 				</div>
 				<div class="modal-footer">
-				  	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				  	<button type="submit" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete Account</button>
+				  	<button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
+				  	<button type="submit" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> {% trans 'Delete Account' %}</button>
 				</div>
 			</div>
 		</div>

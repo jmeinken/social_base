@@ -14,9 +14,9 @@ from images.helpers import parse_image_str
 def get_post_form(form_type="general"):
     
     if form_type == 'classified':
-        placeholder = 'Details...'
+        placeholder = _('Details...')
     else:
-        placeholder = 'Write a general message...'
+        placeholder = _('Write a general message...')
 
     class PostForm(forms.ModelForm):
         images = forms.CharField(widget=forms.HiddenInput, required=False)
@@ -49,7 +49,7 @@ def get_post_form(form_type="general"):
                 'form_type',
                 'thread',
                 Field('title',
-                    placeholder = 'Classified ad title'
+                    placeholder = _('Classified ad title')
                 ),
                 Field('body',
                     placeholder = placeholder
@@ -115,7 +115,7 @@ class PostCommentForm(forms.ModelForm):
         #self.helper.disable_csrf = True
         self.helper.layout = Layout(
             Field('body',
-                placeholder = 'Add a comment...'   
+                placeholder = _('Add a comment...')   
             ),
         )
         super(PostCommentForm, self).__init__(*args, **kwargs)

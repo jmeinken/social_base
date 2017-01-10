@@ -1,15 +1,16 @@
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 <div class="mf-edit-post" id="mf-edit-post-{{oPost.id}}">
 	<form method="post" class="mf-edit-post-form" data-post-id="{{oPost.id}}" action="{{callback}}">
 		{% crispy fPost fPost.helper %}
 		<div style="text-align:right;">
 			<button type="button" class="btn btn-default mf-cancel-post-edit" data-post-id="{{oPost.id}}">
-				Cancel
+				{% trans 'Cancel' %}
 			</button>
 			&nbsp;
 			<button type="submit" class="btn btn-success" name="submit_form">
-				Done Editing
+				{% trans 'Done Editing' %}
 			</button>
 		</div>
 	</form>

@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 {% block content %}
 
@@ -8,12 +9,12 @@
 	<div class="col-sm-4  col-sm-offset-4">
 		<div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Create New Account</h3>
+                <h3 class="panel-title">{% trans 'Create New Account' %}</h3>
             </div>
             <div class="panel-body">
 				<form method="post">
 					{% crispy form form.helper %}
-					<button type="submit" class="btn btn-success btn-block" name="account_form"><i class="fa fa-floppy-o" aria-hidden="true"></i> Create Account</button>
+					<button type="submit" class="btn btn-success btn-block" name="account_form"><i class="fa fa-floppy-o" aria-hidden="true"></i> {% trans 'Create Account' %}</button>
 				</form>
 			</div>
 		</div>

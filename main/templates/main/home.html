@@ -22,11 +22,11 @@
 			</div>
 			{% if user.is_staff %}
 				<div class="panel panel-warning">
- 					<div class="panel-heading">Staff Controls</div>
+ 					<div class="panel-heading">{% trans 'Staff Controls' %}</div>
  					<div class="panel-body">
 						<a href="{% url 'pages:new_category' %}" class="btn btn-warning btn-sm">
 							<i class="fa fa-plus" aria-hidden="true"></i>
-							Add New Category
+							{% trans 'Add New Category' %}
 						</a>
  					</div>
 				</div>

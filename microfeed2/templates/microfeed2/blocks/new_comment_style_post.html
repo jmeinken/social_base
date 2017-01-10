@@ -1,5 +1,5 @@
 {% load crispy_forms_tags %}
-
+{% load i18n %}
 
 {% if user.is_authenticated %}
 
@@ -10,7 +10,7 @@
 				{% crispy fPost fPost.helper %}
 				<div style="text-align:right;">
 					<button type="submit" class="btn btn-success" name="submit_form">
-						Share
+						{% trans 'Share' %}
 					</button>
 				</div>
 			</form>

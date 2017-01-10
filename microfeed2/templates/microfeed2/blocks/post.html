@@ -1,6 +1,7 @@
 {% load crispy_forms_tags %}
 {% load static %}	
 {% load mycustom %}	
+{% load i18n %}
 	
 <div class="mf-view-post" id="mf-view-post-{{oPost.id}}">			
 	<div class="mf-post-user-image">
@@ -13,8 +14,8 @@
 					<i class="fa fa-angle-down" aria-hidden="true"></i>
 				</a>
 				<ul class="dropdown-menu dropdown-menu-right">
-					<li><a href="#" class="mf-edit-post-btn" data-post-id="{{oPost.id}}">Edit</a></li>
-					<li><a href="#" class="mf-delete-post-btn" data-post-id="{{oPost.id}}">Delete</a></li>
+					<li><a href="#" class="mf-edit-post-btn" data-post-id="{{oPost.id}}">{% trans 'Edit' %}</a></li>
+					<li><a href="#" class="mf-delete-post-btn" data-post-id="{{oPost.id}}">{% trans 'Delete' %}</a></li>
 				</ul>
 			</div>
 		{% endif %}

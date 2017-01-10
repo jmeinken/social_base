@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <div class="mf-view-comment" id="mf-view-comment-{{oComment.id}}">
 	<div class="mf-comment-user-image">
@@ -11,8 +12,8 @@
 					<i class="fa fa-angle-down" aria-hidden="true"></i>
 				</a>
 				<ul class="dropdown-menu dropdown-menu-right">
-					<li><a href="#" class="mf-edit-comment-btn" data-comment-id="{{oComment.id}}">Edit</a></li>
-					<li><a href="#" class="mf-delete-comment-btn" data-comment-id="{{oComment.id}}">Delete</a></li>
+					<li><a href="#" class="mf-edit-comment-btn" data-comment-id="{{oComment.id}}">{% trans 'Edit' %}</a></li>
+					<li><a href="#" class="mf-delete-comment-btn" data-comment-id="{{oComment.id}}">{% trans 'Delete' %}</a></li>
 				</ul>
 			</div>
 		{% endif %}

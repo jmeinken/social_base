@@ -1,4 +1,5 @@
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 <div class="mf-post-block" id="mf-post-block-{{oPost.id}}">
 	<div class="mf-post" id="mf-post-{{oPost.id}}">
@@ -20,7 +21,7 @@
 						{% crispy fPostComment fPostComment.helper %}
 						<div style="text-align:right;margin-top:-10px">
 							<button type="submit" class="btn btn-primary btn-xs" name="submit_form">
-								Reply
+								{% trans 'Reply' %}
 							</button>
 						</div>
 					</form>

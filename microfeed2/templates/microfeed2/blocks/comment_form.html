@@ -1,13 +1,15 @@
 {% load crispy_forms_tags %}
+{% load i18n %}
+
 <form method="post" class="mf-edit-comment-form" data-comment-id="{{oComment.id}}">
 	{% crispy fComment fComment.helper %}
 	<div style="text-align:right;">
 		<button type="button" class="btn btn-default mf-cancel-comment-edit" data-comment-id="{{oComment.id}}">
-			Cancel
+			{% trans 'Cancel' %}
 		</button>
 		&nbsp;
 		<button type="submit" class="btn btn-success" name="submit_form">
-			Done Editing
+			{% trans 'Done Editing' %}
 		</button>
 	</div>
 </form>
