@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-09 20:08+0000\n"
+"POT-Creation-Date: 2017-01-11 02:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,178 +18,227 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: main/models.py:71
+#: main/models.py:73
 msgid "email address"
 msgstr ""
 
-#: main/models.py:72
+#: main/models.py:74
 msgid "first name"
 msgstr ""
 
-#: main/models.py:73
+#: main/models.py:75
 msgid "last name"
 msgstr ""
 
-#: main/models.py:74
+#: main/models.py:76
 msgid "staff status"
 msgstr ""
 
-#: main/models.py:75
+#: main/models.py:77
 msgid "Designates whether the user can log into this admin site."
 msgstr ""
 
-#: main/models.py:77
+#: main/models.py:79
 msgid "active"
 msgstr ""
 
-#: main/models.py:78
+#: main/models.py:80
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
 
-#: main/models.py:80
+#: main/models.py:82
 msgid "date joined"
 msgstr ""
 
-#: main/models.py:91
+#: main/models.py:93
 msgid "user"
 msgstr ""
 
-#: main/models.py:92
+#: main/models.py:94
 msgid "users"
 msgstr ""
 
 #: main/pretty_date.py:6
 msgid " ago"
-msgstr ""
+msgstr "前"
 
 #: main/pretty_date.py:7
 msgid "in "
-msgstr ""
+msgstr "あと"
 
 #: main/pretty_date.py:42
 msgid "now"
-msgstr ""
+msgstr "今"
 
 #: main/pretty_date.py:43
 msgid " seconds"
-msgstr ""
+msgstr "秒"
 
 #: main/pretty_date.py:44
 msgid "a minute ago"
-msgstr ""
+msgstr "１分前"
 
 #: main/pretty_date.py:44
 msgid "in a minute"
-msgstr ""
+msgstr "１分後"
 
 #: main/pretty_date.py:45
 msgid " minutes"
-msgstr ""
+msgstr "分"
 
 #: main/pretty_date.py:46
 msgid "an hour ago"
-msgstr ""
+msgstr "1時間前"
 
 #: main/pretty_date.py:46
 msgid "in an hour"
-msgstr ""
+msgstr "1時間後"
 
 #: main/pretty_date.py:47
 msgid " hours"
-msgstr ""
+msgstr "時間"
 
 #: main/pretty_date.py:49
 msgid "today"
-msgstr ""
+msgstr "今日"
 
 #: main/pretty_date.py:50
 msgid "yesterday"
-msgstr ""
+msgstr "昨日"
 
 #: main/pretty_date.py:50
 msgid "tomorrow"
-msgstr ""
+msgstr "明日"
 
 #: main/pretty_date.py:51
 msgid "day before"
-msgstr ""
+msgstr "おとつい"
 
 #: main/pretty_date.py:51
 msgid "day after"
-msgstr ""
+msgstr "明後日"
 
 #: main/pretty_date.py:53
 msgid "last week"
-msgstr ""
+msgstr "先週"
 
 #: main/pretty_date.py:53
 msgid "next week"
-msgstr ""
+msgstr "来週"
 
 #: main/pretty_date.py:55
 msgid "last month"
-msgstr ""
+msgstr "先月"
 
 #: main/pretty_date.py:55
 msgid "next month"
-msgstr ""
+msgstr "来月"
 
 #: main/pretty_date.py:56
 msgid " months"
-msgstr ""
+msgstr "月"
 
 #: main/pretty_date.py:57
 msgid "last year"
-msgstr ""
+msgstr "昨年"
 
 #: main/pretty_date.py:57
 msgid "next year"
-msgstr ""
+msgstr "来年"
 
 #: main/pretty_date.py:58
 msgid " years"
-msgstr ""
+msgstr "年"
 
 #: main/templates/core/base.html:92 main/templates/core/base_private.html:81
 msgid "CONTACT US"
-msgstr ""
+msgstr "管理人に連絡"
 
 #: main/templates/core/navbar.html:26
 #: main/templates/core/navbar_private.html:21
 msgid "Logged in as"
-msgstr ""
+msgstr "ユーザー名"
 
 #: main/templates/core/navbar.html:29
 #: main/templates/core/navbar_private.html:24
 msgid "Account Settings"
-msgstr ""
+msgstr "アカウントの変更"
 
 #: main/templates/core/navbar.html:30
 #: main/templates/core/navbar_private.html:25
 msgid "Logout"
-msgstr ""
+msgstr "ログアウト"
 
 #: main/templates/core/navbar.html:37
 msgid "create account"
-msgstr ""
+msgstr "アカウントの設定"
 
 #: main/templates/core/navbar.html:40
 msgid "forgot password"
 msgstr ""
 
-#: main/templates/core/navbar.html:47
+#: main/templates/core/navbar.html:47 main/templates/main/login.html:22
 msgid "username or email"
-msgstr ""
+msgstr "ユーザー名またはメールアドレス"
 
-#: main/templates/core/navbar.html:48
+#: main/templates/core/navbar.html:48 main/templates/main/login.html:25
 msgid "password"
-msgstr ""
+msgstr "パスワード"
 
 #: main/templates/core/navbar.html:50
 msgid "login"
+msgstr "ログイン"
+
+#: main/templates/main/account_settings.html:19
+msgid "Save Changes"
 msgstr ""
+
+#: main/templates/main/account_settings.html:20
+msgid "Delete My Account"
+msgstr ""
+
+#: main/templates/main/account_settings.html:26
+#: main/templates/main/account_settings.html:31
+msgid "Change Password"
+msgstr ""
+
+#: main/templates/main/account_settings.html:45
+#: main/templates/main/account_settings.html:52
+msgid "Delete Account"
+msgstr ""
+
+#: main/templates/main/account_settings.html:48
+msgid ""
+"This will permanently delete your account.  Are you sure you want to "
+"continue?"
+msgstr ""
+
+#: main/templates/main/account_settings.html:51
+#: microfeed2/templates/microfeed2/blocks/comment_form.html:8
+#: microfeed2/templates/microfeed2/blocks/edit_post_form.html:9
+#: microfeed2/templates/microfeed2/blocks/feed_modals.html:14
+msgid "Cancel"
+msgstr ""
+
+#: main/templates/main/create_account.html:12
+msgid "Create New Account"
+msgstr "アカウントの設定"
+
+#: main/templates/main/create_account.html:17
+#: main/templates/main/login.html:31
+msgid "Create Account"
+msgstr "アカウントの設定"
+
+#: main/templates/main/forgot_password.html:8
+msgid "Reset Forgotten Password"
+msgstr ""
+
+#: main/templates/main/forgot_password.html:14
+#: pages/templates/pages/new_page.html:56
+msgid "Submit"
+msgstr "作成する"
 
 #: main/templates/main/home.html:11
 msgid "Recent Posts"
@@ -199,271 +248,190 @@ msgstr "最近のポスト"
 msgid "Cincinnati Info"
 msgstr ""
 
-#: microfeed/models.py:49 microfeed/models.py:169 pages/models.py:70
-msgid "body"
+#: main/templates/main/home.html:25
+msgid "Staff Controls"
 msgstr ""
 
-#: microfeed/models.py:51 microfeed/models.py:135 pages/models.py:33
-#: pages/models.py:66 pages/models.py:166
-msgid "title"
+#: main/templates/main/home.html:29
+msgid "Add New Category"
 msgstr ""
 
-#: microfeed/models.py:145
-msgid "start date"
+#: main/templates/main/login.html:10
+msgid "Please Sign In"
 msgstr ""
 
-#: microfeed/models.py:146
-msgid "start time"
+#: main/templates/main/login.html:27
+msgid "Sign In"
 msgstr ""
 
-#: microfeed/models.py:147
-msgid "end time"
+#: main/templates/main/login.html:31
+msgid "Forgot Password"
 msgstr ""
 
-#: microfeed/templates/microfeed/new_event.html:27
-msgid "Add another event time"
+#: main/templates/main/reset_password.html:12
+msgid "Reset Your Password"
 msgstr ""
 
-#: microfeed/templates/microfeed/new_event.html:47
-msgid "Post an Event"
+#: main/templates/main/reset_password.html:18
+msgid "Reset My Password"
 msgstr ""
 
-#: microfeed/templates/microfeed/new_event.html:61
-#: pages/templates/pages/new_page.html:46
-msgid "Submit"
+#: microfeed2/forms.py:17
+msgid "Details..."
 msgstr ""
 
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:14
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:60
-msgid "posted by"
+#: microfeed2/forms.py:19
+msgid "Write a general message..."
 msgstr ""
 
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:25
-msgid "Edit post:"
+#: microfeed2/forms.py:52
+msgid "Classified ad title"
 msgstr ""
 
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:30
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:122
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:322
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:343
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:384
-#: microfeed/templates/microfeed/view_post.html:52
-msgid "Cancel"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:31
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:123
-msgid "Save"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:91
+#: microfeed2/forms.py:118
 msgid "Add a comment..."
 msgstr ""
 
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:93
+#: microfeed2/models.py:49 microfeed2/models.py:169 pages/models.py:87
+msgid "body"
+msgstr ""
+
+#: microfeed2/models.py:51 microfeed2/models.py:135 pages/models.py:39
+#: pages/models.py:83 pages/models.py:194
+msgid "title"
+msgstr "タイトル"
+
+#: microfeed2/models.py:145
+msgid "start date"
+msgstr "開催日"
+
+#: microfeed2/models.py:146
+msgid "start time"
+msgstr "開始時間"
+
+#: microfeed2/models.py:147
+msgid "end time"
+msgstr "終了時間"
+
+#: microfeed2/templates/microfeed2/blocks/comment.html:15
+#: microfeed2/templates/microfeed2/blocks/post.html:17
+msgid "Edit"
+msgstr "変更"
+
+#: microfeed2/templates/microfeed2/blocks/comment.html:16
+#: microfeed2/templates/microfeed2/blocks/post.html:18
+msgid "Delete"
+msgstr "消去"
+
+#: microfeed2/templates/microfeed2/blocks/comment_form.html:12
+#: microfeed2/templates/microfeed2/blocks/edit_post_form.html:13
+msgid "Done Editing"
+msgstr ""
+
+#: microfeed2/templates/microfeed2/blocks/feed.html:10
+msgid "Load more posts"
+msgstr ""
+
+#: microfeed2/templates/microfeed2/blocks/feed_modals.html:8
+#: microfeed2/templates/microfeed2/blocks/feed_modals.html:15
+msgid "Delete Post"
+msgstr "ポストを消去する"
+
+#: microfeed2/templates/microfeed2/blocks/feed_modals.html:11
+msgid "Are you sure you want to delete this post?"
+msgstr "本当に消去しますか？"
+
+#: microfeed2/templates/microfeed2/blocks/new_comment_style_post.html:13
+#: microfeed2/templates/microfeed2/blocks/new_post_form.html:12
+#: microfeed2/templates/microfeed2/blocks/new_post_forms.html:30
+#: microfeed2/templates/microfeed2/blocks/new_post_forms.html:42
+msgid "Share"
+msgstr "シェア"
+
+#: microfeed2/templates/microfeed2/blocks/new_post_forms.html:10
+msgid "Post a message, classified ad, or event"
+msgstr ""
+
+#: microfeed2/templates/microfeed2/blocks/new_post_forms.html:18
+msgid "General Message"
+msgstr ""
+
+#: microfeed2/templates/microfeed2/blocks/new_post_forms.html:19
+msgid "Classified Ad"
+msgstr ""
+
+#: microfeed2/templates/microfeed2/blocks/new_post_forms.html:20
+msgid "Event"
+msgstr "エベント"
+
+#: microfeed2/templates/microfeed2/blocks/new_post_forms.html:49
+msgid "coming soon"
+msgstr ""
+
+#: microfeed2/templates/microfeed2/blocks/post_block.html:24
 msgid "Reply"
 msgstr ""
 
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:117
-msgid "Edit comment:"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:136
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:148
-msgid "Edit"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:137
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:149
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:325
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:346
-#: microfeed/templates/microfeed/view_post.html:57
-msgid "Delete"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:158
-msgid "show previous comments"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:164
-msgid "show more posts"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:192
-msgid "Write a comment..."
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:195
-msgid "Share"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:201
-msgid "Attach an Image"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:302
-msgid "more pictures"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:316
-msgid "Delete Post"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:319
-msgid "Are you sure you want to delete this post?"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:337
-msgid "Delete Comment"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:340
-msgid "Are you sure you want to delete this comment?"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:358
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:385
-msgid "Add Image"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:364
-msgid "select image"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:416
-#, python-format
-msgid ""
-"\n"
-"\t\t\tPlease <a href=\"%(login_url)s\" class=\"alert-link\">login</a> or <a "
-"href=\"%(create_account_url)s\" class=\"alert-link\">create an account</a> "
-"to post.\n"
-"\t\t"
-msgstr ""
-
-#: microfeed/templates/microfeed/snippets/javascript_templates.html:427
-#, python-format
-msgid ""
-"\n"
-"\t\t\t<a href=\"%(login_url)s\">login</a> or <a href=\"%(create_account_url)s"
-"\" class=\"alert-link\">create account</a> to comment\n"
-"\t\t"
-msgstr ""
-
-#: microfeed/templates/microfeed/view_post.html:11
-#: microfeed/templates/microfeed/view_post.html:46
-msgid "Delete Event"
-msgstr ""
-
-#: microfeed/templates/microfeed/view_post.html:12
-msgid "Edit Event"
-msgstr ""
-
-#: microfeed/templates/microfeed/view_post.html:16
-msgid "Event"
-msgstr ""
-
-#: microfeed/templates/microfeed/view_post.html:49
-msgid "Are you sure you want to delete this event?"
-msgstr ""
-
-#: pages/forms.py:88 pages/models.py:173 pages/models.py:183
+#: pages/forms.py:96 pages/models.py:201 pages/models.py:211
 msgid "Page Links"
-msgstr ""
+msgstr "リンクページ"
 
-#: pages/models.py:34
+#: pages/models.py:41
 msgid "icon"
 msgstr ""
 
-#: pages/models.py:69
+#: pages/models.py:86
 msgid "teaser"
-msgstr ""
+msgstr "詳細"
 
-#: pages/models.py:71 pages/models.py:177
+#: pages/models.py:88 pages/models.py:205
 msgid "address"
-msgstr ""
+msgstr "住所"
 
-#: pages/models.py:72 pages/models.py:168 pages/models.py:178
+#: pages/models.py:89 pages/models.py:196 pages/models.py:206
 msgid "order"
 msgstr ""
 
-#: pages/models.py:167
+#: pages/models.py:195
 msgid "url"
-msgstr ""
+msgstr "URL"
 
-#: pages/models.py:172 pages/models.py:182
+#: pages/models.py:200 pages/models.py:210
 msgid "Page Link"
 msgstr ""
 
-#: pages/templates/pages/new_page.html:23
-msgid "Post a Page"
-msgstr ""
+#: pages/templates/pages/list.html:15 pages/templates/pages/page.html:44
+msgid "Home"
+msgstr "ホーム"
 
-#: pages/templates/pages/page.html:35
+#: pages/templates/pages/list.html:48 pages/templates/pages/page.html:85
+msgid "LOCATION"
+msgstr "住所"
+
+#: pages/templates/pages/new_page.html:33
+msgid "Post a Page"
+msgstr "ページの作成"
+
+#: pages/templates/pages/page.html:72
 msgid "LINKS"
 msgstr ""
 
-#: pages/templates/pages/page.html:48
-msgid "LOCATION"
-msgstr ""
-
-#: pages/templates/pages/translate_page.html:17
-msgid "Home"
-msgstr ""
-
-#: pages/templates/pages/translate_page.html:24
-msgid "Translate Page"
-msgstr ""
-
-#: pages/templates/pages/translate_page.html:40
-#: pages/templates/pages/translate_page.html:57
-#: pages/templates/pages/translate_page.html:74
-msgid "Translation"
-msgstr ""
-
-#: pages/views.py:62
+#: pages/views.py:63
 msgid "Page successfully added."
-msgstr ""
+msgstr "ページを載せました"
 
-#: pages/views.py:85
+#: pages/views.py:86
 msgid "Page successfully edited."
-msgstr ""
+msgstr "ページを変更しました"
 
-#: pages/views.py:144
-msgid "Restaurants"
-msgstr ""
-
-#: pages/views.py:145
-msgid "Local Destinations"
-msgstr ""
-
-#: pages/views.py:146
-msgid "Regional Destinations"
-msgstr ""
-
-#: pages/views.py:147
-msgid "Housing"
-msgstr ""
-
-#: pages/views.py:148
-msgid "Shopping"
-msgstr ""
-
-#: pages/views.py:149
-msgid "Medical"
-msgstr ""
-
-#: pages/views.py:150
-msgid "Transportation"
-msgstr ""
-
-#: pages/views.py:151
-msgid "Education"
-msgstr ""
-
-#: pages/views.py:169
-msgid "Page successfully deleted."
-msgstr ""
-
-#: pages/views.py:187
+#: pages/views.py:108
 msgid "Page successfully translated."
 msgstr ""
+
+#: pages/views.py:123
+msgid "Title successfully translated."
+msgstr ""
+
+#: pages/views.py:202
+msgid "Page successfully deleted."
+msgstr "ページを消去しました"

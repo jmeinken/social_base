@@ -69,6 +69,8 @@
 				    			<a href="{% url 'pages:view_page' oPage.id %}">more...</a>
 				    		</div>
 				    	</div>
+				    {% empty %}
+				    	<em>{% trans 'There are no posts yet for this category.' %}</em>
 				    {% endfor %}
 				{% endif %}
 				

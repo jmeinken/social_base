@@ -44,6 +44,9 @@ class PageCategory(TimeStampedModel):
     # add_microfeed     = models.BooleanField(default=False)
     post_thread       = models.ForeignKey(PostThread, blank=True, null=True, on_delete=models.SET_NULL)
     
+    class Meta:
+        ordering = ['title']
+    
     def __str__(self):
         return self.title
     

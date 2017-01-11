@@ -1,6 +1,6 @@
 
 {% for oCategory in qCategory %}
-    
-    <a href="{% url 'pages:list' oCategory.id %}">{{ oCategory.icon|default:""|safe }} {{ oCategory.trans_title }}</a><br>
-
+    <div style="padding:4px 0;">
+    	<a href="{% url 'pages:list' oCategory.id %}">{{ oCategory.icon|default:""|safe }} {{ oCategory.trans_title }}</a>
+	</div>
 {% endfor %}
