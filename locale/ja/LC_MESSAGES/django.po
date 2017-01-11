@@ -177,7 +177,7 @@ msgstr "アカウントの設定"
 
 #: main/templates/core/navbar.html:40
 msgid "forgot password"
-msgstr ""
+msgstr "パスワードをお忘れですか？"
 
 #: main/templates/core/navbar.html:47 main/templates/main/login.html:22
 msgid "username or email"
@@ -193,34 +193,34 @@ msgstr "ログイン"
 
 #: main/templates/main/account_settings.html:19
 msgid "Save Changes"
-msgstr ""
+msgstr "保存します"
 
 #: main/templates/main/account_settings.html:20
 msgid "Delete My Account"
-msgstr ""
+msgstr "アカウントの消去"
 
 #: main/templates/main/account_settings.html:26
 #: main/templates/main/account_settings.html:31
 msgid "Change Password"
-msgstr ""
+msgstr "パスワードの変更"
 
 #: main/templates/main/account_settings.html:45
 #: main/templates/main/account_settings.html:52
 msgid "Delete Account"
-msgstr ""
+msgstr "アカウントの消去"
 
 #: main/templates/main/account_settings.html:48
 msgid ""
 "This will permanently delete your account.  Are you sure you want to "
 "continue?"
-msgstr ""
+msgstr "消去すると戻すことができません.いいですか？"
 
 #: main/templates/main/account_settings.html:51
 #: microfeed2/templates/microfeed2/blocks/comment_form.html:8
 #: microfeed2/templates/microfeed2/blocks/edit_post_form.html:9
 #: microfeed2/templates/microfeed2/blocks/feed_modals.html:14
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 #: main/templates/main/create_account.html:12
 msgid "Create New Account"
@@ -233,7 +233,7 @@ msgstr "アカウントの設定"
 
 #: main/templates/main/forgot_password.html:8
 msgid "Reset Forgotten Password"
-msgstr ""
+msgstr "新しくパスワードを設定する"
 
 #: main/templates/main/forgot_password.html:14
 #: pages/templates/pages/new_page.html:56
@@ -246,55 +246,55 @@ msgstr "最近のポスト"
 
 #: main/templates/main/home.html:18
 msgid "Cincinnati Info"
-msgstr ""
+msgstr "シンシナティ情報"
 
 #: main/templates/main/home.html:25
 msgid "Staff Controls"
-msgstr ""
+msgstr "管理人"
 
 #: main/templates/main/home.html:29
 msgid "Add New Category"
-msgstr ""
+msgstr "新しいカテゴリーの作成"
 
 #: main/templates/main/login.html:10
 msgid "Please Sign In"
-msgstr ""
+msgstr "ログインしてください"
 
 #: main/templates/main/login.html:27
 msgid "Sign In"
-msgstr ""
+msgstr "ログイン"
 
 #: main/templates/main/login.html:31
 msgid "Forgot Password"
-msgstr ""
+msgstr "パスワードをお忘れですか？"
 
 #: main/templates/main/reset_password.html:12
 msgid "Reset Your Password"
-msgstr ""
+msgstr "新しいパスワードの設定"
 
 #: main/templates/main/reset_password.html:18
 msgid "Reset My Password"
-msgstr ""
+msgstr "新しいパスワードの設定"
 
 #: microfeed2/forms.py:17
 msgid "Details..."
-msgstr ""
+msgstr "詳細"
 
 #: microfeed2/forms.py:19
 msgid "Write a general message..."
-msgstr ""
+msgstr "メッセージを書く"
 
 #: microfeed2/forms.py:52
 msgid "Classified ad title"
-msgstr ""
+msgstr "タイトル"
 
 #: microfeed2/forms.py:118
 msgid "Add a comment..."
-msgstr ""
+msgstr "コメントを書く"
 
 #: microfeed2/models.py:49 microfeed2/models.py:169 pages/models.py:87
 msgid "body"
-msgstr ""
+msgstr "詳細"
 
 #: microfeed2/models.py:51 microfeed2/models.py:135 pages/models.py:39
 #: pages/models.py:83 pages/models.py:194
@@ -326,11 +326,11 @@ msgstr "消去"
 #: microfeed2/templates/microfeed2/blocks/comment_form.html:12
 #: microfeed2/templates/microfeed2/blocks/edit_post_form.html:13
 msgid "Done Editing"
-msgstr ""
+msgstr "変更終了"
 
 #: microfeed2/templates/microfeed2/blocks/feed.html:10
 msgid "Load more posts"
-msgstr ""
+msgstr "もっと見る"
 
 #: microfeed2/templates/microfeed2/blocks/feed_modals.html:8
 #: microfeed2/templates/microfeed2/blocks/feed_modals.html:15
@@ -350,15 +350,15 @@ msgstr "シェア"
 
 #: microfeed2/templates/microfeed2/blocks/new_post_forms.html:10
 msgid "Post a message, classified ad, or event"
-msgstr ""
+msgstr "コメントを書く・売る・買う・イベントなど"
 
 #: microfeed2/templates/microfeed2/blocks/new_post_forms.html:18
 msgid "General Message"
-msgstr ""
+msgstr "メッセージ"
 
 #: microfeed2/templates/microfeed2/blocks/new_post_forms.html:19
 msgid "Classified Ad"
-msgstr ""
+msgstr "売ります・買います"
 
 #: microfeed2/templates/microfeed2/blocks/new_post_forms.html:20
 msgid "Event"
@@ -370,7 +370,7 @@ msgstr ""
 
 #: microfeed2/templates/microfeed2/blocks/post_block.html:24
 msgid "Reply"
-msgstr ""
+msgstr "返事をする"
 
 #: pages/forms.py:96 pages/models.py:201 pages/models.py:211
 msgid "Page Links"
@@ -398,7 +398,7 @@ msgstr "URL"
 
 #: pages/models.py:200 pages/models.py:210
 msgid "Page Link"
-msgstr ""
+msgstr "ページリンク"
 
 #: pages/templates/pages/list.html:15 pages/templates/pages/page.html:44
 msgid "Home"
@@ -414,7 +414,7 @@ msgstr "ページの作成"
 
 #: pages/templates/pages/page.html:72
 msgid "LINKS"
-msgstr ""
+msgstr "リンク"
 
 #: pages/views.py:63
 msgid "Page successfully added."
@@ -426,11 +426,11 @@ msgstr "ページを変更しました"
 
 #: pages/views.py:108
 msgid "Page successfully translated."
-msgstr ""
+msgstr "ページの通訳ができました"
 
 #: pages/views.py:123
 msgid "Title successfully translated."
-msgstr ""
+msgstr "タイトルの通訳ができました"
 
 #: pages/views.py:202
 msgid "Page successfully deleted."
