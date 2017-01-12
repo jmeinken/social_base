@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 20:43+0000\n"
+"POT-Creation-Date: 2017-01-12 21:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -246,38 +246,36 @@ msgid "Home"
 msgstr "ホーム"
 
 #: main/templates/main/account_settings.html:14
-#, python-format
-msgid ""
-"\n"
-"\t\t\tAccount Settings for %(username)s\n"
-"\t\t"
-msgstr ""
+#, fuzzy, python-format
+#| msgid "Account Settings"
+msgid "Account Settings for %(username)s"
+msgstr "アカウントの変更"
 
-#: main/templates/main/account_settings.html:23
+#: main/templates/main/account_settings.html:21
 msgid "Save Changes"
 msgstr "保存します"
 
-#: main/templates/main/account_settings.html:24
+#: main/templates/main/account_settings.html:22
 msgid "Delete My Account"
 msgstr "アカウントの消去"
 
-#: main/templates/main/account_settings.html:30
-#: main/templates/main/account_settings.html:35
+#: main/templates/main/account_settings.html:28
+#: main/templates/main/account_settings.html:33
 msgid "Change Password"
 msgstr "パスワードの変更"
 
-#: main/templates/main/account_settings.html:49
-#: main/templates/main/account_settings.html:56
+#: main/templates/main/account_settings.html:47
+#: main/templates/main/account_settings.html:54
 msgid "Delete Account"
 msgstr "アカウントの消去"
 
-#: main/templates/main/account_settings.html:52
+#: main/templates/main/account_settings.html:50
 msgid ""
 "This will permanently delete your account.  Are you sure you want to "
 "continue?"
 msgstr "消去すると戻すことができません.いいですか？"
 
-#: main/templates/main/account_settings.html:55
+#: main/templates/main/account_settings.html:53
 #: microfeed2/templates/microfeed2/blocks/comment_form.html:8
 #: microfeed2/templates/microfeed2/blocks/edit_post_form.html:9
 #: microfeed2/templates/microfeed2/blocks/feed_modals.html:14
@@ -306,16 +304,16 @@ msgstr "作成する"
 msgid "Recent Posts"
 msgstr "最近のポスト"
 
-#: main/templates/main/home.html:18 pages/templates/pages/list.html:82
+#: main/templates/main/home.html:18 pages/templates/pages/list.html:92
 #: pages/templates/pages/page.html:112
 msgid "Cincinnati Info"
 msgstr "シンシナティ情報"
 
-#: main/templates/main/home.html:25 pages/templates/pages/list.html:89
+#: main/templates/main/home.html:25 pages/templates/pages/list.html:99
 msgid "Staff Controls"
 msgstr "管理人"
 
-#: main/templates/main/home.html:29 pages/templates/pages/list.html:101
+#: main/templates/main/home.html:29 pages/templates/pages/list.html:111
 msgid "Add New Category"
 msgstr "新しいカテゴリーの作成"
 
@@ -355,12 +353,12 @@ msgstr "タイトル"
 msgid "Add a comment..."
 msgstr "コメントを書く"
 
-#: microfeed2/models.py:49 microfeed2/models.py:169 pages/models.py:90
+#: microfeed2/models.py:49 microfeed2/models.py:169 pages/models.py:91
 msgid "body"
 msgstr "詳細"
 
 #: microfeed2/models.py:51 microfeed2/models.py:135 pages/models.py:39
-#: pages/models.py:86 pages/models.py:197
+#: pages/models.py:87 pages/models.py:198
 msgid "title"
 msgstr "タイトル"
 
@@ -433,18 +431,13 @@ msgstr ""
 
 #: microfeed2/templates/microfeed2/blocks/new_post_forms.html:57
 msgid ""
-"\n"
-"\t\t\t<a href=\"/login\">Login</a> or <a href=\"/create_account\">create an "
-"account</a> to post.\n"
-"\t\t"
+"<a href=\"/login\">Login</a> or <a href=\"/create_account\">create an "
+"account</a> to post."
 msgstr ""
 
 #: microfeed2/templates/microfeed2/blocks/post.html:25
 #, python-format
-msgid ""
-"\n"
-"\t\t\t\tposted by %(username)s\n"
-"\t\t\t"
+msgid "posted by %(username)s"
 msgstr ""
 
 #: microfeed2/templates/microfeed2/blocks/post_block.html:24
@@ -453,13 +446,11 @@ msgstr "返事をする"
 
 #: microfeed2/templates/microfeed2/blocks/post_block.html:31
 msgid ""
-"\n"
-"\t\t\t\t\t\t<a href=\"/login\">Login</a> or <a href=\"/create_account"
-"\">create an account</a> to comment.\n"
-"\t\t\t\t\t"
+"<a href=\"/login\">Login</a> or <a href=\"/create_account\">create an "
+"account</a> to comment."
 msgstr ""
 
-#: pages/forms.py:96 pages/models.py:204 pages/models.py:214
+#: pages/forms.py:97 pages/models.py:205 pages/models.py:215
 msgid "Page Links"
 msgstr "リンクページ"
 
@@ -467,57 +458,56 @@ msgstr "リンクページ"
 msgid "icon"
 msgstr ""
 
-#: pages/models.py:89
-msgid "teaser"
-msgstr "詳細"
-
-#: pages/models.py:91 pages/models.py:208
-msgid "address"
-msgstr "住所"
-
-#: pages/models.py:92 pages/models.py:199 pages/models.py:209
+#: pages/models.py:46 pages/models.py:93 pages/models.py:200
+#: pages/models.py:210
 msgid "order"
 msgstr ""
 
-#: pages/models.py:198
+#: pages/models.py:90
+msgid "teaser"
+msgstr "詳細"
+
+#: pages/models.py:92 pages/models.py:209
+msgid "address"
+msgstr "住所"
+
+#: pages/models.py:199
 msgid "url"
 msgstr "URL"
 
-#: pages/models.py:203 pages/models.py:213
+#: pages/models.py:204 pages/models.py:214
 msgid "Page Link"
 msgstr "ページリンク"
 
-#: pages/templates/pages/list.html:48 pages/templates/pages/page.html:85
+#: pages/templates/pages/list.html:58 pages/templates/pages/page.html:85
 msgid "LOCATION"
 msgstr "住所"
 
-#: pages/templates/pages/list.html:73
+#: pages/templates/pages/list.html:83
 msgid "There are no posts yet for this category."
 msgstr ""
 
-#: pages/templates/pages/list.html:93
+#: pages/templates/pages/list.html:103
 #, fuzzy
 #| msgid "Add New Category"
 msgid "Edit Category"
 msgstr "新しいカテゴリーの作成"
 
-#: pages/templates/pages/list.html:97
+#: pages/templates/pages/list.html:107
 msgid "Translate Category"
 msgstr ""
 
-#: pages/templates/pages/list.html:105
+#: pages/templates/pages/list.html:115
 #, fuzzy
 #| msgid "Add New Category"
 msgid "Add New Page"
 msgstr "新しいカテゴリーの作成"
 
-#: pages/templates/pages/list.html:110 pages/templates/pages/page.html:142
+#: pages/templates/pages/list.html:120 pages/templates/pages/page.html:142
 #, python-format
 msgid ""
-"\n"
-"\t\t\t\t\t\tWant to contribute to these pages?  <a href=\"mailto:%(email)s"
-"\">Contact us</a> to request a Contributor Account.\n"
-"\t\t\t\t\t"
+"Want to contribute to these pages?  <a href=\"mailto:%(email)s\">Contact us</"
+"a> to request a Contributor Account."
 msgstr ""
 
 #: pages/templates/pages/new_page.html:33
@@ -536,50 +526,50 @@ msgstr ""
 msgid "Page successfully added."
 msgstr "ページを載せました"
 
-#: pages/views.py:86
+#: pages/views.py:88
 msgid "Page successfully edited."
 msgstr "ページを変更しました"
 
-#: pages/views.py:108
+#: pages/views.py:112
 msgid "Page successfully translated."
 msgstr "ページの通訳ができました"
 
-#: pages/views.py:123
+#: pages/views.py:129
 msgid "Title successfully translated."
 msgstr "タイトルの通訳ができました"
 
-#: pages/views.py:177
+#: pages/views.py:183
 msgid "Restaurants"
 msgstr ""
 
-#: pages/views.py:178
+#: pages/views.py:184
 msgid "Local Destinations"
 msgstr ""
 
-#: pages/views.py:179
+#: pages/views.py:185
 msgid "Regional Destinations"
 msgstr ""
 
-#: pages/views.py:180
+#: pages/views.py:186
 msgid "Housing"
 msgstr ""
 
-#: pages/views.py:181
+#: pages/views.py:187
 msgid "Shopping"
 msgstr ""
 
-#: pages/views.py:182
+#: pages/views.py:188
 msgid "Medical"
 msgstr ""
 
-#: pages/views.py:183
+#: pages/views.py:189
 msgid "Transportation"
 msgstr ""
 
-#: pages/views.py:184
+#: pages/views.py:190
 msgid "Education"
 msgstr ""
 
-#: pages/views.py:202
+#: pages/views.py:208
 msgid "Page successfully deleted."
 msgstr "ページを消去しました"

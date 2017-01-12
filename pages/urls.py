@@ -4,7 +4,7 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
+
     
     url(r'^new', views.new_page, name='new_page'),
     url(r'^delete', views.delete_page, name='delete_page'),

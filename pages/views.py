@@ -118,6 +118,15 @@ def translate_page(request, page_id):
     context['hierarchy'] = oPage.get_hierarchy()
     return render(request, 'pages/translate_page.html', context)
 
+@csrf_exempt
+def delete_page(request):
+    page_id = int( request.POST.get('page_id') )
+    oPage = models.Page.objects.all().get(id=page_id)
+    parent_id = oPage.category.id
+    oPage.delete()
+    messages.success( request, _('Page successfully deleted.') )
+    return redirect('pages:list', page_category_id=parent_id)
+
 @login_required
 def translate_category(request, category_id):
     context = {}
@@ -179,16 +188,7 @@ def edit_category(request, category_id):
 
 
 
-page_titles = {
-    'restaurant' : _('Restaurants'),
-    'local_destination' : _('Local Destinations'),
-    'regional_destination' : _('Regional Destinations'),
-    'housing' : _('Housing'),
-    'shopping' : _('Shopping'),
-    'medical' : _('Medical'),
-    'transportation' : _('Transportation'),
-    'education' : _('Education'),
-}
+
 
 
 def home(request):
@@ -199,48 +199,12 @@ def home(request):
 
 
 
-@csrf_exempt
-def delete_page(request):
-    page_id = int( request.POST.get('page_id') )
-    oPage = models.Page.objects.all().get(id=page_id)
-    oPage.visible = False
-    oPage.save()
-    messages.success( request, _('Page successfully deleted.') )
-    return redirect('home')
 
 
 
 
 
-    
 
-def page(request, page_id):
-    context = {}
-    context['upcoming_events'] = functions.get_upcoming_events()
-    oPage = models.Page.visible_obj.all().get(pk=page_id)
-    context['oPage'] = oPage
-    context['verbose_language'] = get_verbose_language(request.LANGUAGE_CODE)
-    return render(request, 'pages/page.html', context)
-
-
-
-@csrf_exempt
-def upload_image(request):
-    context = {}
-    if request.method == 'POST':
-        image = request.POST.get('image')
-        if image:
-            imageArr = image.split(',')
-            i = 0
-            while os.path.exists(UPLOADS_DIR + 'page_images/image_' + str(i) + '.png'):
-                i += 1
-            image_name = 'image_' + str(i) + '.png'     # placeholder
-            image_path = '/static/uploads/page_images/' + image_name
-            fh = open(UPLOADS_DIR + "page_images/" + image_name, "wb")
-            fh.write(imageArr[1].decode('base64'))
-            fh.close()
-            return HttpResponse(json.dumps(image_path), content_type = "application/json")
-    return HttpResponse(json.dumps('fail'), content_type = "application/json")
     
 
 

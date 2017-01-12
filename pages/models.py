@@ -43,7 +43,7 @@ class PageCategory(TimeStampedModel):
     show_as_page      = models.BooleanField(default=False)
     # add_microfeed     = models.BooleanField(default=False)
     post_thread       = models.ForeignKey(PostThread, blank=True, null=True, on_delete=models.SET_NULL)
-    order             = models.IntegerField(verbose_name=_('order'),)
+    order             = models.IntegerField(default=0, verbose_name=_('order'),)
     
     class Meta:
         ordering = ['order', 'title']
