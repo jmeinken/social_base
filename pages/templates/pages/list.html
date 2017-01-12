@@ -43,7 +43,11 @@
 				    		{% endif %}
 				    		<h3>
 				    			{{ oPage.trans_title }} 
-				    			<a href="{% url 'pages:edit_page' oPage.id %}" class="text-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+				    			{% if user.is_staff %}
+				    				<a href="{% url 'pages:edit_page' oPage.id %}" class="text-warning">
+				    					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+				    				</a>
+				    			{% endif %}
 				    		</h3>
 				    		<p>{{ oPage.trans_body|pretty_html|safe }}</p>
 				    		{% if oPage.address %}
