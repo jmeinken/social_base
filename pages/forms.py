@@ -21,7 +21,7 @@ class TranslateForm(forms.Form):
 class PageForm(forms.ModelForm):
     class Meta:
         model = models.Page
-        fields = ['language', 'category','title','body','teaser','address','image']
+        fields = ['language', 'order', 'category','title','body','teaser','address','image']
         widgets = {
           'body': forms.Textarea(attrs={'rows':25, 'cols':30}),
           'image': forms.HiddenInput()
@@ -36,6 +36,7 @@ class PageForm(forms.ModelForm):
                 'language',
                 'category',
                 'title',
+                'order',
                 'address',
                 Field('image', 
                     css_class = 'image_input', 
@@ -100,7 +101,7 @@ PageLinkFormSet.css_class = 'page-link-form'
 class PageCategoryForm(forms.ModelForm):
     class Meta:
         model = models.PageCategory
-        fields = ['parent', 'language', 'title','show_as_page']
+        fields = ['parent', 'language', 'title','order', 'show_as_page']
     
     def save(self, commit=True):
         oPageCategory = super(PageCategoryForm, self).save(commit=False)

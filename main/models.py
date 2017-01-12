@@ -68,7 +68,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     Email and password are required. Other fields are optional.
     """
     
-    username = models.CharField(max_length=30, unique=True)
+    username = models.CharField(_('username'), max_length=30, unique=True)
     image = models.CharField(max_length=30, blank=True, null=True)
     email = models.EmailField(_('email address'), max_length=254, unique=True, blank=True, null=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)

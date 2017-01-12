@@ -93,7 +93,7 @@
 			
 			{% if oPage.post_thread %}
 				<hr>
-				<h4>COMMENTS:</h4>
+				<h4>{% trans 'COMMENTS:' %}</h4>
 				{% include 'microfeed2/blocks/new_comment_style_post.html' %}
 				<div id="mf-feed" data-thread-id="{{oPage.post_thread.id}}" style="background-color: gray; padding:1px 0;"></div>
 				
@@ -108,7 +108,7 @@
 		
 		<div class="col-sm-3">
 			<div class="panel panel-default">
-				<div class="panel-heading">Cincinnati Info</div>
+				<div class="panel-heading">{% trans 'Cincinnati Info' %}</div>
 				<div class="panel-body">
    					{% include 'pages/blocks/standard_menu.html' %}
 				</div>
@@ -138,7 +138,9 @@
  					</div>
 				</div>
 			{% else %}
-					Want to contribute to these pages?  <a href="mailto:{{constants.CONTACT_EMAIL}}">Contact us</a> to request a Contributor Account.
+					{% blocktrans with email=constants.CONTACT_EMAIL %}
+						Want to contribute to these pages?  <a href="mailto:{{email}}">Contact us</a> to request a Contributor Account.
+					{% endblocktrans %}
 			{% endif %}
 		</div>
 	</div>

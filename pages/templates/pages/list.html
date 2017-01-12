@@ -35,13 +35,16 @@
 			    
 				{% if oPageCategory.show_as_page %}
 				    {% for oPage in oPageCategory.page_set.all %}
-				    	<div class="well">
+				    	<div class="well" style="overflow: hidden;">
 				    		{% if oPage.image %}
 				    			<div style="float:right; padding:10px;width:50%;min-width:200px;">
 				    				<img src="{% static oPage.get_image %}" alt="oPage.title" class="img-responsive" />
 				    			</div>
 				    		{% endif %}
-				    		<h3>{{ oPage.trans_title }}</h3>
+				    		<h3>
+				    			{{ oPage.trans_title }} 
+				    			<a href="{% url 'pages:edit_page' oPage.id %}" class="text-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+				    		</h3>
 				    		<p>{{ oPage.trans_body|pretty_html|safe }}</p>
 				    		{% if oPage.address %}
 								<p>
@@ -79,35 +82,37 @@
 			
 			<div class="col-sm-3">
 				<div class="panel panel-default">
-  					<div class="panel-heading">Cincinnati Info</div>
+  					<div class="panel-heading">{% trans 'Cincinnati Info' %}</div>
   					<div class="panel-body">
     					{% include 'pages/blocks/standard_menu.html' %}
   					</div>
 				</div>
 				{% if user.is_staff %}
 					<div class="panel panel-warning">
-	 					<div class="panel-heading">Staff Controls</div>
+	 					<div class="panel-heading">{% trans 'Staff Controls' %}</div>
 	 					<div class="panel-body">
 		   					<a href="{% url 'pages:edit_category' oPageCategory.id %}" class="btn btn-warning btn-sm">
 								<i class="fa fa-edit" aria-hidden="true"></i>
-								Edit Category
+								{% trans 'Edit Category' %}
 							</a><br><br>
 							<a href="{% url 'pages:translate_category' oPageCategory.id %}" class="btn btn-warning btn-sm">
-								<i class="fa fa-edit" aria-hidden="true"></i>
-								Translate Category
+								<i class="fa fa-language" aria-hidden="true"></i>
+								{% trans 'Translate Category' %}
 							</a><br><br>
 							<a href="{% url 'pages:new_category' %}?parent_id={{oPageCategory.id}}" class="btn btn-warning btn-sm">
 								<i class="fa fa-plus" aria-hidden="true"></i>
-								Add New Category
+								{% trans 'Add New Category' %}
 							</a><br><br>
 							<a href="{% url 'pages:new_page' %}?category_id={{oPageCategory.id}}" class="btn btn-warning btn-sm">
 								<i class="fa fa-plus" aria-hidden="true"></i>
-								Add New Page
+								{% trans 'Add New Page' %}
 							</a>
 	 					</div>
 					</div>
 				{% else %}
-					Want to contribute to these pages?  <a href="mailto:{{constants.CONTACT_EMAIL}}">Contact us</a> to request a Contributor Account.
+					{% blocktrans with email=constants.CONTACT_EMAIL %}
+						Want to contribute to these pages?  <a href="mailto:{{email}}">Contact us</a> to request a Contributor Account.
+					{% endblocktrans %}
 				{% endif %}
 			</div>
 			

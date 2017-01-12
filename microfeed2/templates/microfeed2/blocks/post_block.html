@@ -28,7 +28,9 @@
 				</div>
 			{% else %}
 				<div class="mf-new-comment text-muted" style="text-align:center">
-					<a href="{% url 'login' %}">Login</a> or <a href="{% url 'create_account' %}">create an account</a> to comment.
+					{% blocktrans %}
+						<a href="/login">Login</a> or <a href="/create_account">create an account</a> to comment.
+					{% endblocktrans %}
 				</div>
 			{% endif %}
 		</div>

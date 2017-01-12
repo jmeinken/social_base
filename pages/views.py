@@ -61,6 +61,8 @@ def new_page(request):
                 child.instance = oPage
                 child.save()
             messages.success( request, _('Page successfully added.') )
+            if oPage.category.show_as_page:
+                return redirect('pages:list', page_category_id=oPage.category.id)
             return redirect('pages:view_page', page_id=oPage.id)
     context['form'] = form
     context['children'] = children
@@ -84,6 +86,8 @@ def edit_page(request, page_id):
                 child.instance = oPage
                 child.save()
             messages.success( request, _('Page successfully edited.') )
+            if oPage.category.show_as_page:
+                return redirect('pages:list', page_category_id=oPage.category.id)
             return redirect('pages:view_page', page_id=oPage.id)
     else:
         temp_children = []

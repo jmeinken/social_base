@@ -5,5 +5,5 @@ from . import views
 
 urlpatterns = [
    url(r'^composer', views.composer, name='composer'),
-   url(r'^unsubscribe/(?P<code>[0-9]+)', views.unsubscribe, name='unsubscribe'),
+   url(r'^unsubscribe/(?P<code>[a-zA-Z0-9]+)', views.unsubscribe, name='unsubscribe'),
 ]
