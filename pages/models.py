@@ -46,7 +46,7 @@ class PageCategory(TimeStampedModel):
     order             = models.IntegerField(verbose_name=_('order'),)
     
     class Meta:
-        ordering = ['title']
+        ordering = ['order', 'title']
     
     def __str__(self):
         return self.title
