@@ -11,9 +11,7 @@
 
 
 	<h2>
-		{% blocktrans with username=user.get_full_name %}
-			Account Settings for {{ username }}
-		{% endblocktrans %}
+		{% blocktrans with username=user.get_full_name %}Account Settings for {{ username }}{% endblocktrans %}
 	</h2>
 
 <div class="row">

@@ -110,6 +110,8 @@ def translate_page(request, page_id):
         set_translation('page', 'teaser', oPage.id, language, request.POST.get('teaser'))
         set_translation('page', 'body', oPage.id, language, request.POST.get('body'))
         messages.success( request, _('Page successfully translated.') )
+        if oPage.category.show_as_page:
+            return redirect('pages:list', page_category_id=oPage.category.id)
         return redirect('pages:view_page', page_id=oPage.id)
     qLanguage = Language.objects.all()
     context['qLanguage'] = qLanguage

@@ -22,9 +22,7 @@
 	</div>
 	<div class="mf-post-meta">
 		<span class="text-success">
-			{% blocktrans with username=oPost.user.get_full_name %}
-				posted by {{ username }}
-			{% endblocktrans %}
+			{% blocktrans with username=oPost.user.get_full_name %}posted by {{ username }}{% endblocktrans %}
 		</span><br>
 		<span class="text-muted">{{ oPost.get_pretty_date }}</span>
 	</div>

@@ -132,15 +132,13 @@
 						{% endif %}
 						<br><br>
 						<a href="{% url 'pages:translate_page' oPage.id %}" class="btn btn-warning btn-sm">
-							<i class="fa fa-language" aria-hidden="true"></i>
+							<i class="fa fa-translate" aria-hidden="true"></i>
 							Create/Edit Translations
 						</a>
  					</div>
 				</div>
 			{% else %}
-					{% blocktrans with email=constants.CONTACT_EMAIL %}
-						Want to contribute to these pages?  <a href="mailto:{{email}}">Contact us</a> to request a Contributor Account.
-					{% endblocktrans %}
+					{% blocktrans with email=constants.CONTACT_EMAIL %}Want to contribute to these pages?  <a href="mailto:{{email}}">Contact us</a> to request a Contributor Account.{% endblocktrans %}
 			{% endif %}
 		</div>
 	</div>

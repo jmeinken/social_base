@@ -43,9 +43,12 @@
 				    		{% endif %}
 				    		<h3>
 				    			{{ oPage.trans_title }} 
-				    			{% if user.is_staff %}
-				    				<a href="{% url 'pages:edit_page' oPage.id %}" class="text-warning">
-				    					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+				    			{% if user.is_staff %}&nbsp;
+				    				<a href="{% url 'pages:edit_page' oPage.id %}" class="text-warning" title="edit">
+				    					<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
+				    				
+				    				<a href="{% url 'pages:translate_page' oPage.id %}" class="text-warning" title="translate">
+				    					<i class="fa fa-globe" aria-hidden="true"></i>
 				    				</a>
 				    			{% endif %}
 				    		</h3>
@@ -100,7 +103,7 @@
 								{% trans 'Edit Category' %}
 							</a><br><br>
 							<a href="{% url 'pages:translate_category' oPageCategory.id %}" class="btn btn-warning btn-sm">
-								<i class="fa fa-language" aria-hidden="true"></i>
+								<i class="fa fa-globe" aria-hidden="true"></i>
 								{% trans 'Translate Category' %}
 							</a><br><br>
 							<a href="{% url 'pages:new_category' %}?parent_id={{oPageCategory.id}}" class="btn btn-warning btn-sm">
@@ -114,9 +117,7 @@
 	 					</div>
 					</div>
 				{% else %}
-					{% blocktrans with email=constants.CONTACT_EMAIL %}
-						Want to contribute to these pages?  <a href="mailto:{{email}}">Contact us</a> to request a Contributor Account.
-					{% endblocktrans %}
+					{% blocktrans with email=constants.CONTACT_EMAIL %}Want to contribute to these pages?  <a href="mailto:{{email}}">Contact us</a> to request a Contributor Account.{% endblocktrans %}
 				{% endif %}
 			</div>
 			
