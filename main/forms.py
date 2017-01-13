@@ -132,7 +132,7 @@ class CreateAccountForm(forms.ModelForm):
                 'email',
                 Field('image', 
                     css_class = 'image_input', 
-                    data_label = '_(User Image)',
+                    data_label = _('User Image'),
                     data_export_zoom = 2,
                     data_min_zoom = 'fill',
                     data_aspect_ratio = '1:1'

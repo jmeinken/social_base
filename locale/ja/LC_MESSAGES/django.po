@@ -20,7 +20,7 @@ msgstr ""
 
 #: main/forms.py:30
 msgid "User Image"
-msgstr ""
+msgstr "ユーザーの写真"
 
 #: main/forms.py:60
 #, fuzzy
@@ -40,7 +40,7 @@ msgstr "パスワード"
 
 #: main/forms.py:119 main/forms.py:178
 msgid "Minimum 8 characters."
-msgstr ""
+msgstr "最低８字"
 
 #: main/forms.py:120 main/forms.py:179
 #, fuzzy
@@ -50,25 +50,25 @@ msgstr "新しいパスワードの設定"
 
 #: main/forms.py:154 main/forms.py:197
 msgid "A password is required."
-msgstr ""
+msgstr "パスワードを入れってください"
 
 #: main/forms.py:157 main/forms.py:200
 msgid "Password must be at least 8 characters."
-msgstr ""
+msgstr "パスワード最低８字入れっください"
 
 #: main/forms.py:159 main/forms.py:202
 msgid "Password values didn't match."
-msgstr ""
+msgstr "パスワードが違います"
 
 #: main/models.py:71
 #, fuzzy
 #| msgid "username or email"
 msgid "username"
-msgstr "ユーザー名またはメールアドレス"
+msgstr "ユーザー名・メールアドレス"
 
 #: main/models.py:73
 msgid "email address"
-msgstr ""
+msgstr "メールアドレス"
 
 #: main/models.py:74
 msgid "first name"
@@ -433,12 +433,12 @@ msgstr ""
 msgid ""
 "<a href=\"/login\">Login</a> or <a href=\"/create_account\">create an "
 "account</a> to post."
-msgstr ""
+msgstr "投稿するのに<a href=\"/login\">ログイン</a>か<a href=\"/create_account\">アカウントを作成</a>してください。"
 
 #: microfeed2/templates/microfeed2/blocks/post.html:25
 #, python-format
 msgid "posted by %(username)s"
-msgstr ""
+msgstr "%(username)sより"
 
 #: microfeed2/templates/microfeed2/blocks/post_block.html:24
 msgid "Reply"
@@ -448,7 +448,7 @@ msgstr "返事をする"
 msgid ""
 "<a href=\"/login\">Login</a> or <a href=\"/create_account\">create an "
 "account</a> to comment."
-msgstr ""
+msgstr "コメントするのに<a href=\"/login\">ログイン</a>か<a href=\"/create_account\">アカウントを作成</a>してください。"
 
 #: pages/forms.py:97 pages/models.py:205 pages/models.py:215
 msgid "Page Links"
@@ -461,7 +461,7 @@ msgstr ""
 #: pages/models.py:46 pages/models.py:93 pages/models.py:200
 #: pages/models.py:210
 msgid "order"
-msgstr ""
+msgstr "順番"
 
 #: pages/models.py:90
 msgid "teaser"
@@ -485,7 +485,7 @@ msgstr "住所"
 
 #: pages/templates/pages/list.html:83
 msgid "There are no posts yet for this category."
-msgstr ""
+msgstr "まだこのカテゴリーにページがありません"
 
 #: pages/templates/pages/list.html:103
 #, fuzzy
@@ -495,7 +495,7 @@ msgstr "新しいカテゴリーの作成"
 
 #: pages/templates/pages/list.html:107
 msgid "Translate Category"
-msgstr ""
+msgstr "カテゴリーの通訳"
 
 #: pages/templates/pages/list.html:115
 #, fuzzy
@@ -520,7 +520,7 @@ msgstr "リンク"
 
 #: pages/templates/pages/page.html:96
 msgid "COMMENTS:"
-msgstr ""
+msgstr "コメント"
 
 #: pages/views.py:63
 msgid "Page successfully added."
@@ -537,38 +537,6 @@ msgstr "ページの通訳ができました"
 #: pages/views.py:129
 msgid "Title successfully translated."
 msgstr "タイトルの通訳ができました"
-
-#: pages/views.py:183
-msgid "Restaurants"
-msgstr ""
-
-#: pages/views.py:184
-msgid "Local Destinations"
-msgstr ""
-
-#: pages/views.py:185
-msgid "Regional Destinations"
-msgstr ""
-
-#: pages/views.py:186
-msgid "Housing"
-msgstr ""
-
-#: pages/views.py:187
-msgid "Shopping"
-msgstr ""
-
-#: pages/views.py:188
-msgid "Medical"
-msgstr ""
-
-#: pages/views.py:189
-msgid "Transportation"
-msgstr ""
-
-#: pages/views.py:190
-msgid "Education"
-msgstr ""
 
 #: pages/views.py:208
 msgid "Page successfully deleted."
