@@ -64,7 +64,7 @@
 			
 			<div class="row">
 				<div class="col-sm-8">
-					{{ oPage.trans_body|pretty_html|safe }}
+					{{ oPage.trans_body|safe }}
 				</div>
 				<div class="col-sm-4">
 					{% if oPage.pagelink_set.all %}

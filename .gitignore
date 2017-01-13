@@ -12,3 +12,5 @@ uploads/
 .settings/
 .project
 
+*.po
+*.mo

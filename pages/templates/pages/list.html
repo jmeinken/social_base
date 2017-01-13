@@ -52,7 +52,7 @@
 				    				</a>
 				    			{% endif %}
 				    		</h3>
-				    		<p>{{ oPage.trans_body|pretty_html|safe }}</p>
+				    		<p>{{ oPage.trans_body|safe }}</p>
 				    		{% if oPage.address %}
 								<p>
 									{% trans 'LOCATION' %}
@@ -74,7 +74,7 @@
 					{% for oPage in oPageCategory.page_set.all %}
 						<div class="well">
 				    		<h3><a href="{% url 'pages:view_page' oPage.id %}">{{ oPage.trans_title }}</a></h3>
-				    		{{ oPage.trans_teaser|pretty_html|safe }}
+				    		{{ oPage.trans_teaser|safe }}
 				    		<div style="text-align:right">
 				    			<a href="{% url 'pages:view_page' oPage.id %}">more...</a>
 				    		</div>

@@ -4,6 +4,8 @@
 
 {% block content %}
 
+{% get_current_language as LANGUAGE_CODE %}
+
 {% if hierarchy %}
 	<ul class="breadcrumb">	
 		<li><a href="{% url 'home' %}">Home</a></li>
@@ -27,6 +29,15 @@
 	        });
         {% endfor %}
     })
+    
+  	tinymce.init({ 
+  		selector:'textarea',
+  		language: '{{LANGUAGE_CODE}}',
+  		plugins: "link",
+	    toolbar: "undo, redo, bold, italic, link, bullist, numlist, blockquote, removeformat" 
+	});
+
+    
 </script>
 
 
