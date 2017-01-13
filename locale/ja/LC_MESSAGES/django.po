@@ -26,7 +26,7 @@ msgstr "ユーザーの写真"
 #, fuzzy
 #| msgid "username or email"
 msgid "enter your username or email address"
-msgstr "ユーザー名・メールアドレス"
+msgstr "ユーザー名またはメールアドレス"
 
 #: main/forms.py:85
 msgid "That username or email address wasn't found in our system."
@@ -230,7 +230,7 @@ msgstr "パスワードをお忘れですか？"
 
 #: main/templates/core/navbar.html:47 main/templates/main/login.html:22
 msgid "username or email"
-msgstr "ユーザー名またはメールアドレス"
+msgstr "ユーザー名・メールアドレス"
 
 #: main/templates/core/navbar.html:48 main/templates/main/login.html:25
 msgid "password"
