@@ -26,7 +26,7 @@ msgstr "ユーザーの写真"
 #, fuzzy
 #| msgid "username or email"
 msgid "enter your username or email address"
-msgstr "ユーザー名またはメールアドレス"
+msgstr "ユーザー名・メールアドレス"
 
 #: main/forms.py:85
 msgid "That username or email address wasn't found in our system."
