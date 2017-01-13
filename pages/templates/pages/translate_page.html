@@ -5,6 +5,18 @@
 
 {% block content %}
 
+<script type="text/javascript">
+    
+  	tinymce.init({ 
+  		selector:'textarea',
+  		language: '{{LANGUAGE_CODE}}',
+  		plugins: "link",
+	    toolbar: "undo, redo, bold, italic, link, bullist, numlist, blockquote, removeformat" 
+	});
+
+    
+</script>
+
 <ul class="breadcrumb">	
 	<li><a href="{% url 'home' %}">Home</a></li>
 	{% for obj in hierarchy %}

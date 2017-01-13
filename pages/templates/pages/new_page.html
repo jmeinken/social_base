@@ -33,8 +33,12 @@
   	tinymce.init({ 
   		selector:'textarea',
   		language: '{{LANGUAGE_CODE}}',
-  		plugins: "link",
-	    toolbar: "undo, redo, bold, italic, link, bullist, numlist, blockquote, removeformat" 
+  		plugins: "link, table",
+	    toolbar: "undo, redo, bold, italic, link, bullist, numlist, blockquote, table, removeformat",
+	    table_class_list: [
+		  {title: 'None', value: ''},
+          {title: 'Standard', value: 'table table-striped table-border'},
+        ]
 	});
 
     
