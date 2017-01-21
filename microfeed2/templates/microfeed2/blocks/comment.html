@@ -3,7 +3,7 @@
 
 <div class="mf-view-comment" id="mf-view-comment-{{oComment.id}}">
 	<div class="mf-comment-user-image">
-		<img alt="{{oComment.user.get_short_name}}" src="{% static oComment.user.get_image %}" width="40" height="40">
+		<img alt="{{oComment.user.get_short_name}}" src="{{ oComment.user.get_image }}" width="40" height="40">
 	</div>
 	<div class="mf-comment-user-options">
 		{% if oComment.user == user %}

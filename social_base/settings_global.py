@@ -39,9 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'main',         # load this before tools such as allauth so that these templates come first
+    
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    
     'crispy_forms',
     'rosetta',
-    'main',
+    
     'images',
     'email_handler',
     'microfeed2',
@@ -140,12 +149,33 @@ STATICFILES_DIRS = [
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-LOGIN_URL = '/login'
+LOGIN_URL = '/account/login'
 
 AUTH_USER_MODEL = 'main.User'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
+
+DEFAULT_FROM_EMAIL = 'Cincinnati Jouhou <info@cincinnati-jouhou.com>'
+
+
+### ALL AUTH ####################################################################
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+# ACCOUNT_EMAIL_REQUIRED = True
+
+
+
+
+
+
+
+

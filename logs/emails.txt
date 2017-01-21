@@ -25,3 +25,4 @@ SENT	2016-12-06 20:49:49.364551	[Social Base] password reset	from:info@cincinnat
 SENT	2016-12-06 20:53:56.171026	[Social Base] password reset	from:info@cincinnati-jouhou.com	to:[u'thebellsofohio@hotmail.com']
 SENT	2016-12-06 20:55:59.583643	[Social Base] password reset	from:info@cincinnati-jouhou.com	to:[u'thebellsofohio@hotmail.com']
 SENT	2016-12-06 21:07:53.031390	[Social Base] password reset	from:info@cincinnati-jouhou.com	to:[u'thebellsofohio@hotmail.com']
+SENT	2017-01-17 02:15:57.868007	[Social Base] password reset	from:info@cincinnati-jouhou.com	to:[u'thebellsofohio@hotmail.com']

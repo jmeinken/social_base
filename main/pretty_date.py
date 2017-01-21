@@ -49,7 +49,7 @@ def pretty_date(time=False, asdays=False, short=False):
             if   days   == 0:           return _('today')
             elif days   == 1:           return past and _('yesterday') or _('tomorrow')
             elif days   == 2:           return past and _('day before') or _('day after')
-            elif days    < 7:           return _df(days, 1, ' days', past)
+            elif days    < 7:           return _df(days, 1, _(' days'), past)
             elif days    < 14:          return past and _('last week') or _('next week')
             elif days    < 31:          return _df(days, 7, ' weeks', past)
             elif days    < 61:          return past and _('last month') or _('next month')

@@ -6,11 +6,12 @@ from crispy_forms.layout import Layout, Div, HTML, Field
 from django.contrib.auth import get_user_model
 from django.template.loader import render_to_string
 from django.shortcuts import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 
 from email_handler.helpers import send_system_mail
 from main.helpers import constants
+
 
 
 

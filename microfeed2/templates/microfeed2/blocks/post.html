@@ -5,7 +5,7 @@
 	
 <div class="mf-view-post" id="mf-view-post-{{oPost.id}}">			
 	<div class="mf-post-user-image">
-		<img alt="{{oPost.user.get_short_name}}" src="{% static oPost.user.get_image %}" width="50" height="50">
+		<img alt="{{oPost.user.get_short_name}}" src="{{ oPost.user.get_image }}" width="50" height="50">
 	</div>
 	<div class="mf-post-user-options">
 		{% if oPost.user == user %}

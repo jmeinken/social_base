@@ -29,7 +29,7 @@
 			
 				{% for oChild in oPageCategory.child_set.all %}
 					<div class="well">
-			    		<h2><a href="{% url 'pages:list' oChild.id %}">{{oChild.title}}</a></h2>
+			    		<h2><a href="{% url 'pages:list' oChild.id %}">{{oChild.trans_title}}</a></h2>
 			    	</div>
 			    {% endfor %}
 			    

@@ -10,6 +10,8 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 
+from allauth.socialaccount.models import SocialAccount
+
 
 
 # django.contrib.auth.get_user_model()        get user model in views.py
@@ -115,10 +117,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email])
         
     def get_image(self):
+        fb_uid = SocialAccount.objects.filter(user_id=self.id, provider='facebook')
+         
         if self.image:
-            return 'uploads/' + self.image
+            return '/static/uploads/' + self.image
+        elif len(fb_uid):
+            print(fb_uid[0].uid)
+            return "http://graph.facebook.com/{}/picture?width=50&height=50".format(fb_uid[0].uid)
         else:
-            return 'img/generic_user.png'
+            return '/static/img/generic_user.png'
         
     def create_temp_code(self):
         temp_code = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(60))

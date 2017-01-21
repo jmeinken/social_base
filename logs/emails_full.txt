@@ -656,3 +656,28 @@ http://johnmeinken.com/account_settings
 Unsubscribe:
 http://johnmeinken.com/email_handler/unsubscribe/123456789012345678901234567890123456789012345678901234567890
 -----------------------------------------------------
+-----------------------------------------------------
+time: 2017-01-17 02:15:57.868632
+subject: [Social Base] password reset
+from: info@cincinnati-jouhou.com
+to: [u'thebellsofohio@hotmail.com']
+body:
+Hello john,
+
+This is an automated email from Social Base.
+
+Use the following link to reset your password.
+
+http://johnmeinken.com/reset_password/gdSdJStBCa0Gq0QVKmrjPOTwXhkmzymLWxiHSo9XNM1qRLa0thzcz5ofTHL6
+
+-----------------------------------------------
+ 
+Thank you for using Social Base
+http://johnmeinken.com
+
+Change email preferences for your account:
+http://johnmeinken.com/account_settings
+
+Unsubscribe:
+http://johnmeinken.com/email_handler/unsubscribe/hJGDOdQzuLEoKnjqkysalGwYQYMibXHQvUmszBlFCxDyYnkIUFBz4VoFW1bq
+-----------------------------------------------------

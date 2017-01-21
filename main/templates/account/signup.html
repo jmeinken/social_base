@@ -1,0 +1,42 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Create Account" %}</h1>
+
+<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<hr>
+<div class="row">
+	<div class="col-sm-5">
+		<h4>{% trans 'Use Your Social Media Account' %}</h4>
+		<br>
+		<div class="socialaccount_ballot">
+			  	{% include "socialaccount/snippets/provider_list.html" with process="signup" %}
+		</div>
+	</div>
+	<div class="col-sm-1">
+		<h4>{% trans '-OR-' %}</h4>
+	</div>
+	<div class="col-sm-5">
+		<h4>{% trans 'Create a Local Account' %}</h4>
+		<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+			{% csrf_token %}
+			{% crispy form form.helper %}
+			{% if redirect_field_value %}
+			<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+			{% endif %}
+			<button type="submit" class="btn btn-success btn-block">{% trans "Sign Up" %} &raquo;</button>
+		</form>
+	</div>
+</div>
+
+
+
+
+
+{% include 'images/javascript_templates.html' %}
+
+{% endblock %}

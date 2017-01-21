@@ -85,7 +85,7 @@ def logout_view(request):
     logout(request)
     # redirects back to the same page (for private systems, might want to redirect to the login page instead)
     next = request.META.get('HTTP_REFERER', 'home')
-    return redirect(next)
+    return redirect('/')
 
 def forgot_password(request):
     context = {}

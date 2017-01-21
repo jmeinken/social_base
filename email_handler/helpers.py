@@ -29,7 +29,7 @@ def send_system_mail(
     myFile.write(
         action + '\t' +
         str(datetime.datetime.now()) + '\t' +
-        subject + '\t' +
+        subject.encode('utf8') + '\t' +
         'from:' + from_mail + '\t' +
         'to:' + str(to_list) + '\n'
     )
@@ -38,11 +38,11 @@ def send_system_mail(
     myFile.write(
         '-----------------------------------------------------' + '\n'
         'time: ' + str(datetime.datetime.now()) + '\n' +
-        'subject: ' + subject + '\n' +
+        'subject: ' + subject.encode('utf8') + '\n' +
         'from: ' + from_mail + '\n' +
         'to: ' + str(to_list) + '\n' + 
         'body:' + '\n' + 
-        message + '\n' + 
+        message.encode('utf8') + '\n' + 
         '-----------------------------------------------------' + '\n'
     )
     myFile.close()
