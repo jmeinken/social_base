@@ -39,73 +39,7 @@
 
 	
 	<div class="row">
-		<div class="col-sm-9">
-			<ul class="breadcrumb">	
-				<li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
-				{% for obj in hierarchy %}
-					{% if forloop.last %}
-						<li class="active">{{ obj.trans_title }}</li>
-					{% else %}
-						<li><a href="{{ obj.get_url }}">{{ obj.trans_title }}</a></li>
-					{% endif %}
-				{% endfor %}
-			</ul>
-			{% if oPage.image %}
-				<div style="position:relative;margin-bottom:15px;">
-					<img style="width:100%;" src="{% static oPage.get_image %}" alt="{{obj.title}}" />
-					<span style="position:absolute;bottom:0px;left:0px;background-color:rgba(0,0,0,0.4);padding:5px 15px;width:100%">
-						<span style="color:white;font-size:1.5em;">{{oPage.trans_title}}</span>
-					</span>
-				</div>
-			{% else %}
-				<h1>{{oPage.trans_title}}</h1>
-				<hr>
-			{% endif %}
-			
-			<div class="row">
-				<div class="col-sm-8">
-					{{ oPage.trans_body|safe }}
-				</div>
-				<div class="col-sm-4">
-					{% if oPage.pagelink_set.all %}
-						<div class="well">
-							<p>{% trans 'LINKS' %}</p>
-							{% for oLink in oPage.pagelink_set.all %}
-								<p>
-									<a href="{{oLink.url}}">
-										<i class="fa fa-external-link" aria-hidden="true"></i>
-										{{oLink.title}}
-									</a>
-								</p>
-							{% endfor %}
-						</div>
-					{% endif %}
-					{% if oPage.address %}
-						<div class="well">
-							<p>{% trans 'LOCATION' %}</p>
-							<a target="_blank" href="http://maps.google.com/?q={{oPage.address}}">{{oPage.address}}</a>
-						</div>
-					{% endif %}
-				</div>
-			</div>
-			
-			
-			
-			{% if oPage.post_thread %}
-				<hr>
-				<h4>{% trans 'COMMENTS:' %}</h4>
-				{% include 'microfeed2/blocks/new_comment_style_post.html' %}
-				<div id="mf-feed" data-thread-id="{{oPage.post_thread.id}}" style="background-color: gray; padding:1px 0;"></div>
-				
-				{% comment %}
-				
-				leaving this off is a not very elegant way to prevent images on the page
-				{% include 'images/javascript_templates.html' %}
-				
-				{% endcomment %}
-			{% endif %}
-		</div>
-		
+	
 		<div class="col-sm-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">{% trans 'Cincinnati Info' %}</div>
@@ -147,6 +81,79 @@
 					{% blocktrans with email=constants.CONTACT_EMAIL %}Want to contribute to these pages?  <a href="mailto:{{email}}">Contact us</a> to request a Contributor Account.{% endblocktrans %}
 			{% endif %}
 		</div>
+	
+	
+	
+		<div class="col-sm-9">
+			<ul class="breadcrumb">	
+				<li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+				{% for obj in hierarchy %}
+					{% if forloop.last %}
+						<li class="active">{{ obj.trans_title }}</li>
+					{% else %}
+						<li><a href="{{ obj.get_url }}">{{ obj.trans_title }}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+			{% if oPage.image %}
+				<div style="position:relative;margin-bottom:15px;">
+					<img style="width:100%;" src="{% static oPage.get_image %}" alt="{{obj.title}}" />
+					<span style="position:absolute;bottom:0px;left:0px;background-color:rgba(0,0,0,0.4);padding:5px 15px;width:100%">
+						<span style="color:white;font-size:1.5em;">{{oPage.trans_title}}</span>
+					</span>
+				</div>
+			{% else %}
+				<h1>{{oPage.trans_title}}</h1>
+				<hr>
+			{% endif %}
+			
+			<div style="float:right; margin-left:10px; margin-bottom:20px;">
+				{% if oPage.pagelink_set.all %}
+					<div class="well">
+						<p>{% trans 'LINKS' %}</p>
+						{% for oLink in oPage.pagelink_set.all %}
+							<p>
+								<a href="{{oLink.url}}">
+									<i class="fa fa-external-link" aria-hidden="true"></i>
+									{{oLink.title}}
+								</a>
+							</p>
+						{% endfor %}
+					</div>
+				{% endif %}
+				{% if oPage.address %}
+					<div class="well">
+						<p>{% trans 'LOCATION' %}</p>
+						<a target="_blank" href="http://maps.google.com/?q={{oPage.address}}">{{oPage.address}}</a>
+					</div>
+				{% endif %}
+			</div>
+
+
+			{{ oPage.trans_body|safe }}
+
+
+			
+
+			
+			
+			
+			{% if oPage.post_thread %}
+				<hr>
+				<h4>{% trans 'COMMENTS:' %}</h4>
+				{% include 'microfeed2/blocks/new_comment_style_post.html' %}
+				<div id="mf-feed" data-thread-id="{{oPage.post_thread.id}}" style="background-color: gray; padding:1px 0;"></div>
+				
+				{% comment %}
+				
+				leaving this off is a not very elegant way to prevent images on the page
+				{% include 'images/javascript_templates.html' %}
+				
+				{% endcomment %}
+			{% endif %}
+		</div>
+		
+		
 	</div>
 	
 	<div class="modal" id="delete-page-confirmation-modal">

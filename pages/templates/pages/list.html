@@ -9,6 +9,41 @@
 
 	
 		<div class="row">
+		
+			<div class="col-sm-3">
+				<div class="panel panel-default">
+  					<div class="panel-heading">{% trans 'Cincinnati Info' %}</div>
+  					<div class="panel-body">
+    					{% include 'pages/blocks/standard_menu.html' %}
+  					</div>
+				</div>
+				{% if user.is_staff %}
+					<div class="panel panel-warning">
+	 					<div class="panel-heading">{% trans 'Staff Controls' %}</div>
+	 					<div class="panel-body">
+		   					<a href="{% url 'pages:edit_category' oPageCategory.id %}" class="btn btn-warning btn-sm">
+								<i class="fa fa-edit" aria-hidden="true"></i>
+								{% trans 'Edit Category' %}
+							</a><br><br>
+							<a href="{% url 'pages:translate_category' oPageCategory.id %}" class="btn btn-warning btn-sm">
+								<i class="fa fa-globe" aria-hidden="true"></i>
+								{% trans 'Translate Category' %}
+							</a><br><br>
+							<a href="{% url 'pages:new_category' %}?parent_id={{oPageCategory.id}}" class="btn btn-warning btn-sm">
+								<i class="fa fa-plus" aria-hidden="true"></i>
+								{% trans 'Add New Category' %}
+							</a><br><br>
+							<a href="{% url 'pages:new_page' %}?category_id={{oPageCategory.id}}" class="btn btn-warning btn-sm">
+								<i class="fa fa-plus" aria-hidden="true"></i>
+								{% trans 'Add New Page' %}
+							</a>
+	 					</div>
+					</div>
+				{% else %}
+					{% blocktrans with email=constants.CONTACT_EMAIL %}Want to contribute to these pages?  <a href="mailto:{{email}}">Contact us</a> to request a Contributor Account.{% endblocktrans %}
+				{% endif %}
+			</div>
+		
 			<div class="col-sm-9">
 				
 				<ul class="breadcrumb">	
@@ -90,39 +125,7 @@
 
 			</div>
 			
-			<div class="col-sm-3">
-				<div class="panel panel-default">
-  					<div class="panel-heading">{% trans 'Cincinnati Info' %}</div>
-  					<div class="panel-body">
-    					{% include 'pages/blocks/standard_menu.html' %}
-  					</div>
-				</div>
-				{% if user.is_staff %}
-					<div class="panel panel-warning">
-	 					<div class="panel-heading">{% trans 'Staff Controls' %}</div>
-	 					<div class="panel-body">
-		   					<a href="{% url 'pages:edit_category' oPageCategory.id %}" class="btn btn-warning btn-sm">
-								<i class="fa fa-edit" aria-hidden="true"></i>
-								{% trans 'Edit Category' %}
-							</a><br><br>
-							<a href="{% url 'pages:translate_category' oPageCategory.id %}" class="btn btn-warning btn-sm">
-								<i class="fa fa-globe" aria-hidden="true"></i>
-								{% trans 'Translate Category' %}
-							</a><br><br>
-							<a href="{% url 'pages:new_category' %}?parent_id={{oPageCategory.id}}" class="btn btn-warning btn-sm">
-								<i class="fa fa-plus" aria-hidden="true"></i>
-								{% trans 'Add New Category' %}
-							</a><br><br>
-							<a href="{% url 'pages:new_page' %}?category_id={{oPageCategory.id}}" class="btn btn-warning btn-sm">
-								<i class="fa fa-plus" aria-hidden="true"></i>
-								{% trans 'Add New Page' %}
-							</a>
-	 					</div>
-					</div>
-				{% else %}
-					{% blocktrans with email=constants.CONTACT_EMAIL %}Want to contribute to these pages?  <a href="mailto:{{email}}">Contact us</a> to request a Contributor Account.{% endblocktrans %}
-				{% endif %}
-			</div>
+			
 			
 		</div>
 		

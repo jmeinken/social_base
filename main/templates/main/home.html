@@ -4,16 +4,8 @@
 {% block content %}
     
     <div class="row">
-    	
-		
-		<div class="col-sm-7">
-			{% include 'microfeed2/blocks/new_post_forms.html' %}
-			<div style="background-color:gray;color: white;display:inline-block; padding:10px 12px;">{% trans 'Recent Posts' %}</div>
-			<div id="mf-feed" data-thread-id="1" style="background-color: gray; padding:1px 0;"></div>
-			<br>
-		</div>
-		
-		<div class="col-sm-3 col-sm-offset-2">
+    
+    	<div class="col-sm-3">
 			<div class="panel panel-default">
  					<div class="panel-heading">{% trans 'Cincinnati Info' %}</div>
  					<div class="panel-body">
@@ -32,6 +24,16 @@
 				</div>
 			{% endif %}
 		</div>
+    	
+		
+		<div class="col-sm-7 col-sm-offset-1">
+			{% include 'microfeed2/blocks/new_post_forms.html' %}
+			<div style="background-color:gray;color: white;display:inline-block; padding:10px 12px;">{% trans 'Recent Posts' %}</div>
+			<div id="mf-feed" data-thread-id="1" style="background-color: gray; padding:1px 0;"></div>
+			<br>
+		</div>
+		
+		
 		
 	</div>
 	
