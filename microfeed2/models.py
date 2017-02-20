@@ -45,10 +45,17 @@ class PostThread(TimeStampedModel):
 
 # NOTE: You must create the first PostThread before you can add posts
 class Post(TimeStampedModel):
+    TYPE_CHOICES = (
+        ('general', 'general'),
+        ('classified', 'classified'),
+        ('event', 'event'),
+    )
+    
     user        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     body        = models.TextField(max_length=3000, verbose_name=_('body'))
     thread      = models.ForeignKey('PostThread', on_delete=models.CASCADE, default=1)
     title       = models.CharField(max_length=120, blank=True, null=True, verbose_name=_('title'))
+    type        = models.CharField(max_length=120, default='general', choices=TYPE_CHOICES)
     
     # POST: postId, uid, username, userImage, body, date, editable
     # COMMENTS: commentId, uid, username, userImage, body, date
@@ -68,12 +75,7 @@ class Post(TimeStampedModel):
         return value
     
     def get_form_type(self):
-        if self.title:
-            return 'classified'
-        if hasattr(self, 'eventpost'):
-            return 'event'
-        else:
-            return 'general'
+        return self.type
     
     def objectify(self, currentUid):
         result = {}
@@ -130,18 +132,9 @@ class Post(TimeStampedModel):
     class Meta:
         ordering = ['-created']
         
-class EventPost(TimeStampedModel):
-    post        = models.OneToOneField("Post", on_delete=models.CASCADE, primary_key=True)
-    title       = models.CharField(max_length=255, verbose_name=_('title'))
-    #start_date  = models.DateField()
-    #start_time  = models.TimeField()
-    #end_time    = models.TimeField(blank=True, null=True)
     
-    def __str__(self):
-        return self.title
-    
-class EventPostTime(TimeStampedModel):
-    event_post  = models.ForeignKey("EventPost", on_delete=models.CASCADE)
+class PostTime(TimeStampedModel):
+    post  = models.ForeignKey("Post", on_delete=models.CASCADE)
     start_date  = models.DateField(verbose_name=_('start date'))
     start_time  = models.TimeField(verbose_name=_('start time'))
     end_time    = models.TimeField(blank=True, null=True, verbose_name=_('end time'))

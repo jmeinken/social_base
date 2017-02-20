@@ -49,7 +49,7 @@ def new_post(request):
     
     ### return blank form if not post ###
     if not request.POST:
-        PostForm = forms.get_post_form( request.GET.get('form_type', None) )
+        PostForm = forms.get_post_form( request.GET.get('type', None) )
         # set up context
         context['fPost'] = PostForm()
         context['callback'] = reverse('microfeed2:new_post')
@@ -61,7 +61,7 @@ def new_post(request):
         
     ### return form with errors or confirmation
     else:
-        PostForm = forms.get_post_form( request.POST.get('form_type', None) )
+        PostForm = forms.get_post_form( request.POST.get('type', None) )
         fPost = PostForm(request.POST)
         
         ### return confirmation
@@ -71,7 +71,8 @@ def new_post(request):
                 context['oPost'] = oPost
                 context['fPostComment'] = forms.PostCommentForm()
                 response['html'] = render_to_string('microfeed2/blocks/post_block.html', context, request)
-                response['status'] = 'Successfully created post.'
+                response['statusMessage'] = 'Successfully created post.'
+                response['status'] = 'OK'
                 return JsonResponse(response, safe=False)
             else:
                 messages.success(request, 'Successfully created post.')
@@ -84,6 +85,7 @@ def new_post(request):
             if request.is_ajax():
                 context['callback'] = reverse('microfeed2:new_post')
                 response['html'] = render_to_string('microfeed2/blocks/new_post_form.html', context, request)
+                response['status'] = 'form errors'
                 return JsonResponse(response, safe=False)
             else:
                 return render(request, 'microfeed2/new_post.html', context)
@@ -121,7 +123,7 @@ def edit_post(request, post_id):
                 context['oPost'] = oPost
                 response['html'] = render_to_string('microfeed2/blocks/post.html', context, request)
                 response['message'] = 'Successfully edited post.'
-                response['status'] = 'success'
+                response['status'] = 'OK'
                 response['destinationId'] = 'mf-post-' + str(post_id)
                 return JsonResponse(response, safe=False)
             else:
@@ -130,11 +132,13 @@ def edit_post(request, post_id):
             
         ### return form with errors
         else:
-            context['form'] = fPost
+            context['fPost'] = fPost
+            context['oPost'] = oPost
             context['callback'] = reverse('microfeed2:edit_post', args=[post_id])
             if request.is_ajax():
                 response['html'] = render_to_string('microfeed2/blocks/edit_post_form.html', context, request)
                 response['status'] = 'form errors'
+                response['destinationId'] = 'mf-post-' + str(post_id)
                 return JsonResponse(response, safe=False)
             else:
                 return render(request, 'microfeed2/edit_post.html', context)

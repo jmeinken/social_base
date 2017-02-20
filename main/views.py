@@ -32,9 +32,11 @@ def home(request):
     #translation.activate(user_language)
     PostForm = get_post_form()
     ClassifiedForm = get_post_form('classified')
+    EventForm = get_post_form('event')
     context['qCategory'] = PageCategory.objects.all().filter(parent=None)
     context['fPost'] = PostForm(initial={'thread': 1})
     context['fPostClassified'] = ClassifiedForm(initial={'thread': 1})
+    context['fPostEvent'] = EventForm(initial={'thread': 1})
     return render(request, 'main/home.html', context)
 
 @login_required

@@ -34,7 +34,19 @@
 				<span>{{ oPost.title }}</span>
 			</div>
 		{% endif %}
+		{% for oPostTime in oPost.posttime_set.all %}
+			<p class="text-warning" style="font-size:1.4em;font-weight:bold;">
+				{{ oPostTime.start_date }} 
+				<span class="label label-warning">
+					{{ oPostTime.start_time }}
+					{% if oPostTime.end_time %}
+						- {{ oPostTime.end_time }}
+					{% endif %}
+				</span>
+			</p>
+		{% endfor %}
 		{{ oPost.body|pretty_html|safe }}
+		
 	</div>
 	{% if oPost.postimage_set.all.count > 0 %}
 		<div class="row mf-post-media">

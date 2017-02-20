@@ -15,17 +15,17 @@ class PostCommentAdmin(admin.StackedInline):    # can also use TabularInline
     model = models.PostComment
     extra = 1
     
+class PostTimeAdmin(admin.StackedInline):
+    model = models.PostTime
+    extra = 1
+    
 class PostAdmin(admin.ModelAdmin):
     list_display = ('user', 'body', 'thread')
-    inlines = [PostImageAdmin, PostCommentAdmin]
+    inlines = [PostImageAdmin, PostCommentAdmin, PostTimeAdmin]
     
 admin.site.register(models.Post, PostAdmin)
 
-class EventPostTimeAdmin(admin.StackedInline):
-    model = models.EventPostTime
-    extra = 1
+
     
-class EventPostAdmin(admin.ModelAdmin):
-    inlines = [EventPostTimeAdmin]
+
     
-admin.site.register(models.EventPost, EventPostAdmin)

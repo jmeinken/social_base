@@ -46,7 +46,16 @@
 				</div>
 		    </div>
 		    <div id="mf-event" class="mf-post-form-container" style="display:none;">
-		      	<h3>{% trans 'coming soon' %}</h3>
+		      	<div class="mf-new-post">
+					<form method="post" class="mf-new-post-form" action="{{callback}}">
+						{% crispy fPostEvent fPostEvent.helper %}
+						<div style="text-align:right;">
+							<button type="submit" class="btn btn-success" name="submit_form">
+								{% trans 'Share' %}
+							</button>
+						</div>
+					</form>
+				</div>
 		    </div>
 		</div>
 	</div>
