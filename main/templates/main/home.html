@@ -7,12 +7,7 @@
     <div class="row">
     
     	<div class="col-sm-4">
-			<div class="panel panel-default">
- 					<div class="panel-heading">{% trans 'Cincinnati Info' %}</div>
- 					<div class="panel-body">
-   					{% include 'pages/blocks/standard_menu.html' %}
- 					</div>
-			</div>
+			
 			<h4>{% trans 'Upcoming Events' %}</h4>
 			<div class="list-group">
 				{% for oPostTime in qPostTime %}
@@ -27,6 +22,12 @@
 				    	</div>
 				  	</a>
 				{% endfor %}
+			</div>
+			<div class="panel panel-default">
+ 					<div class="panel-heading">{% trans 'Cincinnati Info' %}</div>
+ 					<div class="panel-body">
+   					{% include 'pages/blocks/standard_menu.html' %}
+ 					</div>
 			</div>
 			{% if user.is_staff %}
 				<div class="panel panel-warning">
