@@ -12,6 +12,7 @@ from . import forms
 from microfeed2.forms import get_post_form
 
 from pages.models import PageCategory
+from microfeed2.models import PostTime
 
 def set_english(request):
     user_language = 'en'
@@ -37,6 +38,8 @@ def home(request):
     context['fPost'] = PostForm(initial={'thread': 1})
     context['fPostClassified'] = ClassifiedForm(initial={'thread': 1})
     context['fPostEvent'] = EventForm(initial={'thread': 1})
+    # get upcoming events
+    context['qPostTime'] = PostTime.objects.all().filter(start_date__gte=datetime.now()).order_by('start_date', 'start_time')[:3]
     return render(request, 'main/home.html', context)
 
 @login_required

@@ -29,15 +29,15 @@
 	
 	<div class="mf-post-body">
 		{% if oPost.title %}
-			<div class="text-warning" style="font-size:1.4em;font-weight:bold; padding: 5px 0;">
-				<i class="fa fa-bell fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;
+			<div class="text-success" style="font-size:1.4em;font-weight:bold; padding: 5px 0;">
 				<span>{{ oPost.title }}</span>
 			</div>
 		{% endif %}
 		{% for oPostTime in oPost.posttime_set.all %}
-			<p class="text-warning" style="font-size:1.4em;font-weight:bold;">
+			<p class="text-success" style="font-size:1.4em;">
+				<i class="fa fa-calendar" aria-hidden="true"></i>
 				{{ oPostTime.start_date }} 
-				<span class="label label-warning">
+				<span class="label label-success">
 					{{ oPostTime.start_time }}
 					{% if oPostTime.end_time %}
 						- {{ oPostTime.end_time }}

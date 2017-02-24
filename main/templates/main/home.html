@@ -1,16 +1,32 @@
 {% extends "core/base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block content %}
     
     <div class="row">
     
-    	<div class="col-sm-3">
+    	<div class="col-sm-4">
 			<div class="panel panel-default">
  					<div class="panel-heading">{% trans 'Cincinnati Info' %}</div>
  					<div class="panel-body">
    					{% include 'pages/blocks/standard_menu.html' %}
  					</div>
+			</div>
+			<h4>{% trans 'Upcoming Events' %}</h4>
+			<div class="list-group">
+				{% for oPostTime in qPostTime %}
+				  	<a href="{% url 'microfeed2:view_post' oPostTime.post.id %}" class="list-group-item clearfix">
+				  		<div style="font-size: 1.25em" class="text-success">
+					  		{% if oPostTime.post.get_sample_image %}
+					  			<img width="72" height="54" src="{% static oPostTime.post.get_sample_image %}" style="float:right;margin:0 -5px 0 5px;" />
+					  		{% endif %}
+					    	<strong>{{oPostTime.post.title}}</strong>
+					    	<br>
+					    	{{oPostTime.start_date}} <span class="label label-success">{{oPostTime.start_time}}</span>
+				    	</div>
+				  	</a>
+				{% endfor %}
 			</div>
 			{% if user.is_staff %}
 				<div class="panel panel-warning">
@@ -26,9 +42,9 @@
 		</div>
     	
 		
-		<div class="col-sm-7 col-sm-offset-1">
+		<div class="col-sm-7">
 			{% include 'microfeed2/blocks/new_post_forms.html' %}
-			<div style="background-color:gray;color: white;display:inline-block; padding:10px 12px;">{% trans 'Recent Posts' %}</div>
+			
 			<div id="mf-feed" data-thread-id="1" style="background-color: gray; padding:1px 0;"></div>
 			<br>
 		</div>

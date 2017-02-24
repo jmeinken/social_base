@@ -65,6 +65,12 @@ class Post(TimeStampedModel):
     #    fPost = forms.PostForm(instance=self)
     #    return fPost
     
+    def get_sample_image(self):
+        qPostImage = self.postimage_set.all()
+        if qPostImage:
+            return qPostImage[0].get_image()
+        return ''
+    
     def get_pretty_date(self):
         return pretty_date( localtime( self.created ).replace(tzinfo=None) )
         

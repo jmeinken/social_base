@@ -89,7 +89,9 @@ def get_post_form(form_type="general"):
                 
                 if oPost:
                     qStartTime = oPost.posttime_set.all()
-                    self.fields['start_date'].initial = qStartTime[0].start_date
+                    print('startdate')
+                    print(qStartTime[0].start_date.strftime('%b %-d, %Y'))
+                    self.fields['start_date'].initial = qStartTime[0].start_date.strftime('%b %-d, %Y')
                     self.fields['start_time'].initial = qStartTime[0].start_time
                     self.fields['end_time'].initial = qStartTime[0].end_time
                     qPostImages = oPost.postimage_set.all()
