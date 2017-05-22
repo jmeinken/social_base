@@ -136,7 +136,7 @@ def get_post_form(form_type="general"):
         placeholder = _('Details...')
     else:
         title_placeholder = ''
-        placeholder = _('Write a general message...')
+        placeholder = _('Write something...')
         
 
     class PostForm(forms.ModelForm):

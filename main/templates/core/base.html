@@ -10,7 +10,7 @@
  
   <!-- bootstrap -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/yeti/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/simplex/bootstrap.min.css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   
   <!-- datetimepicker -->
@@ -54,10 +54,88 @@
   		margin-top: 5px;
   	}
   	
+  	.navbar {
+  		border-radius: 0;
+  	}
+  	
+  	.panel, .panel-heading {
+  		border-radius: 0;
+  	}
+  	
+  	.nav-pills > li > a {
+	    border-radius: 0;
+	}
+	
+	.btn {
+		border-radius: 0 !important;
+	}
+  	
+  	a.panel-heading {
+  		display: block;
+  	}
+  	
+  	a.panel-heading, a.panel-heading:hover, a.panel-heading:active {
+  		color: white;
+  	}
+  	
+  	.panel-primary {
+	    border-color: #4D4D4D;
+	}
+  	
+  	.panel-primary > .panel-heading {
+    	background-color: #4D4D4D;
+    	border-color: #4D4D4D;
+    }
+  	
+  	a:hover, a:active {
+  		text-decoration:none;
+  	}
+  	
   	.delete-row {
   		display: inline-block;
   		margin-top: 12px;
   	}
+  	
+  	.form-control {
+  		color: black;
+  	}
+  	
+  	.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	  color: #a6a6a6;
+	}
+	.form-control::-moz-placeholder { /* Firefox 19+ */
+	  color: #a6a6a6;
+	}
+	.form-control:-ms-input-placeholder { /* IE 10+ */
+	  color: #a6a6a6;
+	}
+	.form-control:-moz-placeholder { /* Firefox 18- */
+	  color: #a6a6a6;
+	}
+	
+	@media (max-width: 480px) {
+	    .no-padding-mobile {
+	      	padding:0;
+	    }
+	
+	}
+	
+	.image-label-container-parent {display:flex; flex-direction:row; }
+  	.image-label-container {position:relative;}
+  
+  	.image-label {
+  		position:absolute;
+      	top:50%;
+      	left:50%; 
+      	transform: translateX(-50%) translateY(-50%);
+    	margin: 0;
+      	text-align:center;
+      	color: white;
+  	}
+  	
+
+  	
+  	
 </style>
 
 <script>
@@ -72,22 +150,46 @@
 <body>
 
 
+
 {% include 'core/navbar.html' %}
 
-<div class="row" style="background-color:#D9EDF7;padding-bottom:5px;margin-bottom:15px;margin-top:-21px;">
-	<div class="col-sm-12 text-primary">
-		<div style="margin-left: 103px;">
-			<div style="font-size:2.5em;"><strong>Cincinnati Jouhou</strong></div>
-			<div style="font-size:1.1em;">
-				&nbsp;a website for the Japanese community in Cincinnati, Ohio
-			</div>
+
+<div class="container-fluid">	
+	<div class="row" style="background-color:#4d4d4d;padding-bottom:5px;margin-bottom:15px;margin-top:-18px;">
+		<div class="col-sm-1 hidden-xs text-primary">
+			 <img src="{% static 'img/logo.png' %}" class="img-responsive" alt="Rosie"> 
+		</div>
+		<div class="col-sm-1 hidden-xs text-primary">
+			 <img src="{% static 'img/logo.png' %}" class="img-responsive" alt="Rosie"> 
+		</div>
+		<div class="col-sm-1 hidden-xs text-primary">
+			 <img src="{% static 'img/logo.png' %}" class="img-responsive" alt="Rosie"> 
+		</div>
+		<div class="col-sm-6" style="padding:20px 0;text-align: center;">
+			<a href="{% url 'home' %}" id="title-bar">
+				<span style="font-size:2.8em;color:white;">Cincinnati J&#333;h&#333;</span>
+				<br>
+				<span style="font-size:1.1em;color:white;">
+					a site for the Japanese community in Cincinnati, Ohio
+				</span>
+			</a>
+		</div>
+		<div class="col-sm-1 hidden-xs text-primary">
+			 <img src="{% static 'img/logo.png' %}" class="img-responsive" alt="Rosie"> 
+		</div>
+		<div class="col-sm-1 hidden-xs text-primary">
+			 <img src="{% static 'img/logo.png' %}" class="img-responsive" alt="Rosie"> 
+		</div>
+		<div class="col-sm-1 hidden-xs text-primary">
+			 <img src="{% static 'img/logo.png' %}" class="img-responsive" alt="Rosie"> 
 		</div>
 	</div>
 </div>
 
 
 
-<div id="content" class="container" style="min-height:75vh;margin-left:0;">
+
+<div id="content" class="container-fluid" style="min-height:75vh;">
 	{% if messages %}
 		{% for message in messages %}
 			<div class="alert alert-dismissible alert-success">
@@ -100,7 +202,7 @@
 </div>
 
 
-<footer class="container" style="border-top:solid 1px #b3b3b3; margin:10px auto;padding-top:5px;margin-bottom:30px;">
+<footer class="container-fluid" style="border-top:solid 1px #b3b3b3; margin:10px auto;padding-top:5px;margin-bottom:30px;">
     <div class="row">
     	<div class="col-xs-6">
 		    <div style="font-size:25px; padding-top:10px;" class="text-muted">

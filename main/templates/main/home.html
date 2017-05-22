@@ -7,48 +7,135 @@
 	
     <div class="row">
     
-    	<div class="col-sm-4">
-			
-			<h4>{% trans 'Upcoming Events' %}</h4>
-			<div class="list-group">
-				{% for oPostTime in qPostTime %}
-				  	<a href="{% url 'microfeed2:view_post' oPostTime.post.id %}" class="list-group-item clearfix">
-				  		<div style="font-size: 1.25em" class="text-success">
-					  		{% if oPostTime.post.get_sample_image %}
-					  			<img width="72" height="54" src="{% static oPostTime.post.get_sample_image %}" style="float:right;margin:0 -5px 0 5px;" />
-					  		{% endif %}
-					    	<strong>{{oPostTime.post.title}}</strong>
-					    	<br>
-					    	{{oPostTime.start_date}} <span class="label label-success">{{oPostTime.start_time}}</span>
-				    	</div>
-				  	</a>
-				{% endfor %}
-			</div>
-			<div class="panel panel-default">
- 					<div class="panel-heading">{% trans 'Cincinnati Info' %}</div>
- 					<div class="panel-body">
-   					{% include 'pages/blocks/standard_menu.html' %}
- 					</div>
-			</div>
-			{% if user.is_staff %}
-				<div class="panel panel-warning">
- 					<div class="panel-heading">{% trans 'Staff Controls' %}</div>
- 					<div class="panel-body">
-						<a href="{% url 'pages:new_category' %}" class="btn btn-warning btn-sm">
-							<i class="fa fa-plus" aria-hidden="true"></i>
-							{% trans 'Add New Category' %}
-						</a>
- 					</div>
-				</div>
-			{% endif %}
-		</div>
+    	
     	
 		
-		<div class="col-sm-8">
-			{% include 'microfeed2/blocks/new_post_forms.html' %}
-			
-			<div id="mf-feed" data-thread-id="1" style="background-color: gray; padding:1px 0;"></div>
+		<div class="visible-xs-block col-sm-6 no-padding-mobile" style="margin-top:-14px;">
+
+			<div class="panel panel-danger" style="margin:10px 0;">
+				<div class="panel-heading">
+					<div style="float:right;">
+							<i class="fa fa-chevron-down" aria-hidden="true"></i>
+						</div>
+					<h3 class="panel-title">
+						<i class="fa fa-calendar fa-lg fa-fw" aria-hidden="true"></i>
+						{% trans 'UPCOMING EVENTS' %}
+					</h3>
+				</div>
+			</div>
+			<div class="panel panel-info" style="margin:10px 0;">
+					<div class="panel-heading" >
+						<div style="float:right;">
+							<i class="fa fa-chevron-down" aria-hidden="true"></i>
+						</div>
+						<h3 class="panel-title">
+							<i class="fa fa-info-circle fa-lg fa-fw" aria-hidden="true"></i>
+							CINCINNATI INFO
+						</h3>
+					</div>
+			</div>
+
+		</div>
+		<div class="col-sm-6 no-padding-mobile">
+			<div style="background-color: #4d4d4d; padding:10px;">
+				{% include 'microfeed2/blocks/new_post_forms.html' %}
+			</div>
+			<div id="mf-feed" data-thread-id="1" style="background-color: #4d4d4d; padding:1px 0;"></div>
 			<br>
+		</div>
+		
+		<div class="col-sm-6 hidden-xs">
+			<div class="row">
+				<div class="col-md-6">
+				
+					<div class="panel panel-danger">
+						<a href="#" class="panel-heading" style="text-align:center;">
+							<h3 class="panel-title">
+								<i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
+								{% trans 'UPCOMING EVENTS' %}
+							</h3>
+						</a>
+						{% for oPostTime in qPostTime %}
+							<div class="panel-body">
+							  	<a href="{% url 'microfeed2:view_post' oPostTime.post.id %}">
+							  		<div>
+								  		{% if oPostTime.post.get_sample_image %}
+								  			<img width="72" height="54" src="{% static oPostTime.post.get_sample_image %}" />
+								  		{% endif %}
+								    	<strong>{{oPostTime.post.title}}</strong>
+								    	<br>
+								    	{{oPostTime.start_date}} <span class="label label-primary">{{oPostTime.start_time}}</span>
+							    	</div>
+							  	</a>
+							  </div>
+						{% endfor %}
+					</div>
+					{% for oCat in col1 %}
+						{% if oCat.page_set.all %}
+							<div class="panel panel-info">
+			 					<a class="panel-heading" href="{% url 'pages:list' oCat.id %}" style="text-align:center;">
+			 						<h3 class="panel-title">
+			 							{{ oCat.icon|safe }}
+			 							{{ oCat.title|upper }}
+			 						</h3>
+			 					</a>
+		   						{% for oPage in oCat.page_set.all %}
+		   							{% if forloop.counter <= 3 %}
+		   								<a href="{% url 'pages:view_page' oPage.id %}">
+			   								<div class="panel-body" style="border-top: 1px solid #029ACF">
+			   									<div style="font-size:1.3em;font-weight:bold;">
+			   										{{ oPage.title }}
+			   									</div>
+		   										{% if oPage.image %}
+		   											<img src="{% static oPage.get_image %}" alt="{{oPage.title}}" 
+		   													class="img-responsive" style="margin-top:5px;" />
+		   										{% else %}
+		   											<div>
+		   												{{ oPage.teaser|truncatechars:100 }}
+		   											</div>
+		   										{% endif %}
+		   										
+			   								</div>
+		   								</a>
+		   							{% endif %}
+		   						{% endfor %}
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div class="col-md-6">
+					{% for oCat in col2 %}
+						{% if oCat.page_set.all %}
+							<div class="panel panel-info">
+			 					<a class="panel-heading" href="{% url 'pages:list' oCat.id %}" style="text-align:center;">
+			 						<h3 class="panel-title">
+			 							{{ oCat.icon|safe }}
+			 							{{ oCat.title|upper }}
+			 						</h3>
+			 					</a>
+		   						{% for oPage in oCat.page_set.all %}
+	   								<a href="{% url 'pages:view_page' oPage.id %}">
+		   								<div class="panel-body" style="border-top: 1px solid #029ACF">
+		   									<div style="font-size:1.3em;font-weight:bold;">
+		   										{{ oPage.title }}
+		   									</div>
+	   										{% if oPage.image %}
+	   											<img src="{% static oPage.get_image %}" alt="{{oPage.title}}" 
+	   													class="img-responsive" style="margin-top:5px;" />
+	   										{% else %}
+	   											<div>
+	   												{{ oPage.teaser|truncatechars:100 }}
+	   											</div>
+	   										{% endif %}
+	   										
+		   								</div>
+	   								</a>
+		   						{% endfor %}
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
 		</div>
 		
 		

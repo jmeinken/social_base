@@ -41,45 +41,34 @@
 	<div class="row">
 	
 		<div class="col-sm-3">
-			<div class="panel panel-default">
-				<div class="panel-heading">{% trans 'Cincinnati Info' %}</div>
-				<div class="panel-body">
-   					{% include 'pages/blocks/standard_menu.html' %}
-				</div>
+			<div class="panel panel-primary" style="margin:10px 0;">
+				<a href="{% url 'home' %}" class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-home fa-lg fa-fw" aria-hidden="true"></i>
+						{% trans 'HOME' %}
+					</h3>
+				</a>
 			</div>
-			{% if user.is_staff %}
-				{% get_current_language as LANGUAGE_CODE %}
-			
-				<div class="panel panel-warning">
- 					<div class="panel-heading">Staff Controls</div>
- 					<div class="panel-body">
- 						{% if oPage.language.code == LANGUAGE_CODE %}
-		   					<a href="{% url 'pages:edit_page' oPage.id %}" class="btn btn-warning btn-sm">
-								<i class="fa fa-edit" aria-hidden="true"></i>
-								{% trans 'Edit Page' %}
-							</a>
-						{% else %}
-							<a href="{% url 'pages:edit_page' oPage.id %}" class="btn btn-warning btn-sm">
-								<i class="fa fa-edit" aria-hidden="true"></i>
-								{% trans 'Edit Original' %} ({{ oPage.language.name }})
-							</a>
-						{% endif %}
-						<br><br>
-						<a href="{% url 'pages:translate_page' oPage.id %}" class="btn btn-warning btn-sm">
-							<i class="fa fa-translate" aria-hidden="true"></i>
-							{% trans 'Create/Edit Translations' %}
+			<div class="panel panel-danger" style="margin:10px 0;">
+				<a href="" class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-calendar fa-lg fa-fw" aria-hidden="true"></i>
+						{% trans 'UPCOMING EVENTS' %}
+					</h3>
+				</a>
+			</div>
+			{% for oCat in qCategory %}
+				{% if oCat.page_set.all %}
+					<div class="panel panel-info" style="margin:10px 0;">
+						<a href="{% url 'pages:list' oCat.id %}" class="panel-heading" >
+							<h3 class="panel-title">
+								{{ oCat.icon|safe }}
+	 							{{ oCat.title|upper }}
+							</h3>
 						</a>
-						<br><br>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-page-confirmation-modal">
-							<i class="fa fa-trash" aria-hidden="true"></i>
-							{% trans 'Delete Page' %}
-						</button>
-						
- 					</div>
-				</div>
-			{% else %}
-					{% blocktrans with email=constants.CONTACT_EMAIL %}Want to contribute to these pages?  <a href="mailto:{{email}}">Contact us</a> to request a Contributor Account.{% endblocktrans %}
-			{% endif %}
+					</div>
+				{% endif %}
+			{% endfor %}
 		</div>
 	
 	
@@ -142,8 +131,7 @@
 				<hr>
 				<h4>{% trans 'COMMENTS:' %}</h4>
 				{% include 'microfeed2/blocks/new_comment_style_post.html' %}
-				<div id="mf-feed" data-thread-id="{{oPage.post_thread.id}}" style="background-color: gray; padding:1px 0;"></div>
-				
+					<div id="mf-feed" data-thread-id="{{oPage.post_thread.id}}" style="background-color: gray; padding:1px 0;"></div>
 				{% comment %}
 				
 				leaving this off is a not very elegant way to prevent images on the page

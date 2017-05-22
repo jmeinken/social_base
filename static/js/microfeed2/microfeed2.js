@@ -259,6 +259,7 @@
 			$(this).parent().addClass('active');
 			$('.mf-post-form-container').hide();
 			$(targetId).fadeIn();
+			return false;
 		});
 		
 		$('#mf-cancel-new-post').click(function() {

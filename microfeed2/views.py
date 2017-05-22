@@ -191,7 +191,7 @@ def ajax_posts(request):
     html = render_to_string('microfeed2/blocks/feed.html', context, request)
     response = {}
     response['html'] = html
-    modals = render_to_string('microfeed2/blocks/feed_modals.html', {}, request)
+    modals = render_to_string('microfeed2/blocks/feed_modals.html', context, request)
     response['modals'] = modals
     if qPost:
         for oPost in qPost:

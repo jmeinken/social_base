@@ -3,9 +3,10 @@
 
 {% if oPost.postimage_set.all.count == 1 %}
 	{% for oImage in oPost.postimage_set.all %}
-		<div class="col-sm-6 col-sm-offset-3" style="padding:5px">
+		<div class="col-sm-12" style="padding:5px">
 			<div class="post-image-thumbnail-container">
-				<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+				<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}"
+					data-toggle="modal" data-target="#mf-post-image-modal-{{oPost.id}}">
 					<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
 				</a>
 			</div>
@@ -17,7 +18,8 @@
 	{% for oImage in oPost.postimage_set.all %}
 		<div class="col-xs-6" style="padding:5px">
 			<div class="post-image-thumbnail-container">
-				<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+				<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}"
+					data-toggle="modal" data-target="#mf-post-image-modal-{{oPost.id}}">
 					<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
 				</a>
 			</div>
@@ -30,7 +32,8 @@
 		{% if forloop.counter == 1 %}
 			<div class="col-xs-8" style="padding:5px">
 				<div class="post-image-thumbnail-container">
-					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}"
+						data-toggle="modal" data-target="#mf-post-image-modal-{{oPost.id}}">
 						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
 					</a>
 				</div>
@@ -38,7 +41,32 @@
 		{% else %}
 			<div class="col-xs-4" style="padding:5px">
 				<div class="post-image-thumbnail-container">
-					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}"
+						data-toggle="modal" data-target="#mf-post-image-modal-{{oPost.id}}">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
+					</a>	
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+{% if oPost.postimage_set.all.count >= 4 and oPost.postimage_set.all.count <= 6 %}
+	{% for oImage in oPost.postimage_set.all %}
+		{% if forloop.counter == 1 %}
+			<div class="col-xs-8" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}"
+						data-toggle="modal" data-target="#mf-post-image-modal-{{oPost.id}}">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
+					</a>
+				</div>
+			</div>
+		{% else %}
+			<div class="col-xs-4" style="padding:5px">
+				<div class="post-image-thumbnail-container">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}"
+						data-toggle="modal" data-target="#mf-post-image-modal-{{oPost.id}}">
 						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
 					</a>
 				</div>
@@ -47,21 +75,38 @@
 	{% endfor %}
 {% endif %}
 
-{% if oPost.postimage_set.all.count >= 4 %}
+{% if oPost.postimage_set.all.count >= 7 %}
 	{% for oImage in oPost.postimage_set.all %}
 		{% if forloop.counter == 1 %}
 			<div class="col-xs-8" style="padding:5px">
 				<div class="post-image-thumbnail-container">
-					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}"
+						data-toggle="modal" data-target="#mf-post-image-modal-{{oPost.id}}">
 						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
 					</a>
 				</div>
 			</div>
-		{% else %}
+		{% elif forloop.counter <= 5 %}
 			<div class="col-xs-4" style="padding:5px">
 				<div class="post-image-thumbnail-container">
-					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}"
+						data-toggle="modal" data-target="#mf-post-image-modal-{{oPost.id}}">
 						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
+					</a>
+				</div>
+			</div>
+		{% elif forloop.counter == 6 %}
+			<div class="col-xs-4" style="padding:5px">
+				<div class="post-image-thumbnail-container image-label-container-parent">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}"
+						data-toggle="modal" data-target="#mf-post-image-modal-{{oPost.id}}">
+						<div class="image-label-container">
+							<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}"
+								style="opacity:0.2;">
+							<div class="image-label">
+								{{ forloop.counter|add:"-4" }} More
+							</div>
+						</div>
 					</a>
 				</div>
 			</div>

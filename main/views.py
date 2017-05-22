@@ -11,7 +11,7 @@ from django.utils import translation
 from . import forms
 from microfeed2.forms import get_post_form
 
-from pages.models import PageCategory
+from pages.models import Page, PageCategory
 from microfeed2.models import PostTime
 
 def set_english(request):
@@ -34,12 +34,25 @@ def home(request):
     PostForm = get_post_form()
     ClassifiedForm = get_post_form('classified')
     EventForm = get_post_form('event')
-    context['qCategory'] = PageCategory.objects.all().filter(parent=None)
+    context['qPage'] = Page.objects.all()
     context['fPost'] = PostForm(initial={'thread': 1})
     context['fPostClassified'] = ClassifiedForm(initial={'thread': 1})
     context['fPostEvent'] = EventForm(initial={'thread': 1})
     # get upcoming events
     context['qPostTime'] = PostTime.objects.all().filter(start_date__gte=datetime.now()).order_by('start_date', 'start_time')[:3]
+    context['col1'] = [
+        PageCategory.objects.all().get(title="Shopping"),
+        PageCategory.objects.all().get(title="Local Destinations"),
+        PageCategory.objects.all().get(title="Regional Destinations"),
+        PageCategory.objects.all().get(title="Restaurants"),
+    ]
+    context['col2'] = [ 
+        PageCategory.objects.all().get(title="Housing"),
+        PageCategory.objects.all().get(title="Transportation"),
+        PageCategory.objects.all().get(title="Medical"),
+        PageCategory.objects.all().get(title="Education"),
+        PageCategory.objects.all().get(title="Immigration & Visa"),
+    ]
     return render(request, 'main/home.html', context)
 
 @login_required
