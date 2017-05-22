@@ -20,8 +20,9 @@
 }
 
 .mf-post-meta {
+	border:1px solid #E3E3E3;
 	border-left: 3px solid #CCCCCC;
-	margin-left: 55px;
+	margin-left: 50px;
 	padding: 3px 0 5px 10px;
 }
 

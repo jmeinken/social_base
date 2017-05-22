@@ -102,6 +102,12 @@
 				} else {
 					$('#' + json.destinationId).html(json.html);
 				}
+				//hack so that image modal will reload if user decides to edit this again
+				var index = crp.inputIds.indexOf('id_images-' + postId);
+				if (index > -1) {
+					crp.inputIds.splice(index, 1);
+				}
+				//end hack
 				crp.load();
 				mf2.attachEvents();
 			})
@@ -143,6 +149,13 @@
 			})
 			.done(function( json ) {
 				$('#' + json.destinationId).html(json.html);
+				//hack so that image modal will reload if user decides to edit this again
+				console.log(crp.inputIds);
+				var index = crp.inputIds.indexOf('id_images-' + postId);
+				if (index > -1) {
+					crp.inputIds.splice(index, 1);
+				}
+				//end hack
 				crp.load();
 				mf2.attachEvents();
 			})

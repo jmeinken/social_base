@@ -5,7 +5,7 @@
 	
 <div class="mf-view-post" id="mf-view-post-{{oPost.id}}">			
 	<div class="mf-post-user-image">
-		<img alt="{{oPost.user.get_short_name}}" src="{{ oPost.user.get_image }}" width="50" height="50">
+		<img alt="{{oPost.user.get_short_name}}" src="{{ oPost.user.get_image }}" width="47" height="47">
 	</div>
 	<div class="mf-post-user-options">
 		{% if oPost.user == user %}
@@ -20,8 +20,8 @@
 			</div>
 		{% endif %}
 	</div>
-	<div class="mf-post-meta">
-		<span class="text-success">
+	<div class="mf-post-meta" style="background-color:#F4F4F4;">
+		<span class="text-warning">
 			{% blocktrans with username=oPost.user.get_full_name %}posted by {{ username }}{% endblocktrans %}
 		</span><br>
 		<span class="text-muted">{{ oPost.get_pretty_date }}</span>
@@ -29,15 +29,15 @@
 	
 	<div class="mf-post-body">
 		{% if oPost.title %}
-			<div class="text-success" style="font-size:1.4em;font-weight:bold; padding: 5px 0;">
+			<div class="text-info" style="font-size:1.4em;font-weight:bold; padding: 5px 0;">
 				<span>{{ oPost.title }}</span>
 			</div>
 		{% endif %}
 		{% for oPostTime in oPost.posttime_set.all %}
-			<p class="text-success" style="font-size:1.4em;">
+			<p class="text-info" style="font-size:1.4em;">
 				<i class="fa fa-calendar" aria-hidden="true"></i>
 				{{ oPostTime.start_date }} 
-				<span class="label label-success">
+				<span class="label label-info">
 					{{ oPostTime.start_time }}
 					{% if oPostTime.end_time %}
 						- {{ oPostTime.end_time }}
@@ -45,7 +45,9 @@
 				</span>
 			</p>
 		{% endfor %}
+		<div style="font-size:1.2em;padding-top:10px;">
 		{{ oPost.body|pretty_html|safe }}
+		</div>
 		
 	</div>
 	{% if oPost.postimage_set.all.count > 0 %}

@@ -10,9 +10,7 @@
 		<div class="mf-comment-block well well-sm">
 			<div class="mf-post-comment-list" id="mf-post-comment-list-{{oPost.id}}">
 				{% for oComment in oPost.postcomment_set.all %}
-					<div class="mf-comment" id="mf-comment-{{oComment.id}}">
-						{% include 'microfeed2/blocks/comment.html' %}
-					</div>
+					{% include 'microfeed2/blocks/comment.html' %}
 				{% endfor %}
 			</div>
 			{% if user.is_authenticated %}
