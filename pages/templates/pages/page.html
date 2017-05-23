@@ -49,6 +49,7 @@
 					</h3>
 				</a>
 			</div>
+			{% comment %}
 			<div class="panel panel-danger" style="margin:10px 0;">
 				<a href="" class="panel-heading">
 					<h3 class="panel-title">
@@ -57,6 +58,7 @@
 					</h3>
 				</a>
 			</div>
+			{% endcomment %}
 			{% for oCat in qCategory %}
 				{% if oCat.page_set.all %}
 					<div class="panel panel-info" style="margin:10px 0;">

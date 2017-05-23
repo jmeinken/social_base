@@ -40,6 +40,7 @@ def home(request):
     context['fPostEvent'] = EventForm(initial={'thread': 1})
     # get upcoming events
     context['qPostTime'] = PostTime.objects.all().filter(start_date__gte=datetime.now()).order_by('start_date', 'start_time')[:3]
+    context['qPageCategory'] = PageCategory.objects.all()
     context['col1'] = [
         PageCategory.objects.all().get(title="Shopping"),
         PageCategory.objects.all().get(title="Local Destinations"),

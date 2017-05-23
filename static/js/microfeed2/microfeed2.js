@@ -251,8 +251,11 @@
 		$('.dateinput').datetimepicker({format: 'll'});
 		$('.timeinput').datetimepicker({format: 'hh:mm A'});
 		
-		$('.mf-force-login').click(function() {
+		$('.mf-force-login').click(function( event ) {
+			event.preventDefault();
+			document.activeElement.blur();
 			$('#mf-force-login-modal').modal('show');
+			return false;
 		})
 	} // end attachEvents
 	

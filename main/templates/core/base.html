@@ -151,7 +151,24 @@
 	//required by images.js
 	var UPLOADS_URL_PATH = '{{constants.UPLOADS_URL_PATH}}';
 	
-
+	$(document).ready(function() {
+		$('#show-upcoming-events-dropdown').click(function() {
+			if ( $('#upcoming-events-dropdown').is(":visible") ) {
+				$('#upcoming-events-dropdown').slideUp();
+			} else {
+				$('#upcoming-events-dropdown').slideDown();
+			}
+		});
+	});
+	$(document).ready(function() {
+		$('#show-cincinnati-info-dropdown').click(function() {
+			if ( $('#cincinnati-info-dropdown').is(":visible") ) {
+				$('#cincinnati-info-dropdown').slideUp();
+			} else {
+				$('#cincinnati-info-dropdown').slideDown();
+			}
+		});
+	});
 
 </script>
 
