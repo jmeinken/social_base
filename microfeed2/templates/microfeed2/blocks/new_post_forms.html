@@ -62,8 +62,11 @@
 	
 {% else %}
 
-	<div class="well text-muted">
-		{% blocktrans %}<a href="/account/login">Sign in</a> or <a href="/account/signup">create an account</a> to post.{% endblocktrans %}
+	<div class="well well-sm mf-force-login" style="margin-bottom:0;">
+		<div>
+			<textarea class="textarea form-control" rows="1" 
+					placeholder="{% trans 'Write something...' %}"></textarea>
+		</div>
 	</div>
 
 {% endif %}

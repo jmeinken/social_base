@@ -50,3 +50,9 @@
 .mf-comment-user-options {
 	float:right;
 }
+
+.mf-comment-body {
+	margin: 4px 0 10px 45px;
+	font-size: 1.1em;
+}
+

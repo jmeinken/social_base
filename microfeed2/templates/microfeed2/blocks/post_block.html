@@ -25,8 +25,13 @@
 					</form>
 				</div>
 			{% else %}
-				<div class="mf-new-comment text-muted" style="text-align:center">
-					{% blocktrans %}<a href="/account/login">Sign in</a> or <a href="/account/signup">create an account</a> to comment.{% endblocktrans %}
+				<div class="mf-force-login">
+					{% crispy fPostComment fPostComment.helper %}
+					<div style="text-align:right;margin-top:-10px">
+						<button type="button" class="btn btn-primary btn-xs" name="submit_form">
+							{% trans 'Reply' %}
+						</button>
+					</div>
 				</div>
 			{% endif %}
 		</div>

@@ -250,7 +250,11 @@
 		});
 		$('.dateinput').datetimepicker({format: 'll'});
 		$('.timeinput').datetimepicker({format: 'hh:mm A'});
-	}
+		
+		$('.mf-force-login').click(function() {
+			$('#mf-force-login-modal').modal('show');
+		})
+	} // end attachEvents
 	
 	
 	$(document).ready(function() {
@@ -279,6 +283,8 @@
 			$('#mf-post-forms-container').hide();
 			$('#mf-post-form-teaser-container').show();
 		});
+		
+		
 		
 		
 		
