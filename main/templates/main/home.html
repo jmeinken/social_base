@@ -25,12 +25,14 @@
 				<div id="upcoming-events-dropdown" style="display:none;">
 					{% for oPostTime in qPostTime %}
 					
-						<div class="panel-body">
+						<div class="panel-body" style="clear:all">
 						  	<a href="{% url 'microfeed2:view_post' oPostTime.post.id %}">
-						  		<div>
+						  		<div style="float:left;padding-right:10px;">
 							  		{% if oPostTime.post.get_sample_image %}
 							  			<img width="72" height="54" src="{% static oPostTime.post.get_sample_image %}" />
 							  		{% endif %}
+							  	</div>
+							  	<div>
 							    	<strong>{{oPostTime.post.title}}</strong>
 							    	<br>
 							    	{{oPostTime.start_date}} <span class="label label-primary">{{oPostTime.start_time}}</span>
@@ -83,19 +85,21 @@
 				<div class="col-md-6">
 				
 					<div class="panel panel-danger">
-						<a href="#" class="panel-heading" style="text-align:center;">
+						<div class="panel-heading" style="text-align:center;">
 							<h3 class="panel-title">
 								<i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
 								{% trans 'UPCOMING EVENTS' %}
 							</h3>
-						</a>
+						</div>
 						{% for oPostTime in qPostTime %}
 							<div class="panel-body">
 							  	<a href="{% url 'microfeed2:view_post' oPostTime.post.id %}">
-							  		<div>
+							  		<div style="float:left;padding-right:10px;">
 								  		{% if oPostTime.post.get_sample_image %}
 								  			<img width="72" height="54" src="{% static oPostTime.post.get_sample_image %}" />
 								  		{% endif %}
+								  	</div>
+								  	<div>
 								    	<strong>{{oPostTime.post.title}}</strong>
 								    	<br>
 								    	{{oPostTime.start_date}} <span class="label label-primary">{{oPostTime.start_time}}</span>

@@ -41,37 +41,8 @@
 	<div class="row">
 	
 		<div class="col-sm-3">
-			<div class="panel panel-primary" style="margin:10px 0;">
-				<a href="{% url 'home' %}" class="panel-heading">
-					<h3 class="panel-title">
-						<i class="fa fa-home fa-lg fa-fw" aria-hidden="true"></i>
-						{% trans 'HOME' %}
-					</h3>
-				</a>
+				{% include 'pages/blocks/menu.html' %}
 			</div>
-			{% comment %}
-			<div class="panel panel-danger" style="margin:10px 0;">
-				<a href="" class="panel-heading">
-					<h3 class="panel-title">
-						<i class="fa fa-calendar fa-lg fa-fw" aria-hidden="true"></i>
-						{% trans 'UPCOMING EVENTS' %}
-					</h3>
-				</a>
-			</div>
-			{% endcomment %}
-			{% for oCat in qCategory %}
-				{% if oCat.page_set.all %}
-					<div class="panel panel-info" style="margin:10px 0;">
-						<a href="{% url 'pages:list' oCat.id %}" class="panel-heading" >
-							<h3 class="panel-title">
-								{{ oCat.icon|safe }}
-	 							{{ oCat.title|upper }}
-							</h3>
-						</a>
-					</div>
-				{% endif %}
-			{% endfor %}
-		</div>
 	
 	
 	
@@ -98,7 +69,28 @@
 				<hr>
 			{% endif %}
 			
-			<div style="float:right; margin-left:10px; margin-bottom:20px;">
+			<div style="float:right; margin-left:10px; margin-bottom:20px;width:300px;" class="hidden-xs">
+				{% if oPage.pagelink_set.all %}
+					<div class="well">
+						<p>{% trans 'LINKS' %}</p>
+						{% for oLink in oPage.pagelink_set.all %}
+							<p>
+								<a href="{{oLink.url}}">
+									<i class="fa fa-external-link" aria-hidden="true"></i>
+									{{oLink.title}}
+								</a>
+							</p>
+						{% endfor %}
+					</div>
+				{% endif %}
+				{% if oPage.address %}
+					<div class="well">
+						<p>{% trans 'LOCATION' %}</p>
+						<a target="_blank" href="http://maps.google.com/?q={{oPage.address}}">{{oPage.address}}</a>
+					</div>
+				{% endif %}
+			</div>
+			<div class="visible-xs-block">
 				{% if oPage.pagelink_set.all %}
 					<div class="well">
 						<p>{% trans 'LINKS' %}</p>

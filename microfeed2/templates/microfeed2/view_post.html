@@ -3,13 +3,17 @@
 
 {% block content %}
 
-	
 	<div class="row">
 		<div class="col-sm-6">
-			<h1>View Post</h1>
-			{% include 'microfeed2/blocks/post.html' %}
-			<hr>
-			comments go here
+			<h1>{{ oPost.type|title }} Post by {{ oPost.user.username }}</h1>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-6 no-padding-mobile">
+			<div style="background-color:#4d4d4d;padding:1px 0;">
+				{% include 'microfeed2/blocks/post_block.html' %}
+			</div>
 		</div>
 	</div>
 

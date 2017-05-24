@@ -11,36 +11,7 @@
 		<div class="row">
 		
 			<div class="col-sm-3">
-				<div class="panel panel-primary" style="margin:10px 0;">
-					<a href="{% url 'home' %}" class="panel-heading">
-						<h3 class="panel-title">
-							<i class="fa fa-home fa-lg fa-fw" aria-hidden="true"></i>
-							{% trans 'HOME' %}
-						</h3>
-					</a>
-				</div>
-				{% comment %}
-				<div class="panel panel-danger" style="margin:10px 0;">
-					<a href="" class="panel-heading">
-						<h3 class="panel-title">
-							<i class="fa fa-calendar fa-lg fa-fw" aria-hidden="true"></i>
-							{% trans 'UPCOMING EVENTS' %}
-						</h3>
-					</a>
-				</div>
-				{% endcomment %}
-				{% for oCat in qCategory %}
-					{% if oCat.page_set.all %}
-						<div class="panel panel-info" style="margin:10px 0;">
-							<a href="{% url 'pages:list' oCat.id %}" class="panel-heading" >
-								<h3 class="panel-title">
-									{{ oCat.icon|safe }}
-		 							{{ oCat.title|upper }}
-								</h3>
-							</a>
-						</div>
-					{% endif %}
-				{% endfor %}
+				{% include 'pages/blocks/menu.html' %}
 			</div>
 		
 			<div class="col-sm-9">
@@ -67,55 +38,41 @@
 			    	</div>
 			    {% endfor %}
 			    
-				{% if oPageCategory.show_as_page %}
-				    {% for oPage in oPageCategory.page_set.all %}
-				    	<div class="well" style="overflow: hidden;">
-				    		{% if oPage.image %}
-				    			<div style="float:right; padding:10px;width:50%;min-width:200px;">
-				    				<img src="{% static oPage.get_image %}" alt="oPage.title" class="img-responsive" />
-				    			</div>
-				    		{% endif %}
-				    		<h3>
-				    			{{ oPage.trans_title }} 
-				    			{% if user.is_staff %}&nbsp;
-				    				<a href="{% url 'pages:edit_page' oPage.id %}" class="text-warning" title="edit">
-				    					<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
-				    				
-				    				<a href="{% url 'pages:translate_page' oPage.id %}" class="text-warning" title="translate">
-				    					<i class="fa fa-globe" aria-hidden="true"></i>
+				
+				{% for oPage in oPageCategory.page_set.all %}
+					<div class="well">
+						<a href="{% url 'pages:view_page' oPage.id %}">
+							<h3 style="border-bottom:#D9230F solid 1px;color:#D9230F">
+								<div style="float:right;">
+					    			<button class="btn btn-primary btn-xs" href="{% url 'pages:view_page' oPage.id %}">> ></button>
+					    		</div>
+								{{ oPage.trans_title }}
+							</h3>
+						</a>
+						{% if oPage.image %}
+							<div class="row">
+								<div class="col-sm-6 col-sm-push-6">
+									<a href="{% url 'pages:view_page' oPage.id %}">
+				    					<img src="{% static oPage.get_image %}" alt="oPage.title" class="img-responsive" />
 				    				</a>
-				    			{% endif %}
-				    		</h3>
-				    		<p>{{ oPage.trans_body|safe }}</p>
-				    		{% if oPage.address %}
-								<p>
-									{% trans 'LOCATION' %}
-									<a target="_blank" href="http://maps.google.com/?q={{oPage.address}}">{{oPage.address}}</a>
-								</p>
-							{% endif %}
-				    		{% for oLink in oPage.pagelink_set.all %}
-								<p>
-									<a href="{{oLink.url}}">
-										<i class="fa fa-external-link" aria-hidden="true"></i>
-										{{oLink.title}}
+				    			</div>
+								<div class="col-sm-6 col-sm-pull-6">
+									{{ oPage.trans_teaser|safe }}
+									<a href="{% url 'pages:view_page' oPage.id %}">
+										[more]
 									</a>
-								</p>
-							{% endfor %}
-				    	</div>
-				    {% endfor %}
+								</div>
+							</div>
+			    		{% else %}
+			    			{{ oPage.trans_teaser|safe }}
+			    			<a href="{% url 'pages:view_page' oPage.id %}">
+								[more]
+							</a>
+			    		{% endif %}
+			    		
+			    	</div>
+			    {% endfor %}
 				    
-				{% else %}<!-- show as category -->
-					{% for oPage in oPageCategory.page_set.all %}
-						<div class="well">
-				    		<h3><a href="{% url 'pages:view_page' oPage.id %}">{{ oPage.trans_title }}</a></h3>
-				    		{{ oPage.trans_teaser|safe }}
-				    		<div style="text-align:right">
-				    			<a href="{% url 'pages:view_page' oPage.id %}">more...</a>
-				    		</div>
-				    	</div>
-				    {% endfor %}
-				    
-				{% endif %}
 				
 				{% if not oPageCategory.page_set.all and not oPageCategory.child_set.all %}
 			    	<em>{% trans 'There are no posts yet for this category.' %}</em>

@@ -33,7 +33,7 @@ def view_post(request, post_id):
     response = {}       # json response object
     oPost = models.Post.objects.get(pk=post_id)
     context['oPost'] = oPost
-    
+    context['fPostComment'] = forms.PostCommentForm()
     if request.is_ajax():
         response['html'] = render_to_string('microfeed2/blocks/post.html', context, request)
         response['destinationId'] = 'mf-post-' + str(post_id)
