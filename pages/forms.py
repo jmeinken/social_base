@@ -12,13 +12,23 @@ from . import models
 from microfeed2.models import PostThread
 
 
+
+class PageForm(forms.Form):
+    pass
+
+
+
+
+
+
+
 class TranslateForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput)
     body = forms.CharField(widget=forms.TextInput)
     teaser = forms.CharField(widget=forms.TextInput)
 
 
-class PageForm(forms.ModelForm):
+class OldPageForm(forms.ModelForm):
     class Meta:
         model = models.Page
         fields = ['language', 'order', 'category','title','body','teaser','address','image']
