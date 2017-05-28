@@ -37,9 +37,9 @@
   <!-- Django formset for inline formsets -->
   <script src="{% static 'js/jquery.formset.js' %}"></script>
   
-  <!-- TinyMCE for WYSIWYG textareas 
+  <!-- TinyMCE for WYSIWYG textareas -->
   <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-  -->
+  
   
   <!-- My Images tool based off of CropIt -->
   <script src="{% static 'js/images/images.js' %}"></script>
@@ -149,6 +149,22 @@
   		border-radius: 0;
   	}
   	
+  	form .nav-pills > li.active > a, form .nav-pills > li.active > a:hover, form .nav-pills > li.active > a:focus {
+    	color: #ffffff;
+    	background-color: #4D4D4D;
+	}
+	
+	form .nav-pills > li > a, form .nav-pills > li > a:hover, form .nav-pills > li > a:focus {
+    	color: #4D4D4D;
+	}
+	
+	.text-success {
+		color: #73c71f;
+	}
+	.text-warning {
+		color: #eea744;
+	}
+  	
 </style>
 
 <script>
@@ -164,6 +180,9 @@ function updateLanguageInputStatus() {
 		}
 		if ( $('#' + tabId + ' textarea').length ) {
 			myval = $('#' + tabId + ' textarea').val().trim();
+			//remove junk potentially added by tinymce
+			myval = myval.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, '').trim();
+			console.log(myval);
 		}
 		if (myval == '') {
 			$(this).html('<i class="fa fa-minus-circle fa-lg text-warning" aria-hidden="true"></i>');
@@ -185,6 +204,20 @@ $(document).ready(function() {
 	$('textarea').on('change keyup paste', function() {
 		//var myval = $(this).val();
 		updateLanguageInputStatus();
+	});
+	
+
+	
+	tinymce.init({ 
+  		selector:'textarea',
+  		height: 300,
+  		language: 'en',
+  		plugins: "link",
+	    toolbar: "undo redo | styleselect bold italic link bullist numlist blockquote | removeformat",
+	    table_class_list: [
+		  {title: 'None', value: ''},
+          {title: 'Standard', value: 'table table-striped table-border'},
+        ]
 	});
 	
 });

@@ -28,24 +28,24 @@ class PageForm(forms.Form):
         choice = (oCategory.title, oCategory.title,)
         CATEGORY_CHOICES.append(choice)
         
-    category = forms.ChoiceField(choices=CATEGORY_CHOICES)
+    category = forms.ChoiceField(label='CATEGORY', choices=CATEGORY_CHOICES)
     title = forms.CharField(label='', required=False)
     title_japanese = forms.CharField(label='', required=False)
     title_german = forms.CharField(label='', required=False)
     body = forms.CharField(widget=forms.Textarea, label='', required=False)
     body_japanese = forms.CharField(widget=forms.Textarea, label='', required=False)
     body_german = forms.CharField(widget=forms.Textarea, label='', required=False)
-    address = forms.CharField(required=False)
+    address = forms.CharField(label='ADDRESS', required=False)
     image = forms.CharField(widget=forms.HiddenInput, required=False)
-    url1 = forms.URLField(label='', required=False)
+    url1 = forms.URLField(label='URL', required=False)
     url1_label = forms.CharField(label='', required=False)
     url1_label_japanese = forms.CharField(label='', required=False)
     url1_label_german = forms.CharField(label='', required=False)
-    url2 = forms.URLField(label='', required=False)
+    url2 = forms.URLField(label='URL', required=False)
     url2_label = forms.CharField(label='', required=False)
     url2_label_japanese = forms.CharField(label='', required=False)
     url2_label_german = forms.CharField(label='', required=False)
-    url3 = forms.URLField(label='', required=False)
+    url3 = forms.URLField(label='URL', required=False)
     url3_label = forms.CharField(label='', required=False)
     url3_label_japanese = forms.CharField(label='', required=False)
     url3_label_german = forms.CharField(label='', required=False)
@@ -123,7 +123,7 @@ def get_page_layout():
     page_layout = Layout(
         Div('category', css_class = 'well well-sm'),
         Div(    
-            HTML('TITLE'),   
+            HTML('TITLE*'),   
             HTML(PAGE_TITLE_LANGUAGE_SELECTOR),  
             Div(         
                 Div('title', css_class='tab-pane fade active in', css_id='title_' + code + '_english_tab'),
@@ -134,7 +134,7 @@ def get_page_layout():
             css_class = 'well well-sm'
         ),
         Div(    
-            HTML('BODY'),   
+            HTML('BODY*'),   
             HTML(PAGE_BODY_LANGUAGE_SELECTOR),  
             Div(         
                 Div('body', css_class='tab-pane fade active in', css_id='body_' + code + '_english_tab'),
@@ -147,7 +147,7 @@ def get_page_layout():
         Div(
             Field('image', 
                 css_class = 'image_input', 
-                data_label = 'Page Image',
+                data_label = 'PAGE IMAGE',
                 data_export_zoom = 2,
                 data_min_zoom = 'fill',
                 data_aspect_ratio = '2:1',
@@ -157,39 +157,39 @@ def get_page_layout():
         ),
         Div('address', css_class = 'well well-sm'),
         Div(    
-            HTML('LINK 1'),   
+            HTML('LINK NAME 1'),   
             HTML(PAGE_URL1_TITLE_LANGUAGE_SELECTOR),  
             Div(         
-                Div(PrependedText('url1_label', 'Link Name'), css_class='tab-pane fade active in', css_id='url1_label_' + code + '_english_tab'),
-                Div(PrependedText('url1_label_japanese', 'Link Name'), css_class='tab-pane fade', css_id='url1_label_' + code + '_japanese_tab'),
-                Div(PrependedText('url1_label_german', 'Link Name'), css_class='tab-pane fade', css_id='url1_label_' + code + '_german_tab'),
+                Div('url1_label', css_class='tab-pane fade active in', css_id='url1_label_' + code + '_english_tab'),
+                Div('url1_label_japanese', css_class='tab-pane fade', css_id='url1_label_' + code + '_japanese_tab'),
+                Div('url1_label_german', css_class='tab-pane fade', css_id='url1_label_' + code + '_german_tab'),
                 css_class='tab-content'
             ),
-            PrependedText('url1', 'URL'),
+            'url1',
             css_class = 'well well-sm'
         ),
         Div(    
-            HTML('LINK 2'),   
+            HTML('LINK NAME 2'),   
             HTML(PAGE_URL2_TITLE_LANGUAGE_SELECTOR),  
             Div(         
-                Div(PrependedText('url2_label', 'Link Name'), css_class='tab-pane fade active in', css_id='url2_label_' + code + '_english_tab'),
-                Div(PrependedText('url2_label_japanese', 'Link Name'), css_class='tab-pane fade', css_id='url2_label_' + code + '_japanese_tab'),
-                Div(PrependedText('url2_label_german', 'Link Name'), css_class='tab-pane fade', css_id='url2_label_' + code + '_german_tab'),
+                Div('url2_label', css_class='tab-pane fade active in', css_id='url2_label_' + code + '_english_tab'),
+                Div('url2_label_japanese', css_class='tab-pane fade', css_id='url2_label_' + code + '_japanese_tab'),
+                Div('url2_label_german', css_class='tab-pane fade', css_id='url2_label_' + code + '_german_tab'),
                 css_class='tab-content'
             ),
-            PrependedText('url2', 'URL'),
+            'url2',
             css_class = 'well well-sm'
         ),
         Div(    
-            HTML('LINK 3'),   
+            HTML('LINK NAME 3'),   
             HTML(PAGE_URL3_TITLE_LANGUAGE_SELECTOR),  
             Div(         
-                Div(PrependedText('url3_label', 'Link Name'), css_class='tab-pane fade active in', css_id='url3_label_' + code + '_english_tab'),
-                Div(PrependedText('url3_label_japanese', 'Link Name'), css_class='tab-pane fade', css_id='url3_label_' + code + '_japanese_tab'),
-                Div(PrependedText('url3_label_german', 'Link Name'), css_class='tab-pane fade', css_id='url3_label_' + code + '_german_tab'),
+                Div('url3_label', css_class='tab-pane fade active in', css_id='url3_label_' + code + '_english_tab'),
+                Div('url3_label_japanese', css_class='tab-pane fade', css_id='url3_label_' + code + '_japanese_tab'),
+                Div('url3_label_german', css_class='tab-pane fade', css_id='url3_label_' + code + '_german_tab'),
                 css_class='tab-content'
             ),
-            PrependedText('url3', 'URL'),
+            'url3',
             css_class = 'well well-sm'
         ),
     )
