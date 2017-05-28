@@ -137,9 +137,9 @@ def get_page_layout():
             HTML('BODY*'),   
             HTML(PAGE_BODY_LANGUAGE_SELECTOR),  
             Div(         
-                Div('body', css_class='tab-pane fade active in', css_id='body_' + code + '_english_tab'),
-                Div('body_german', css_class='tab-pane fade', css_id='body_' + code + '_german_tab'),
-                Div('body_japanese', css_class='tab-pane fade', css_id='body_' + code + '_japanese_tab'),
+                Div('body', css_class='tab-pane fade active in add-tinymce', css_id='body_' + code + '_english_tab'),
+                Div('body_german', css_class='tab-pane fade add-tinymce', css_id='body_' + code + '_german_tab'),
+                Div('body_japanese', css_class='tab-pane fade add-tinymce', css_id='body_' + code + '_japanese_tab'),
                 css_class='tab-content'
             ),
             css_class = 'well well-sm'
