@@ -126,12 +126,7 @@
 				<h4>{% trans 'COMMENTS' %}</h4>
 				{% include 'microfeed2/blocks/new_comment_style_post.html' %}
 					<div id="mf-feed" data-thread-id="{{oPage.post_thread.id}}" style="background-color: gray; padding:1px 0;"></div>
-				{% comment %}
-				
-				leaving this off is a not very elegant way to prevent images on the page
-				{% include 'images/javascript_templates.html' %}
-				
-				{% endcomment %}
+
 			{% endif %}
 		</div>
 		

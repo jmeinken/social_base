@@ -1,24 +1,202 @@
-
+import random
+import string
 
 from django import forms
 from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, HTML, Field
+from crispy_forms.layout import Layout, Div, HTML, Field 
+from crispy_forms.bootstrap import PrependedText
 
 
 from . import models
 from microfeed2.models import PostThread
 
+languages = [
+    'Japanese',
+    'German',
+    'Chinese',
+]
+
 
 
 class PageForm(forms.Form):
-    pass
+    qCategory = models.PageCategory.objects.all().filter(parent=None)
+    CATEGORY_CHOICES = []
+    for oCategory in qCategory:
+        choice = (oCategory.title, oCategory.title,)
+        CATEGORY_CHOICES.append(choice)
+        
+    category = forms.ChoiceField(choices=CATEGORY_CHOICES)
+    title = forms.CharField(label='', required=False)
+    title_japanese = forms.CharField(label='', required=False)
+    title_german = forms.CharField(label='', required=False)
+    body = forms.CharField(widget=forms.Textarea, label='', required=False)
+    body_japanese = forms.CharField(widget=forms.Textarea, label='', required=False)
+    body_german = forms.CharField(widget=forms.Textarea, label='', required=False)
+    address = forms.CharField(required=False)
+    image = forms.CharField(widget=forms.HiddenInput, required=False)
+    url1 = forms.URLField(label='', required=False)
+    url1_label = forms.CharField(label='', required=False)
+    url1_label_japanese = forms.CharField(label='', required=False)
+    url1_label_german = forms.CharField(label='', required=False)
+    url2 = forms.URLField(label='', required=False)
+    url2_label = forms.CharField(label='', required=False)
+    url2_label_japanese = forms.CharField(label='', required=False)
+    url2_label_german = forms.CharField(label='', required=False)
+    url3 = forms.URLField(label='', required=False)
+    url3_label = forms.CharField(label='', required=False)
+    url3_label_japanese = forms.CharField(label='', required=False)
+    url3_label_german = forms.CharField(label='', required=False)
+
+    def __init__(self, *args, **kwargs):
+        # build template
+        self.template = FormHelper()
+        self.template.form_tag = False            # don't attach <form> tag
+        self.template.disable_csrf = True        # don't auto-add csrf token
+        self.template.layout = get_page_layout()
+        # call super
+        super(PageForm, self).__init__(*args, **kwargs)
+        
+    def set_edit_page(self, oPage):
+        self.fields['category'].initial = oPage.category
+        self.fields['title'].initial = oPage.title
+        title_trans = oPage.all_trans_title()
+        if 'ja' in title_trans:
+            self.fields['title_japanese'].initial = title_trans['ja']
+        if 'de' in title_trans:
+            self.fields['title_german'].initial = title_trans['de']
+        self.fields['body'].initial = oPage.body
+        body_trans = oPage.all_trans_body()
+        if 'ja' in body_trans:
+            self.fields['body_japanese'].initial = body_trans['ja']
+        if 'de' in body_trans:
+            self.fields['body_german'].initial = body_trans['de']
+        self.fields['address'].initial = oPage.address
+        self.fields['image'].initial = oPage.image
+        qLink = oPage.pagelink_set.all()
+        if qLink.count() >= 1:
+            self.fields['url1'].initial = qLink[0].url
+            self.fields['url1_label'].initial = qLink[0].title
+        if qLink.count() >= 2:
+            self.fields['url2'].initial = qLink[1].url
+            self.fields['url2_label'].initial = qLink[1].title
+        if qLink.count() >= 3:
+            self.fields['url3'].initial = qLink[2].url
+            self.fields['url3_label'].initial = qLink[2].title
+        
+        
+        
 
 
+def get_page_layout():
+    code = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(20))
+    
+    page_title_generic_selector = '''
+        <ul class="nav nav-pills" style="padding:5px;">
+            <li class="active">
+                <a href="#[*]_english_tab" data-toggle="tab">
+                    English <span class="language-input-status" data-tab="[*]_english_tab"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#[*]_japanese_tab" data-toggle="tab">
+                    Japanese <span class="language-input-status" data-tab="[*]_japanese_tab"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#[*]_german_tab" data-toggle="tab">
+                    German <span class="language-input-status" data-tab="[*]_german_tab"></span>
+                </a>
+            </li>
+        </ul>
+    '''
+    
+    PAGE_TITLE_LANGUAGE_SELECTOR = page_title_generic_selector.replace('[*]', 'title_' + code)
+    PAGE_BODY_LANGUAGE_SELECTOR = page_title_generic_selector.replace('[*]', 'body_' + code)
+    PAGE_URL1_TITLE_LANGUAGE_SELECTOR = page_title_generic_selector.replace('[*]', 'url1_label_' + code)
+    PAGE_URL2_TITLE_LANGUAGE_SELECTOR = page_title_generic_selector.replace('[*]', 'url2_label_' + code)
+    PAGE_URL3_TITLE_LANGUAGE_SELECTOR = page_title_generic_selector.replace('[*]', 'url3_label_' + code)
+    
+    
+    page_layout = Layout(
+        Div('category', css_class = 'well well-sm'),
+        Div(    
+            HTML('TITLE'),   
+            HTML(PAGE_TITLE_LANGUAGE_SELECTOR),  
+            Div(         
+                Div('title', css_class='tab-pane fade active in', css_id='title_' + code + '_english_tab'),
+                Div('title_german', css_class='tab-pane fade', css_id='title_' + code + '_german_tab'),
+                Div('title_japanese', css_class='tab-pane fade', css_id='title_' + code + '_japanese_tab'),
+                css_class='tab-content'
+            ),
+            css_class = 'well well-sm'
+        ),
+        Div(    
+            HTML('BODY'),   
+            HTML(PAGE_BODY_LANGUAGE_SELECTOR),  
+            Div(         
+                Div('body', css_class='tab-pane fade active in', css_id='body_' + code + '_english_tab'),
+                Div('body_german', css_class='tab-pane fade', css_id='body_' + code + '_german_tab'),
+                Div('body_japanese', css_class='tab-pane fade', css_id='body_' + code + '_japanese_tab'),
+                css_class='tab-content'
+            ),
+            css_class = 'well well-sm'
+        ),
+        Div(
+            Field('image', 
+                css_class = 'image_input', 
+                data_label = 'Page Image',
+                data_export_zoom = 2,
+                data_min_zoom = 'fill',
+                data_aspect_ratio = '2:1',
+                id = 'image_' + code
+            ),
+            css_class = 'well well-sm'
+        ),
+        Div('address', css_class = 'well well-sm'),
+        Div(    
+            HTML('LINK 1'),   
+            HTML(PAGE_URL1_TITLE_LANGUAGE_SELECTOR),  
+            Div(         
+                Div(PrependedText('url1_label', 'Link Name'), css_class='tab-pane fade active in', css_id='url1_label_' + code + '_english_tab'),
+                Div(PrependedText('url1_label_japanese', 'Link Name'), css_class='tab-pane fade', css_id='url1_label_' + code + '_japanese_tab'),
+                Div(PrependedText('url1_label_german', 'Link Name'), css_class='tab-pane fade', css_id='url1_label_' + code + '_german_tab'),
+                css_class='tab-content'
+            ),
+            PrependedText('url1', 'URL'),
+            css_class = 'well well-sm'
+        ),
+        Div(    
+            HTML('LINK 2'),   
+            HTML(PAGE_URL2_TITLE_LANGUAGE_SELECTOR),  
+            Div(         
+                Div(PrependedText('url2_label', 'Link Name'), css_class='tab-pane fade active in', css_id='url2_label_' + code + '_english_tab'),
+                Div(PrependedText('url2_label_japanese', 'Link Name'), css_class='tab-pane fade', css_id='url2_label_' + code + '_japanese_tab'),
+                Div(PrependedText('url2_label_german', 'Link Name'), css_class='tab-pane fade', css_id='url2_label_' + code + '_german_tab'),
+                css_class='tab-content'
+            ),
+            PrependedText('url2', 'URL'),
+            css_class = 'well well-sm'
+        ),
+        Div(    
+            HTML('LINK 3'),   
+            HTML(PAGE_URL3_TITLE_LANGUAGE_SELECTOR),  
+            Div(         
+                Div(PrependedText('url3_label', 'Link Name'), css_class='tab-pane fade active in', css_id='url3_label_' + code + '_english_tab'),
+                Div(PrependedText('url3_label_japanese', 'Link Name'), css_class='tab-pane fade', css_id='url3_label_' + code + '_japanese_tab'),
+                Div(PrependedText('url3_label_german', 'Link Name'), css_class='tab-pane fade', css_id='url3_label_' + code + '_german_tab'),
+                css_class='tab-content'
+            ),
+            PrependedText('url3', 'URL'),
+            css_class = 'well well-sm'
+        ),
+    )
+    return page_layout
 
 
+### OLD #########################################################################
 
 
 

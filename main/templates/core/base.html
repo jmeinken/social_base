@@ -152,6 +152,54 @@
 </style>
 
 <script>
+
+//page-form JS
+
+function updateLanguageInputStatus() {
+	$('.language-input-status').each(function() {
+		var tabId = $(this).attr('data-tab');
+		var myval = ''
+		if ( $('#' + tabId + ' input').length ) {
+			myval = $('#' + tabId + ' input').val().trim();
+		}
+		if ( $('#' + tabId + ' textarea').length ) {
+			myval = $('#' + tabId + ' textarea').val().trim();
+		}
+		if (myval == '') {
+			$(this).html('<i class="fa fa-minus-circle fa-lg text-warning" aria-hidden="true"></i>');
+		} else {
+			$(this).html('<i class="fa fa-check-circle fa-lg text-success" aria-hidden="true"></i>');
+		}
+		
+	});
+}
+
+$(document).ready(function() {
+	
+	updateLanguageInputStatus();
+	
+	$('input').on('change keyup paste', function() {
+		//var myval = $(this).val();
+		updateLanguageInputStatus();
+	});
+	$('textarea').on('change keyup paste', function() {
+		//var myval = $(this).val();
+		updateLanguageInputStatus();
+	});
+	
+});
+
+
+</script>
+
+
+
+
+
+
+
+
+<script>
 	//required by images.js
 	var UPLOADS_URL_PATH = '{{constants.UPLOADS_URL_PATH}}';
 	
@@ -173,6 +221,21 @@
 			}
 		});
 	});
+	
+	// allow multiple modals
+	//https://stackoverflow.com/questions/19305821/multiple-modals-overlay
+	$(document).on('show.bs.modal', '.modal', function () {
+	    var zIndex = 1040 + (10 * $('.modal:visible').length);
+	    $(this).css('z-index', zIndex);
+	    setTimeout(function() {
+	        $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+	    }, 0);
+	});
+	
+	$(document).on('hidden.bs.modal', '.modal', function () {
+	    $('.modal:visible').length && $(document.body).addClass('modal-open');
+	});
+	//end allow multiple modals
 
 </script>
 

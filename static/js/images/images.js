@@ -217,6 +217,8 @@ crp.addSingleImageTool = function(inputId) {
 	}
 	args.modalId = inputId + '-modal';
 	var ImagePreviewHTML = crp.templateEngine('image-preview-template', args);
+	console.log('prev');
+	console.log(ImagePreviewHTML);
 	$('#'+inputId).after(ImagePreviewHTML);
 	if ( args.defaultSource ) {
     	$('#' + inputId + '-preview').show();
@@ -292,8 +294,10 @@ crp.appendCropItTool = function (inputId) {
 
 crp.load = function() {
 	$('.image_input').each(function(index) {
+		
 		//create crop-it tool for all image inputs
 		var inputId = $(this).attr('id');
+		
 		if ( $.inArray(inputId, crp.inputIds) === -1 ) {
 			crp.appendCropItTool(inputId);
 			crp.inputIds.push(inputId);

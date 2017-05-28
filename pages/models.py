@@ -182,16 +182,16 @@ class Page(TimeStampedModel):
         ordering = ['order', 'title']
         
         
-class PageImage(TimeStampedModel):
-    page        = models.ForeignKey("Page", on_delete=models.CASCADE)
-    # image       = models.ImageField(upload_to='page_images/', max_length=100)
-    order       = models.IntegerField(default=0)
-    
-    def get_image_path(self):
-        return self.image.url
-    
-    class Meta:
-        ordering = ['order', 'id']
+# class PageImage(TimeStampedModel):
+#     page        = models.ForeignKey("Page", on_delete=models.CASCADE)
+#     # image       = models.ImageField(upload_to='page_images/', max_length=100)
+#     order       = models.IntegerField(default=0)
+#     
+#     def get_image_path(self):
+#         return self.image.url
+#     
+#     class Meta:
+#         ordering = ['order', 'id']
         
 class PageLink(TimeStampedModel):
     page        = models.ForeignKey("Page", on_delete=models.CASCADE)
@@ -204,15 +204,22 @@ class PageLink(TimeStampedModel):
         verbose_name = _('Page Link')
         verbose_name_plural = _('Page Links')
         
-class PageAddress(TimeStampedModel):
+class PageHistory(TimeStampedModel):
     page        = models.ForeignKey("Page", on_delete=models.CASCADE)
-    address     = models.TextField(max_length=500, null=True, blank=True, verbose_name=_('address'),)
-    order       = models.IntegerField(default=0, verbose_name=_('order'),)
+    user        = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, 
+                                    on_delete=models.SET_NULL)
+    data        = models.TextField()
     
-    class Meta:
-        ordering = ['order', 'id']
-        verbose_name = _('Page Link')
-        verbose_name_plural = _('Page Links')
+        
+# class PageAddress(TimeStampedModel):
+#     page        = models.ForeignKey("Page", on_delete=models.CASCADE)
+#     address     = models.TextField(max_length=500, null=True, blank=True, verbose_name=_('address'),)
+#     order       = models.IntegerField(default=0, verbose_name=_('order'),)
+#     
+#     class Meta:
+#         ordering = ['order', 'id']
+#         verbose_name = _('Page Link')
+#         verbose_name_plural = _('Page Links')
  
         
 

@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 <div class="hidden-xs">
 	<div class="panel panel-primary" style="margin:10px 0;">
@@ -31,7 +32,18 @@
 			</div>
 		{% endif %}
 	{% endfor %}
-	<button class="btn btn-primary" data-toggle="modal" data-target="#new-page-modal">Add a page</button>
+	<hr>
+	<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#new-page-modal">
+		<i class="fa fa-plus" aria-hidden="true"></i>
+		Add a page
+	</button>
+	{% if fEditPage %}
+		<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#edit-page-modal">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+			Edit this page
+		</button>
+	{% endif %}
+	
 </div>
 
 <div class="visible-xs-block">
@@ -81,6 +93,8 @@
 			
 </div>
 
+
+
 <div class="modal fade" id="new-page-modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -89,7 +103,9 @@
 		    	<h4 class="modal-title">Create a New Page</h4>
 		  	</div>
 		  	<div class="modal-body">
-		    	...
+		    	<form method="post">
+					{% crispy fPage fPage.template %}
+				</form>
 		  	</div>
 		  	<div class="modal-footer">
 		    	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -98,4 +114,28 @@
 		</div>
 	</div>
 </div>
+
+{% if fEditPage %}
+	<div class="modal fade" id="edit-page-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+			  	<div class="modal-header">
+			    	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			    	<h4 class="modal-title">Create a New Page</h4>
+			  	</div>
+			  	<div class="modal-body">
+			    	<form method="post">
+						{% crispy fEditPage fEditPage.template %}
+					</form>
+			  	</div>
+			  	<div class="modal-footer">
+			    	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+			    	<button type="button" class="btn btn-primary">Save changes</button>
+			  	</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+{% include 'images/javascript_templates.html' %}
 

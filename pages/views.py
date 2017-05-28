@@ -28,6 +28,7 @@ def list(request, page_category_id):
     context['qCategory'] = models.PageCategory.objects.all().filter(parent=None)
     context['oPageCategory'] = oPageCategory
     context['hierarchy'] = oPageCategory.get_hierarchy()
+    context['fPage'] = forms.PageForm(initial={'category':oPageCategory})
     return render(request, 'pages/list.html', context)
 
 
@@ -39,6 +40,10 @@ def view_page(request, page_id):
     context['fPost'] = PostForm(initial={'thread': oPage.post_thread})
     context['qCategory'] = models.PageCategory.objects.all().filter(parent=None)
     context['hierarchy'] = oPage.get_hierarchy()
+    context['fPage'] = forms.PageForm(initial={'category':oPage.category})
+    fEditpage = forms.PageForm()
+    fEditpage.set_edit_page(oPage)
+    context['fEditPage'] = fEditpage
     return render(request, 'pages/page.html', context)
 
 
