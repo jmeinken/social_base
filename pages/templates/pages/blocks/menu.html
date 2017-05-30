@@ -61,7 +61,7 @@
 			</div>
 			<h3 class="panel-title">
 				<i class="fa fa-info-circle fa-lg fa-fw" aria-hidden="true"></i>
-				CINCINNATI INFO
+				{% trans 'CINCINNATI INFO' %}
 			</h3>
 		</div>
 		<div class="panel-body" id="cincinnati-info-dropdown" style="display:none;">
@@ -89,7 +89,7 @@
 						<a href="{% url 'pages:list' oCat.id %}" class="panel-heading" >
 							<h3 class="panel-title">
 								{{ oCat.icon|safe }}
-									{{ oCat.title|upper }}
+									{{ oCat.trans_title|upper }}
 							</h3>
 						</a>
 					</div>
