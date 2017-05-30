@@ -24,7 +24,7 @@ class Translation(TimeStampedModel):
     language             = models.ForeignKey('Language', on_delete=models.PROTECT)
     text                 = models.TextField()
     
-    def __str__(self):
+    def __unicode__(self):
         return self.text
     
     class Meta:

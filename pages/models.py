@@ -144,7 +144,7 @@ class Page(TimeStampedModel):
         if translation:
             return translation
         elif self.title:
-            return self.title
+            return self.body
         else:
             for lang, translation in get_translations('Page', 'body', self.id).items():
                 if translation:
@@ -156,7 +156,7 @@ class Page(TimeStampedModel):
         if translation:
             return translation[:400] + '...'
         elif self.title:
-            return self.title[:400] + '...'
+            return self.body[:400] + '...'
         else:
             for lang, translation in get_translations('Page', 'body', self.id).items():
                 if translation:
