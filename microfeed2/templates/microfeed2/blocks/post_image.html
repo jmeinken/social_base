@@ -5,10 +5,12 @@
 	{% for oImage in oPost.postimage_set.all %}
 		<div class="col-sm-12" style="padding:5px">
 			<div class="post-image-thumbnail-container">
-				<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}"
-					data-toggle="modal" data-target="#mf-post-image-modal-{{oPost.id}}">
-					<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
-				</a>
+				<div style="max-width:451px;max-height:337px;margin-left:auto;margin-right:auto;">
+					<a href="#" class="show-post-image-modal" data-post-id="{{oPost.id}}" 
+						data-toggle="modal" data-target="#mf-post-image-modal-{{oPost.id}}">
+						<img class="img-responsive post-image-thumbnail-lg" alt="thumbnail" src="{% static oImage.get_image %}">
+					</a>
+				</div>
 			</div>
 		</div>
 	{% endfor %}
