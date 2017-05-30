@@ -6,6 +6,7 @@ from django.conf import settings
 from django.utils.timezone import localtime
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.utils.html import strip_tags
 
 from field_trans.helpers import get_translation, get_translations
 
@@ -154,13 +155,13 @@ class Page(TimeStampedModel):
     def trans_teaser(self):
         translation = get_translation('Page', 'body', self.id)
         if translation:
-            return translation[:400] + '...'
+            return strip_tags(translation)[:400] + '...'
         elif self.title:
-            return self.body[:400] + '...'
+            return strip_tags(self.body)[:400] + '...'
         else:
             for lang, translation in get_translations('Page', 'body', self.id).items():
                 if translation:
-                    return translation[:400] + '...'
+                    return strip_tags(translation)[:400] + '...'
         return ''
         
     def all_trans_title(self):
