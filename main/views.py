@@ -43,9 +43,10 @@ def home(request):
     context['qPageCategory'] = PageCategory.objects.all()
     context['col1'] = [
         PageCategory.objects.all().get(title="Groups"),
-        PageCategory.objects.all().get(title="Shopping"),
+        PageCategory.objects.all().get(title="Groceries"),
         PageCategory.objects.all().get(title="Local Destinations"),
         PageCategory.objects.all().get(title="Regional Destinations"),
+        PageCategory.objects.all().get(title="Shopping"),
         PageCategory.objects.all().get(title="Restaurants"),
     ]
     context['col2'] = [ 

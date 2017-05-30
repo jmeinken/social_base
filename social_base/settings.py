@@ -8,14 +8,6 @@ EMAIL_HOST_PASSWORD = 'Arthy0IcshwXY5yambndiMlNAP6mM+pq2RP1y3CuN8Ci'
 EMAIL_USE_TLS = True
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cincinnati2',
-        'USER': 'cincinnati_site',
-        'PASSWORD': 'c2pRgyWh4ato',
-        'HOST': '127.0.0.1',
-    }
-}
+
 
 

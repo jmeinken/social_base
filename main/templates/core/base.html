@@ -164,6 +164,10 @@
 	.text-warning {
 		color: #eea744;
 	}
+	
+	.page-list-block-entry .panel-body:hover {
+		background-color: #F4F4F4;
+	}
   	
 </style>
 
@@ -273,15 +277,15 @@ $(document).ready(function() {
 </script>
 
 </head>
-<body>
+<body style="background-color:#a6a6a6">
 
 
 
 {% include 'core/navbar.html' %}
 
 
-<div class="container-fluid">	
-	<div class="row" style="background-color:#4d4d4d;padding-bottom:5px;margin-bottom:15px;margin-top:-18px;">
+<div class="container-fluid" style="max-width:1440px;">	
+	<div class="row" style="background-color:#4d4d4d;padding-bottom:5px;margin-top:-18px;">
 		<div class="col-sm-1 hidden-xs text-primary">
 			 <img src="{% static 'img/logo.png' %}" class="img-responsive" alt="Rosie"> 
 		</div>
@@ -315,7 +319,7 @@ $(document).ready(function() {
 
 
 
-<div id="content" class="container-fluid" style="min-height:75vh;">
+<div id="content" class="container-fluid" style="min-height:75vh;max-width:1440px;background-color:#ffffff;padding:15px;">
 	{% if messages %}
 		{% for message in messages %}
 			<div class="alert alert-dismissible alert-success">
@@ -328,7 +332,7 @@ $(document).ready(function() {
 </div>
 
 
-<footer class="container-fluid" style="border-top:solid 1px #b3b3b3; margin:10px auto;padding-top:5px;margin-bottom:30px;">
+<footer class="container-fluid" style="border-top:solid 1px #4D4D4D; margin:10px auto;padding-top:5px;margin-bottom:30px;max-width:1440px;">
     <div class="row">
     	<div class="col-xs-6">
 		    <div style="font-size:25px; padding-top:10px;" class="text-muted">
@@ -336,8 +340,12 @@ $(document).ready(function() {
 		    </div>
 		</div>
 		<div class="col-xs-6">
-		    <div style="padding-top:17px;text-align:right;">
-		    	<a href="mailto:{{constants.CONTACT_EMAIL}}">{% trans 'CONTACT US' %}</a>
+		    <div style="padding-top:17px;text-align:right;font-size:1.2em;">
+		    	
+		    	<a href="mailto:{{constants.CONTACT_EMAIL}}">
+		    		<i class="fa fa-envelope" aria-hidden="true"></i>
+		    		{% trans 'CONTACT US' %}
+		    	</a>
 		    </div>
 		</div>
     </div>

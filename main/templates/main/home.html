@@ -112,26 +112,29 @@
 					{% endif %}
 					{% for oCat in col1 %}
 						{% if oCat.page_set.all %}
-							<div class="panel panel-info">
+							<div class="panel panel-info page-list-block">
 			 					<a class="panel-heading" href="{% url 'pages:list' oCat.id %}" style="text-align:center;">
 			 						<h3 class="panel-title">
 			 							{{ oCat.icon|safe }}
-			 							{{ oCat.title|upper }}
+			 							{{ oCat.trans_title|upper }}
 			 						</h3>
 			 					</a>
 		   						{% for oPage in oCat.page_set.all %}
-		   							{% if forloop.counter <= 3 %}
-		   								<a href="{% url 'pages:view_page' oPage.id %}">
+		   							{% if forloop.counter <= 4 %}
+		   								<a href="{% url 'pages:view_page' oPage.id %}" class="page-list-block-entry">
 			   								<div class="panel-body" style="border-top: 1px solid #029ACF">
 			   									<div style="font-size:1.3em;font-weight:bold;">
 			   										{{ oPage.trans_title }}
 			   									</div>
 		   										{% if oPage.image %}
+		   											<div>
+		   												{{ oPage.trans_teaser|striptags|truncatechars:100 }}
+		   											</div>
 		   											<img src="{% static oPage.get_image %}" alt="{{oPage.title}}" 
 		   													class="img-responsive" style="margin-top:5px;" />
 		   										{% else %}
 		   											<div>
-		   												{{ oPage.trans_teaser|striptags|truncatechars:100 }}
+		   												{{ oPage.trans_teaser|striptags|truncatechars:200 }}
 		   											</div>
 		   										{% endif %}
 		   										
@@ -139,6 +142,16 @@
 		   								</a>
 		   							{% endif %}
 		   						{% endfor %}
+		   						{% if oCat.page_set.all.count > 4 %}
+		   							<a class="panel-heading page-list-block-footer" href="{% url 'pages:list' oCat.id %}" style="text-align:center;background-color: #4D4D4D;">
+			 						<h3 class="panel-title">
+			 							View More
+			 							{{ oCat.trans_title }}
+			 							&nbsp;
+			 							<i class="fa fa-chevron-right" aria-hidden="true"></i>
+			 						</h3>
+			 					</a>
+		   						{% endif %}
 							</div>
 						{% endif %}
 					{% endfor %}
@@ -150,7 +163,7 @@
 			 					<a class="panel-heading" href="{% url 'pages:list' oCat.id %}" style="text-align:center;">
 			 						<h3 class="panel-title">
 			 							{{ oCat.icon|safe }}
-			 							{{ oCat.title|upper }}
+			 							{{ oCat.trans_title|upper }}
 			 						</h3>
 			 					</a>
 		   						{% for oPage in oCat.page_set.all %}
