@@ -12,6 +12,8 @@ from field_trans.helpers import get_translation, get_translations
 from microfeed2.models import PostThread
 from field_trans.models import Language
 
+from field_trans.models import Translation
+
 
 
 
@@ -52,14 +54,14 @@ class PageCategory(TimeStampedModel):
         return self.title
     
     def trans_title(self):
-        translation = get_translation('page_category', 'title', self.id)
+        translation = get_translation('PageCategory', 'title', self.id)
         if translation:
             return translation
         else:
             return self.title
     
     def all_trans_title(self):
-        return get_translations('page_category', 'title', self.id)
+        return get_translations('PageCategory', 'title', self.id)
     
     def has_category_children(self):
         qChildren = self.child_set.all().filter(show_as_page=False)
@@ -84,7 +86,7 @@ class PageCategory(TimeStampedModel):
         
         
 class Page(TimeStampedModel):
-    title           = models.CharField(max_length=255, verbose_name=_('title'),)
+    title           = models.CharField(blank=True, null=True, max_length=255, verbose_name=_('title'),)
     created_by      = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL, related_name='created_page_set')
     last_edited_by  = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL, related_name='last_edited_page_set')
     teaser          = models.TextField(blank=True, null=True, verbose_name=_('teaser'),)
@@ -103,6 +105,19 @@ class Page(TimeStampedModel):
     def __str__(self):
         return self.title
     
+    def delete(self):
+        # delete translations
+        Translation.objects.filter(
+            table_name='Page',
+            field_id=self.id
+        ).delete()
+        for oPageLink in self.pagelink_set.all():
+            Translation.objects.filter(
+                table_name='PageLink',
+                field_id=oPageLink.id
+            ).delete()
+        super(Page, self).delete()
+    
     def get_url(self):
         return reverse('pages:view_page', args=[self.id])
     
@@ -112,65 +127,50 @@ class Page(TimeStampedModel):
         hierarchy.append(self)
         return hierarchy
     
-    def has_translation(self):
-        title = get_translation('page', 'title', self.id)
-        body = get_translation('page', 'body', self.id)
-        teaser = get_translation('page', 'teaser', self.id)
-        if title or body or teaser:
-            return True
-        return False
-    
     def trans_title(self):
-        translation = get_translation('page', 'title', self.id)
+        translation = get_translation('Page', 'title', self.id)
         if translation:
             return translation
-        else:
+        elif self.title:
             return self.title
-        
+        else:
+            for lang, translation in get_translations('Page', 'title', self.id).items():
+                if translation:
+                    return translation
+        return ''
         
     def trans_body(self):
-        translation = get_translation('page', 'body', self.id)
+        translation = get_translation('Page', 'body', self.id)
         if translation:
             return translation
+        elif self.title:
+            return self.title
         else:
-            return self.body
+            for lang, translation in get_translations('Page', 'body', self.id).items():
+                if translation:
+                    return translation
+        return ''
         
     def trans_teaser(self):
-        translation = get_translation('page', 'teaser', self.id)
+        translation = get_translation('Page', 'body', self.id)
         if translation:
-            return translation
+            return translation[:400] + '...'
+        elif self.title:
+            return self.title[:400] + '...'
         else:
-            return self.teaser
+            for lang, translation in get_translations('Page', 'body', self.id).items():
+                if translation:
+                    return translation[:400] + '...'
+        return ''
         
     def all_trans_title(self):
-        return get_translations('page', 'title', self.id)
+        return get_translations('Page', 'title', self.id)
     
     def all_trans_body(self):
-        return get_translations('page', 'body', self.id)
+        return get_translations('Page', 'body', self.id)
     
     def all_trans_teaser(self):
-        return get_translations('page', 'teaser', self.id)
-        
-    def trans_only_title(self):
-        translation = get_translation('page', 'title', self.id)
-        if translation:
-            return translation
-        else:
-            return ''
-        
-    def trans_only_body(self):
-        translation = get_translation('page', 'body', self.id)
-        if translation:
-            return translation
-        else:
-            return ''
-        
-    def trans_only_teaser(self):
-        translation = get_translation('page', 'teaser', self.id)
-        if translation:
-            return translation
-        else:
-            return ''
+        return get_translations('Page', 'teaser', self.id)
         
     def get_image(self):
         if self.image:
@@ -203,6 +203,30 @@ class PageLink(TimeStampedModel):
         ordering = ['order', 'id']
         verbose_name = _('Page Link')
         verbose_name_plural = _('Page Links')
+        
+    def delete(self):
+        # delete translations
+        Translation.objects.filter(
+            table_name='PageLink',
+            field_id=self.id
+        ).delete()
+        super(PageLink, self).delete()
+        
+    def trans_title(self):
+        translation = get_translation('PageLink', 'title', self.id)
+        if translation:
+            return translation
+        elif self.title:
+            return self.title
+        else:
+            for lang, translation in get_translations('PageLink', 'title', self.id).items():
+                if translation:
+                    return translation
+        return ''
+        
+    def all_trans_title(self):
+        return get_translations('PageLink', 'title', self.id)
+
         
 class PageHistory(TimeStampedModel):
     page        = models.ForeignKey("Page", on_delete=models.CASCADE)

@@ -19,3 +19,8 @@ class PageCategoryAdmin(admin.ModelAdmin):
     pass
 
 admin.site.register(models.PageCategory, PageCategoryAdmin)
+
+class PageHistoryAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(models.PageHistory, PageHistoryAdmin)

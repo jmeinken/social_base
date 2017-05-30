@@ -1,5 +1,6 @@
 import random
 import string
+import json
 
 from django import forms
 from django.forms.models import inlineformset_factory
@@ -12,6 +13,8 @@ from crispy_forms.bootstrap import PrependedText
 
 from . import models
 from microfeed2.models import PostThread
+from field_trans.helpers import set_translation
+from field_trans.models import Translation
 
 languages = [
     'Japanese',
@@ -25,7 +28,7 @@ class PageForm(forms.Form):
     qCategory = models.PageCategory.objects.all().filter(parent=None)
     CATEGORY_CHOICES = []
     for oCategory in qCategory:
-        choice = (oCategory.title, oCategory.title,)
+        choice = (oCategory.id, oCategory.title,)
         CATEGORY_CHOICES.append(choice)
         
     category = forms.ChoiceField(label='CATEGORY', choices=CATEGORY_CHOICES)
@@ -59,8 +62,30 @@ class PageForm(forms.Form):
         # call super
         super(PageForm, self).__init__(*args, **kwargs)
         
+    def clean(self):
+        data = super(PageForm, self).clean()
+        if not data['title'] and not data['title_japanese'] and not data['title_german']:
+            self.add_error('title', "Please enter a title for at least 1 language.")
+            self.add_error('title_japanese', "Please enter a title for at least 1 language.")
+            self.add_error('title_german', "Please enter a title for at least 1 language.")
+        if not data['body'] and not data['body_japanese'] and not data['body_german']:
+            self.add_error('body', "Please enter a body for at least 1 language.")
+            self.add_error('body_japanese', "Please enter a body for at least 1 language.")
+            self.add_error('body_german', "Please enter a body for at least 1 language.")
+        if data['url1_label'] or data['url1_label_japanese'] or data['url1_label_german']:
+            if not data['url1']:
+                self.add_error('url1', 'You must have a link URL if you specify a link name.')
+        if data['url2_label'] or data['url2_label_japanese'] or data['url2_label_german']:
+            if not data['url2']:
+                self.add_error('url2', 'You must have a link URL if you specify a link name.')
+        if data['url3_label'] or data['url3_label_japanese'] or data['url3_label_german']:
+            if not data['url3']:
+                self.add_error('url3', 'You must have a link URL if you specify a link name.')
+                
+        
+        
     def set_edit_page(self, oPage):
-        self.fields['category'].initial = oPage.category
+        self.fields['category'].initial = oPage.category.id
         self.fields['title'].initial = oPage.title
         title_trans = oPage.all_trans_title()
         if 'ja' in title_trans:
@@ -79,12 +104,119 @@ class PageForm(forms.Form):
         if qLink.count() >= 1:
             self.fields['url1'].initial = qLink[0].url
             self.fields['url1_label'].initial = qLink[0].title
+            title_trans = qLink[0].all_trans_title()
+            if 'ja' in title_trans:
+                self.fields['url1_label_japanese'].initial = title_trans['ja']
+            if 'de' in title_trans:
+                self.fields['url1_label_german'].initial = title_trans['de']
         if qLink.count() >= 2:
             self.fields['url2'].initial = qLink[1].url
             self.fields['url2_label'].initial = qLink[1].title
+            title_trans = qLink[1].all_trans_title()
+            if 'ja' in title_trans:
+                self.fields['url2_label_japanese'].initial = title_trans['ja']
+            if 'de' in title_trans:
+                self.fields['url2_label_german'].initial = title_trans['de']
         if qLink.count() >= 3:
             self.fields['url3'].initial = qLink[2].url
             self.fields['url3_label'].initial = qLink[2].title
+            title_trans = qLink[2].all_trans_title()
+            if 'ja' in title_trans:
+                self.fields['url3_label_japanese'].initial = title_trans['ja']
+            if 'de' in title_trans:
+                self.fields['url3_label_german'].initial = title_trans['de']
+            
+    def save_page(self, user, oPage=None):
+        data = self.cleaned_data
+        if oPage:
+            # delete translations
+            Translation.objects.filter(
+                table_name='Page',
+                field_id=oPage.id
+            ).delete()
+            # delete pagelink translations
+            for oPageLink in oPage.pagelink_set.all():
+                Translation.objects.filter(
+                    table_name='PageLink',
+                    field_id=oPageLink.id
+                ).delete()
+            # delete pagelink
+            oPage.pagelink_set.all().delete()
+            # save changes to oPage
+            oPage.category_id = data['category']
+            oPage.title = data['title']
+            oPage.body = data['body']
+            oPage.address = data['address']
+            oPage.image = data['image']
+            oPage.last_edited_by = user
+            oPage.save()
+        else:
+            # create a comment thread
+            oPostThread = PostThread(title=data['title'])
+            oPostThread.allow_comments = False
+            oPostThread.save()
+            # create a page
+            oPage = models.Page(
+                category_id=data['category'],
+                title=data['title'],
+                body=data['body'],
+                address=data['address'],
+                image=data['image'],
+                language_id='en',
+                created_by=user,
+                last_edited_by=user,               
+            )
+            oPage.save()
+        # save all translations
+        if data['title_japanese']:
+            set_translation('Page', 'title', oPage.id, 'ja', data['title_japanese'])
+        if data['body_japanese']:
+            set_translation('Page', 'body', oPage.id, 'ja', data['body_japanese'])
+        # save links
+        if data['url1']:
+            oLink1 = models.PageLink(
+                page = oPage,
+                title =  data['url1_label'],
+                url = data['url1'],
+                order = 1
+            )
+            oLink1.save()
+            if data['url1_label_japanese']:
+                set_translation('PageLink', 'title', oLink1.id, 'ja', data['url1_label_japanese'])
+        if data['url2']:
+            oLink2 = models.PageLink(
+                page = oPage,
+                title =  data['url2_label'],
+                url = data['url2'],
+                order = 2
+            )
+            oLink2.save()
+            if data['url2_label_japanese']:
+                set_translation('PageLink', 'title', oLink2.id, 'ja', data['url2_label_japanese'])
+        if data['url3']:
+            oLink3 = models.PageLink(
+                page = oPage,
+                title =  data['url3_label'],
+                url = data['url3'],
+                order = 3
+            )
+            oLink3.save()
+            if data['url3_label_japanese']:
+                set_translation('PageLink', 'title', oLink3.id, 'ja', data['url3_label_japanese'])
+        # save page history
+        json_data = json.dumps(data)
+        oPageHistory = models.PageHistory(
+             page = oPage,
+             user = user,
+             data = json_data       
+        )
+        oPageHistory.save()
+        # return oPage
+        return oPage
+        
+        
+        
+        
         
         
         
@@ -157,7 +289,7 @@ def get_page_layout():
         ),
         Div('address', css_class = 'well well-sm'),
         Div(    
-            HTML('LINK NAME 1'),   
+            HTML('LINK 1 NAME'),   
             HTML(PAGE_URL1_TITLE_LANGUAGE_SELECTOR),  
             Div(         
                 Div('url1_label', css_class='tab-pane fade active in', css_id='url1_label_' + code + '_english_tab'),
@@ -169,7 +301,7 @@ def get_page_layout():
             css_class = 'well well-sm'
         ),
         Div(    
-            HTML('LINK NAME 2'),   
+            HTML('LINK 2 NAME'),   
             HTML(PAGE_URL2_TITLE_LANGUAGE_SELECTOR),  
             Div(         
                 Div('url2_label', css_class='tab-pane fade active in', css_id='url2_label_' + code + '_english_tab'),
@@ -181,7 +313,7 @@ def get_page_layout():
             css_class = 'well well-sm'
         ),
         Div(    
-            HTML('LINK NAME 3'),   
+            HTML('LINK 3 NAME'),   
             HTML(PAGE_URL3_TITLE_LANGUAGE_SELECTOR),  
             Div(         
                 Div('url3_label', css_class='tab-pane fade active in', css_id='url3_label_' + code + '_english_tab'),

@@ -46,7 +46,7 @@
 	
 	
 	
-		<div class="col-sm-9">
+		<div class="col-sm-9" style="overflow: auto;">
 			<ul class="breadcrumb">	
 				<li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
 				{% for obj in hierarchy %}
@@ -77,7 +77,7 @@
 							<p>
 								<a href="{{oLink.url}}">
 									<i class="fa fa-external-link" aria-hidden="true"></i>
-									{{oLink.title}}
+									{{oLink.trans_title}}
 								</a>
 							</p>
 						{% endfor %}
@@ -122,7 +122,7 @@
 			
 			
 			{% if oPage.post_thread %}
-				<hr>
+				<hr style="clear: both;">
 				<h4>{% trans 'COMMENTS' %}</h4>
 				{% include 'microfeed2/blocks/new_comment_style_post.html' %}
 					<div id="mf-feed" data-thread-id="{{oPage.post_thread.id}}" style="background-color: gray; padding:1px 0;"></div>
@@ -133,30 +133,7 @@
 		
 	</div>
 	
-	<div class="modal" id="delete-page-confirmation-modal">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-				  	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				  	<h4 class="modal-title">{% trans 'Delete Page' %}</h4>
-				</div>
-				<div class="modal-body">
-					{% trans 'You are about to permanently remove this page and any translations of it.  Do you want to continue?' %}
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">{% trans 'CANCEL' %}</button>
-					<form method="POST" action="{% url 'pages:delete_page' %}" style="display:inline;">
-						{% csrf_token %}
-						<input type="hidden" name="page_id" value="{{oPage.id}}" />
-						<button type="submit" class ="btn btn-danger">
-							<i class="fa fa-trash" aria-hidden="true"></i>
-							{% trans 'Yes, Delete Page' %}
-						</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+
 
 
 

@@ -16,62 +16,20 @@
 	</ul>
 {% endif %}
 
-
-<script type="text/javascript">
-    $(function() {
-    	{% for child in children %}
-	        $('.{{child.css_class}}').formset({
-                prefix: '{{ child.prefix }}',
-                deleteCssClass: 'delete-row btn btn-sm btn-danger',
-                deleteText: '<i class="fa fa-times" aria-hidden="true"></i>',
-                addCssClass: 'add-row btn btn-success',
-                addText: '<i class="fa fa-plus" aria-hidden="true"></i>',
-	        });
-        {% endfor %}
-    })
-    
-  	tinymce.init({ 
-  		selector:'textarea',
-  		language: '{{LANGUAGE_CODE}}',
-  		plugins: "link, table",
-	    toolbar: "undo, redo, bold, italic, link, bullist, numlist, blockquote, table, removeformat",
-	    table_class_list: [
-		  {title: 'None', value: ''},
-          {title: 'Standard', value: 'table table-striped table-border'},
-        ]
-	});
-
-    
-</script>
-
-
-<h1>{% trans 'Post a Page' %}</h1>
-
-<hr>
-
-
-<div class="row">
-	<div class="col-sm-12">
-	
-		<form method="post" id="myForm">
-			{% csrf_token %}
-			{% crispy form form.helper %}
-			<hr>
-			{% for child in children %}
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						{{ child.title }}
-					</div>
-					<div class="panel-body">
-						{% crispy child child.form.helper %}
-					</div>
-				</div>
-			{% endfor %}
-			<hr>
-			<button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
-		</form>
+{% if fPage.errors %}
+	<div class="alert alert-danger">
+		<i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>
+  		Please correct errors indicated below.
 	</div>
-</div>
+{% endif %}
+
+<form method="post">
+	{% csrf_token %}
+	{% crispy fPage fPage.template %}
+	
+	<button type="submit" class="btn btn-primary">Submit</button>
+	
+</form>
 
 {% include 'images/javascript_templates.html' %}
 

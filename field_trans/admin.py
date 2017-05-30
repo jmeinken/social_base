@@ -8,3 +8,9 @@ class LanguageAdmin(admin.ModelAdmin):
     pass
     
 admin.site.register(models.Language, LanguageAdmin)
+
+
+class TranslationAdmin(admin.ModelAdmin):
+    pass
+    
+admin.site.register(models.Translation, TranslationAdmin)

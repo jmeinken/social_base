@@ -2,12 +2,14 @@ import os
 import json
 
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 from field_trans.models import Language
+from django.db import transaction
 
 # from feed.functions import validate_form_with_inlines
 
@@ -28,7 +30,7 @@ def list(request, page_category_id):
     context['qCategory'] = models.PageCategory.objects.all().filter(parent=None)
     context['oPageCategory'] = oPageCategory
     context['hierarchy'] = oPageCategory.get_hierarchy()
-    context['fPage'] = forms.PageForm(initial={'category':oPageCategory})
+    context['fPage'] = forms.PageForm(initial={'category':oPageCategory.id})
     return render(request, 'pages/list.html', context)
 
 
@@ -40,7 +42,7 @@ def view_page(request, page_id):
     context['fPost'] = PostForm(initial={'thread': oPage.post_thread})
     context['qCategory'] = models.PageCategory.objects.all().filter(parent=None)
     context['hierarchy'] = oPage.get_hierarchy()
-    context['fPage'] = forms.PageForm(initial={'category':oPage.category})
+    context['fPage'] = forms.PageForm(initial={'category':oPage.category.id})
     fEditpage = forms.PageForm()
     fEditpage.set_edit_page(oPage)
     context['fEditPage'] = fEditpage
@@ -48,60 +50,35 @@ def view_page(request, page_id):
 
 
 @login_required
+@transaction.atomic
 def new_page(request):
     context = {}
-    initial = {}
-    category_id = request.GET.get('category_id', None)
-    if category_id:
-        initial = {'category' : int( category_id ) }
-    form = forms.PageForm(initial=initial)
-    children = [forms.PageLinkFormSet]
+    fPage = forms.PageForm()
     if request.method == 'POST':
-        form, children, is_valid = helpers.validate_form_with_inlines(form, children, request.POST)
-        if is_valid:
-            oPage = form.save(commit=False)
-            oPage.user = request.user
-            oPage.save()
-            for child in children:
-                child.instance = oPage
-                child.save()
-            messages.success( request, _('Page successfully added.') )
-            if oPage.category.show_as_page:
-                return redirect('pages:list', page_category_id=oPage.category.id)
-            return redirect('pages:view_page', page_id=oPage.id)
-    context['form'] = form
-    context['children'] = children
+        fPage = forms.PageForm(request.POST)
+        if fPage.is_valid():
+            oPage = fPage.save_page(request.user)
+            messages.success( request, _('A new page was created.') )
+            
+            return redirect(reverse('pages:view_page', args=[oPage.id]))
+    context['fPage'] = fPage
     return render(request, 'pages/new_page.html', context)
 
 @login_required
+@transaction.atomic
 def edit_page(request, page_id):
     context = {}
-    oPage = get_object_or_404(models.Page, pk=page_id)
-    if not oPage.visible:
-        raise Http404("Page has been deleted.")
-    form = forms.PageForm(instance=oPage)
-    children = [forms.PageLinkFormSet]
+    oPage = models.Page.objects.get(pk=page_id)
+    fEditPage = forms.PageForm()
+    fEditPage.set_edit_page(oPage)
     if request.method == 'POST':
-        form, children, is_valid = helpers.validate_form_with_inlines(form, children, request.POST, oPage)
-        if is_valid:
-            oPage = form.save(commit=False)
-            oPage.user = request.user
-            oPage.save()
-            for child in children:
-                child.instance = oPage
-                child.save()
-            messages.success( request, _('Page successfully edited.') )
-            if oPage.category.show_as_page:
-                return redirect('pages:list', page_category_id=oPage.category.id)
-            return redirect('pages:view_page', page_id=oPage.id)
-    else:
-        temp_children = []
-        for child in children:
-            temp_children.append( child(instance=oPage) )
-        children = temp_children
-    context['form'] = form
-    context['children'] = children
-    context['hierarchy'] = oPage.get_hierarchy()
+        fEditPage = forms.PageForm(request.POST)
+        fEditPage.set_edit_page(oPage)
+        if fEditPage.is_valid():
+            oPage = fEditPage.save_page(request.user, oPage)
+            messages.success( request, _('This page has been edited successfully.') )
+            return redirect(reverse('pages:view_page', args=[oPage.id]))
+    context['fPage'] = fEditPage
     return render(request, 'pages/new_page.html', context)
 
 @login_required
@@ -123,13 +100,23 @@ def translate_page(request, page_id):
     context['hierarchy'] = oPage.get_hierarchy()
     return render(request, 'pages/translate_page.html', context)
 
-@csrf_exempt
+@login_required
 def delete_page(request):
     page_id = int( request.POST.get('page_id') )
     oPage = models.Page.objects.all().get(id=page_id)
     parent_id = oPage.category.id
     oPage.delete()
     messages.success( request, _('Page successfully deleted.') )
+    return redirect('pages:list', page_category_id=parent_id)
+
+@login_required
+def hide_page(request):
+    page_id = int( request.POST.get('page_id') )
+    oPage = models.Page.objects.all().get(id=page_id)
+    parent_id = oPage.category.id
+    oPage.visible = False
+    oPage.save()
+    messages.success( request, _('Page successfully removed.') )
     return redirect('pages:list', page_category_id=parent_id)
 
 @login_required

@@ -62,7 +62,7 @@
 										</div>
 										<h3 class="panel-title">
 											{{ oCat.icon|safe }}
-				 							{{ oCat.title|upper }}
+				 							{{ oCat.trans_title|upper }}
 										</h3>
 									</a>
 								</div>
@@ -83,31 +83,32 @@
 		<div class="col-sm-6 hidden-xs">
 			<div class="row">
 				<div class="col-md-6">
-				
-					<div class="panel panel-danger">
-						<div class="panel-heading" style="text-align:center;">
-							<h3 class="panel-title">
-								<i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
-								{% trans 'UPCOMING EVENTS' %}
-							</h3>
+					{% if qPostTime %}
+						<div class="panel panel-danger">
+							<div class="panel-heading" style="text-align:center;">
+								<h3 class="panel-title">
+									<i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
+									{% trans 'UPCOMING EVENTS' %}
+								</h3>
+							</div>
+							{% for oPostTime in qPostTime %}
+								<div class="panel-body">
+								  	<a href="{% url 'microfeed2:view_post' oPostTime.post.id %}">
+								  		<div style="float:left;padding-right:10px;">
+									  		{% if oPostTime.post.get_sample_image %}
+									  			<img width="72" height="54" src="{% static oPostTime.post.get_sample_image %}" />
+									  		{% endif %}
+									  	</div>
+									  	<div>
+									    	<strong>{{oPostTime.post.title}}</strong>
+									    	<br>
+									    	{{oPostTime.start_date}} <span class="label label-primary">{{oPostTime.start_time}}</span>
+								    	</div>
+								  	</a>
+								  </div>
+							{% endfor %}
 						</div>
-						{% for oPostTime in qPostTime %}
-							<div class="panel-body">
-							  	<a href="{% url 'microfeed2:view_post' oPostTime.post.id %}">
-							  		<div style="float:left;padding-right:10px;">
-								  		{% if oPostTime.post.get_sample_image %}
-								  			<img width="72" height="54" src="{% static oPostTime.post.get_sample_image %}" />
-								  		{% endif %}
-								  	</div>
-								  	<div>
-								    	<strong>{{oPostTime.post.title}}</strong>
-								    	<br>
-								    	{{oPostTime.start_date}} <span class="label label-primary">{{oPostTime.start_time}}</span>
-							    	</div>
-							  	</a>
-							  </div>
-						{% endfor %}
-					</div>
+					{% endif %}
 					{% for oCat in col1 %}
 						{% if oCat.page_set.all %}
 							<div class="panel panel-info">
@@ -122,14 +123,14 @@
 		   								<a href="{% url 'pages:view_page' oPage.id %}">
 			   								<div class="panel-body" style="border-top: 1px solid #029ACF">
 			   									<div style="font-size:1.3em;font-weight:bold;">
-			   										{{ oPage.title }}
+			   										{{ oPage.trans_title }}
 			   									</div>
 		   										{% if oPage.image %}
 		   											<img src="{% static oPage.get_image %}" alt="{{oPage.title}}" 
 		   													class="img-responsive" style="margin-top:5px;" />
 		   										{% else %}
 		   											<div>
-		   												{{ oPage.teaser|truncatechars:100 }}
+		   												{{ oPage.trans_teaser|striptags|truncatechars:100 }}
 		   											</div>
 		   										{% endif %}
 		   										
@@ -155,14 +156,14 @@
 	   								<a href="{% url 'pages:view_page' oPage.id %}">
 		   								<div class="panel-body" style="border-top: 1px solid #029ACF">
 		   									<div style="font-size:1.3em;font-weight:bold;">
-		   										{{ oPage.title }}
+		   										{{ oPage.trans_title }}
 		   									</div>
 	   										{% if oPage.image %}
 	   											<img src="{% static oPage.get_image %}" alt="{{oPage.title}}" 
 	   													class="img-responsive" style="margin-top:5px;" />
 	   										{% else %}
 	   											<div>
-	   												{{ oPage.teaser|truncatechars:100 }}
+	   												{{ oPage.trans_teaser|striptags|truncatechars:100 }}
 	   											</div>
 	   										{% endif %}
 	   										
