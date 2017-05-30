@@ -89,10 +89,16 @@
 						<a target="_blank" href="http://maps.google.com/?q={{oPage.address}}">{{oPage.address}}</a>
 					</div>
 				{% endif %}
+				{% if oPage.contact_email %}
+					<div class="well">
+						<p>{% trans 'CONTACT EMAIL' %}</p>
+						<a target="_blank" href="http://maps.google.com/?q={{oPage.address}}">{{oPage.contact_email}}</a>
+					</div>
+				{% endif %}
 			</div>
 			<div class="visible-xs-block">
 				{% if oPage.pagelink_set.all %}
-					<div class="well">
+					<div class="well well-sm">
 						<p>{% trans 'LINKS' %}</p>
 						{% for oLink in oPage.pagelink_set.all %}
 							<p>
@@ -105,9 +111,15 @@
 					</div>
 				{% endif %}
 				{% if oPage.address %}
-					<div class="well">
+					<div class="well well-sm">
 						<p>{% trans 'LOCATION' %}</p>
 						<a target="_blank" href="http://maps.google.com/?q={{oPage.address}}">{{oPage.address}}</a>
+					</div>
+				{% endif %}
+				{% if oPage.contact_email %}
+					<div class="well well-sm">
+						<p>{% trans 'CONTACT EMAIL' %}</p>
+						<a target="_blank" href="http://maps.google.com/?q={{oPage.address}}">{{oPage.contact_email}}</a>
 					</div>
 				{% endif %}
 			</div>
