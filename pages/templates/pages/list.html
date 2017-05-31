@@ -60,14 +60,14 @@
 								<div class="col-sm-6 col-sm-pull-6">
 									{{ oPage.trans_teaser|safe }}
 									<a href="{% url 'pages:view_page' oPage.id %}">
-										[more]
+										[{% trans 'more' %}]
 									</a>
 								</div>
 							</div>
 			    		{% else %}
 			    			{{ oPage.trans_teaser|safe }}
 			    			<a href="{% url 'pages:view_page' oPage.id %}">
-								[more]
+								[{% trans 'more' %}]
 							</a>
 			    		{% endif %}
 			    		
