@@ -31,25 +31,25 @@ class PageForm(forms.Form):
         choice = (oCategory.id, oCategory.title,)
         CATEGORY_CHOICES.append(choice)
         
-    category = forms.ChoiceField(label='CATEGORY', choices=CATEGORY_CHOICES)
+    category = forms.ChoiceField(label=_('CATEGORY'), choices=CATEGORY_CHOICES)
     title = forms.CharField(label='', required=False)
     title_japanese = forms.CharField(label='', required=False)
     title_german = forms.CharField(label='', required=False)
     body = forms.CharField(widget=forms.Textarea, label='', required=False)
     body_japanese = forms.CharField(widget=forms.Textarea, label='', required=False)
     body_german = forms.CharField(widget=forms.Textarea, label='', required=False)
-    address = forms.CharField(label='ADDRESS', required=False)
-    contact_email = forms.CharField(label='CONTACT EMAIL', required=False)
+    address = forms.CharField(label=_('ADDRESS'), required=False)
+    contact_email = forms.CharField(label=_('CONTACT EMAIL'), required=False)
     image = forms.CharField(widget=forms.HiddenInput, required=False)
-    url1 = forms.URLField(label='URL', required=False)
+    url1 = forms.URLField(label=_('URL'), required=False)
     url1_label = forms.CharField(label='', required=False)
     url1_label_japanese = forms.CharField(label='', required=False)
     url1_label_german = forms.CharField(label='', required=False)
-    url2 = forms.URLField(label='URL', required=False)
+    url2 = forms.URLField(label=_('URL'), required=False)
     url2_label = forms.CharField(label='', required=False)
     url2_label_japanese = forms.CharField(label='', required=False)
     url2_label_german = forms.CharField(label='', required=False)
-    url3 = forms.URLField(label='URL', required=False)
+    url3 = forms.URLField(label=_('URL'), required=False)
     url3_label = forms.CharField(label='', required=False)
     url3_label_japanese = forms.CharField(label='', required=False)
     url3_label_german = forms.CharField(label='', required=False)
@@ -66,22 +66,22 @@ class PageForm(forms.Form):
     def clean(self):
         data = super(PageForm, self).clean()
         if not data['title'] and not data['title_japanese'] and not data['title_german']:
-            self.add_error('title', "Please enter a title for at least 1 language.")
-            self.add_error('title_japanese', "Please enter a title for at least 1 language.")
-            self.add_error('title_german', "Please enter a title for at least 1 language.")
+            self.add_error('title', _("Please enter a title for at least 1 language."))
+            self.add_error('title_japanese', _("Please enter a title for at least 1 language."))
+            self.add_error('title_german', _("Please enter a title for at least 1 language."))
         if not data['body'] and not data['body_japanese'] and not data['body_german']:
-            self.add_error('body', "Please enter a body for at least 1 language.")
-            self.add_error('body_japanese', "Please enter a body for at least 1 language.")
-            self.add_error('body_german', "Please enter a body for at least 1 language.")
+            self.add_error('body', _("Please enter a body for at least 1 language."))
+            self.add_error('body_japanese', _("Please enter a body for at least 1 language."))
+            self.add_error('body_german', _("Please enter a body for at least 1 language."))
         if data['url1_label'] or data['url1_label_japanese'] or data['url1_label_german']:
             if not data['url1']:
-                self.add_error('url1', 'You must have a link URL if you specify a link name.')
+                self.add_error('url1', _('You must have a link URL if you specify a link name.'))
         if data['url2_label'] or data['url2_label_japanese'] or data['url2_label_german']:
             if not data['url2']:
-                self.add_error('url2', 'You must have a link URL if you specify a link name.')
+                self.add_error('url2', _('You must have a link URL if you specify a link name.'))
         if data['url3_label'] or data['url3_label_japanese'] or data['url3_label_german']:
             if not data['url3']:
-                self.add_error('url3', 'You must have a link URL if you specify a link name.')
+                self.add_error('url3', _('You must have a link URL if you specify a link name.'))
                 
         
         
@@ -233,17 +233,17 @@ def get_page_layout():
         <ul class="nav nav-pills" style="padding:5px;">
             <li class="active">
                 <a href="#[*]_english_tab" data-toggle="tab">
-                    English <span class="language-input-status" data-tab="[*]_english_tab"></span>
+                    ''' + _('English') + ''' <span class="language-input-status" data-tab="[*]_english_tab"></span>
                 </a>
             </li>
             <li>
                 <a href="#[*]_japanese_tab" data-toggle="tab">
-                    Japanese <span class="language-input-status" data-tab="[*]_japanese_tab"></span>
+                    ''' + _('Japanese') + ''' <span class="language-input-status" data-tab="[*]_japanese_tab"></span>
                 </a>
             </li>
             <li>
                 <a href="#[*]_german_tab" data-toggle="tab">
-                    German <span class="language-input-status" data-tab="[*]_german_tab"></span>
+                    ''' + _('German') + ''' <span class="language-input-status" data-tab="[*]_german_tab"></span>
                 </a>
             </li>
         </ul>
@@ -259,7 +259,7 @@ def get_page_layout():
     page_layout = Layout(
         Div('category', css_class = 'well well-sm'),
         Div(    
-            HTML('TITLE*'),   
+            HTML(_('TITLE') + '*'),   
             HTML(PAGE_TITLE_LANGUAGE_SELECTOR),  
             Div(         
                 Div('title', css_class='tab-pane fade active in', css_id='title_' + code + '_english_tab'),
@@ -270,7 +270,7 @@ def get_page_layout():
             css_class = 'well well-sm'
         ),
         Div(    
-            HTML('BODY*'),   
+            HTML(_('BODY') + '*'),   
             HTML(PAGE_BODY_LANGUAGE_SELECTOR),  
             Div(         
                 Div('body', css_class='tab-pane fade active in add-tinymce', css_id='body_' + code + '_english_tab'),
@@ -283,7 +283,7 @@ def get_page_layout():
         Div(
             Field('image', 
                 css_class = 'image_input', 
-                data_label = 'PAGE IMAGE',
+                data_label = _('PAGE IMAGE'),
                 data_export_zoom = 2,
                 data_min_zoom = 'fill',
                 data_aspect_ratio = '2:1',
@@ -294,7 +294,7 @@ def get_page_layout():
         Div('address', css_class = 'well well-sm'),
         Div('contact_email', css_class = 'well well-sm'),
         Div(    
-            HTML('LINK 1 NAME'),   
+            HTML(_('LINK 1 NAME')),   
             HTML(PAGE_URL1_TITLE_LANGUAGE_SELECTOR),  
             Div(         
                 Div('url1_label', css_class='tab-pane fade active in', css_id='url1_label_' + code + '_english_tab'),
@@ -306,7 +306,7 @@ def get_page_layout():
             css_class = 'well well-sm'
         ),
         Div(    
-            HTML('LINK 2 NAME'),   
+            HTML(_('LINK 2 NAME')),   
             HTML(PAGE_URL2_TITLE_LANGUAGE_SELECTOR),  
             Div(         
                 Div('url2_label', css_class='tab-pane fade active in', css_id='url2_label_' + code + '_english_tab'),
@@ -318,7 +318,7 @@ def get_page_layout():
             css_class = 'well well-sm'
         ),
         Div(    
-            HTML('LINK 3 NAME'),   
+            HTML(_('LINK 3 NAME')),   
             HTML(PAGE_URL3_TITLE_LANGUAGE_SELECTOR),  
             Div(         
                 Div('url3_label', css_class='tab-pane fade active in', css_id='url3_label_' + code + '_english_tab'),
