@@ -5,6 +5,7 @@ import json
 from django import forms
 from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as __
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, HTML, Field 
@@ -233,17 +234,17 @@ def get_page_layout():
         <ul class="nav nav-pills" style="padding:5px;">
             <li class="active">
                 <a href="#[*]_english_tab" data-toggle="tab">
-                    ''' + _('English') + ''' <span class="language-input-status" data-tab="[*]_english_tab"></span>
+                    ''' + __('English') + ''' <span class="language-input-status" data-tab="[*]_english_tab"></span>
                 </a>
             </li>
             <li>
                 <a href="#[*]_japanese_tab" data-toggle="tab">
-                    ''' + _('Japanese') + ''' <span class="language-input-status" data-tab="[*]_japanese_tab"></span>
+                    ''' +  __('Japanese') + ''' <span class="language-input-status" data-tab="[*]_japanese_tab"></span>
                 </a>
             </li>
             <li>
                 <a href="#[*]_german_tab" data-toggle="tab">
-                    ''' + _('German') + ''' <span class="language-input-status" data-tab="[*]_german_tab"></span>
+                    ''' + __('German') + ''' <span class="language-input-status" data-tab="[*]_german_tab"></span>
                 </a>
             </li>
         </ul>

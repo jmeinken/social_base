@@ -30,11 +30,11 @@
      	<i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i>
      {% endif %}
      {% if process == 'signup' %}
-     	Continue with 
+     	{% trans 'Continue with {{provider.name}}' %}
      {% else %}
-     	Login with
+     	{% trans 'Login with {{provider.name}}' %}
      {% endif %}
-     {{provider.name}}
+     
     </a>
 
 {% endfor %}
