@@ -50,10 +50,10 @@ def home(request):
         PageCategory.objects.all().get(title="Restaurants"),
     ]
     context['col2'] = [ 
+        PageCategory.objects.all().get(title="Education"),
         PageCategory.objects.all().get(title="Housing"),
         PageCategory.objects.all().get(title="Transportation"),
         PageCategory.objects.all().get(title="Medical"),
-        PageCategory.objects.all().get(title="Education"),
         PageCategory.objects.all().get(title="Immigration & Visa"),
     ]
     return render(request, 'main/home.html', context)

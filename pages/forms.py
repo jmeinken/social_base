@@ -39,6 +39,7 @@ class PageForm(forms.Form):
     body_japanese = forms.CharField(widget=forms.Textarea, label='', required=False)
     body_german = forms.CharField(widget=forms.Textarea, label='', required=False)
     address = forms.CharField(label='ADDRESS', required=False)
+    contact_email = forms.CharField(label='CONTACT EMAIL', required=False)
     image = forms.CharField(widget=forms.HiddenInput, required=False)
     url1 = forms.URLField(label='URL', required=False)
     url1_label = forms.CharField(label='', required=False)
@@ -99,6 +100,7 @@ class PageForm(forms.Form):
         if 'de' in body_trans:
             self.fields['body_german'].initial = body_trans['de']
         self.fields['address'].initial = oPage.address
+        self.fields['contact_email'].initial = oPage.contact_email
         self.fields['image'].initial = oPage.image
         qLink = oPage.pagelink_set.all()
         if qLink.count() >= 1:
@@ -147,6 +149,7 @@ class PageForm(forms.Form):
             oPage.title = data['title']
             oPage.body = data['body']
             oPage.address = data['address']
+            oPage.contact_email = data['contact_email']
             oPage.image = data['image']
             oPage.last_edited_by = user
             oPage.save()
@@ -161,6 +164,7 @@ class PageForm(forms.Form):
                 title=data['title'],
                 body=data['body'],
                 address=data['address'],
+                contact_email=data['contact_email'],
                 image=data['image'],
                 language_id='en',
                 created_by=user,
@@ -288,6 +292,7 @@ def get_page_layout():
             css_class = 'well well-sm'
         ),
         Div('address', css_class = 'well well-sm'),
+        Div('contact_email', css_class = 'well well-sm'),
         Div(    
             HTML('LINK 1 NAME'),   
             HTML(PAGE_URL1_TITLE_LANGUAGE_SELECTOR),  

@@ -74,7 +74,7 @@
 
 		</div>
 		<div class="col-sm-6 no-padding-mobile">
-			<div style="background-color: #4d4d4d; color:#ffffff;text-align:center;font-size: 15px;margin-bottom:2px;padding: 9px 15px;">
+			<div style="background-color: #4d4d4d; color:#ffffff;text-align:center;font-size: 15px;margin-bottom:1px;padding: 9px 15px;">
 				<i class="fa fa-comments fa-fw fa-lg" aria-hidden="true"></i>
 				{% trans 'MESSAGE BOARD' %}
 			</div>
@@ -124,7 +124,7 @@
 			 						</h3>
 			 					</a>
 		   						{% for oPage in oCat.page_set.all %}
-		   							{% if forloop.counter <= 3 %}
+		   							{% if forloop.counter <= 2 %}
 		   								<a href="{% url 'pages:view_page' oPage.id %}" class="page-list-block-entry">
 			   								<div class="panel-body" style="border-top: 1px solid #029ACF">
 			   									<div style="font-size:1.3em;font-weight:bold;">
@@ -146,7 +146,7 @@
 		   								</a>
 		   							{% endif %}
 		   						{% endfor %}
-		   						{% if oCat.page_set.all.count > 3 %}
+		   						{% if oCat.page_set.all.count > 2 %}
 		   							<a class="panel-heading page-list-block-footer" href="{% url 'pages:list' oCat.id %}" style="text-align:center;background-color: #4D4D4D;">
 			 						<h3 class="panel-title">
 			 							View More
@@ -171,7 +171,7 @@
 			 						</h3>
 			 					</a>
 		   						{% for oPage in oCat.page_set.all %}
-		   							{% if forloop.counter <= 3 %}
+		   							{% if forloop.counter <= 2 %}
 		   								<a href="{% url 'pages:view_page' oPage.id %}" class="page-list-block-entry">
 			   								<div class="panel-body" style="border-top: 1px solid #029ACF">
 			   									<div style="font-size:1.3em;font-weight:bold;">
@@ -179,13 +179,13 @@
 			   									</div>
 		   										{% if oPage.image %}
 		   											<div>
-		   												{{ oPage.trans_teaser|truncatechars:100 }}
+		   												{{ oPage.trans_teaser|safe|truncatechars:100 }}
 		   											</div>
 		   											<img src="{% static oPage.get_image %}" alt="{{oPage.title}}" 
 		   													class="img-responsive" style="margin-top:5px;" />
 		   										{% else %}
 		   											<div>
-		   												{{ oPage.trans_teaser|truncatechars:200 }}
+		   												{{ oPage.trans_teaser|safe|truncatechars:200 }}
 		   											</div>
 		   										{% endif %}
 		   										
@@ -193,7 +193,7 @@
 		   								</a>
 		   							{% endif %}
 		   						{% endfor %}
-		   						{% if oCat.page_set.all.count > 3 %}
+		   						{% if oCat.page_set.all.count > 2 %}
 		   							<a class="panel-heading page-list-block-footer" href="{% url 'pages:list' oCat.id %}" style="text-align:center;background-color: #4D4D4D;">
 			 						<h3 class="panel-title">
 			 							View More
