@@ -166,7 +166,7 @@ class CreateAccountForm(forms.ModelForm):
             'image' : forms.HiddenInput
         }
         
-    def save(self):
+    def save(self, request):
         user = get_user_model().objects.create_user(self.cleaned_data['username'],
                                   self.cleaned_data['email'],
                                   self.cleaned_data['password1'])
