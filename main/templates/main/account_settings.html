@@ -19,7 +19,7 @@
 		<form method="post">
 			{% crispy form form.helper %}
 			<button type="submit" class="btn btn-success" name="account_form"><i class="fa fa-floppy-o" aria-hidden="true"></i> {% trans 'Save Changes' %}</button>
-			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal"><i class="fa fa-trash-o" aria-hidden="true"></i> {% trans 'Delete My Account' %}</button>
+			<!--  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal"><i class="fa fa-trash-o" aria-hidden="true"></i> {% trans 'Delete My Account' %}</button>-->
 		</form>
 	</div>
 	<div class="col-sm-4 col-sm-offset-2">
@@ -37,6 +37,7 @@
 	</div>
 </div>
 
+{% comment %}
 <form method="post" action="">
 	{% csrf_token %}
 	<div class="modal" id="delete-modal">
@@ -57,6 +58,7 @@
 		</div>
 	</div>
 </form>
+{% endcomment %}
 
 {% include 'images/javascript_templates.html' %}
 
